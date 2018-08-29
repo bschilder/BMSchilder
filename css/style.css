@@ -1,5 +1,7 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,400italic,600,300italic,300|Oswald:400,300,700);
 
+/* Highlight all borders in red */
+/* * { border: 1px solid red; } */
 
 iframe {
   width:100%;
@@ -40,7 +42,13 @@ img {
 }
  
 
-body {
+html,body {
+  width: 100%;
+  /* height: 100%; */
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden; 
+
   font-family: "Open Sans";
   color: #808080;
   font-weight: 400;
@@ -599,7 +607,7 @@ background-position: center;
 }
 .navbar-brand img {
   height: 48px;  
-    margin-right: 10px; 
+    /* margin-right: 10px;  */
   -webkit-transition: height 0.3s;
           transition: height 0.3s;
 }
@@ -664,7 +672,7 @@ background-position: center;
   background-color: #4ecdc4;
   color: #fff;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.01);
-  border-botom: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
   padding: 20px 0;
 }
 .page-breadcrumb .breadcrumb {
