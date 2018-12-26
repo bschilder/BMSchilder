@@ -47,12 +47,12 @@ html,body {
   /* height: 100%; */
   margin: 0px;
   padding: 0px;
-  overflow-x: hidden; 
+  overflow-x: hidden;  
 
-  font-family: "Open Sans";
+  font-family: "Oswald";
   color: #808080;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 1.6em;
   line-height: 26px;
   word-spacing: 2px;
   -webkit-font-smoothing: antialiased;
@@ -502,19 +502,26 @@ background-position: center;
     opacity: 0;
   }
 }
+
+
+.neural { 
+  background: #000;
+}
+
 .home {
-  background-image: url(../images/abtract_network.jpeg);  
-  background-position: top center;
+  /* background-image: url(../js/neural.js);   */
+  /* background-position: top center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #000;
+  background-size: cover;*/
+  background: none; 
   padding: 100px 0;
   position: relative;
 
   /* Temp CSS */
   /* Temp CSS End */
 }
+
 .home .st-brand {
   text-align: center;
   margin-bottom: 50px;
@@ -533,12 +540,12 @@ background-position: center;
   font-size: 70px;
   line-height: 85px;
   font-weight: 400;
-  letter-spacing: 8px;
-  word-spacing: 4px;
+  letter-spacing: 15px;
+  word-spacing: 10px;
   margin-bottom: 15px;
   margin-top: 5px;
   padding: 20px 10px;
-}
+}  
 .home .hero-txt .hero-work {
   font-family: "Oswald";
   font-weight: 300;
@@ -584,7 +591,7 @@ background-position: center;
           transition: background-color 0.3s, height 0.3s;
 }
 .st-navbar-mini .navbar-default {
-  background-color: rgba(40, 40, 40, 0.95);
+  background-color: rgba(40, 40, 40, 0.6);
   height: 60px;
 }
 .st-navbar-mini .navbar-default .navbar-brand {
@@ -600,20 +607,24 @@ background-position: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
 .navbar-brand {
+  font-family: "Oswald";
   height: auto;
   padding: 27px 15px;
+  letter-spacing: 7px;
+  word-spacing: 10px;
   -webkit-transition: padding 0.3s;
           transition: padding 0.3s;
-}
+} 
 .navbar-brand img {
   height: 48px;  
-    /* margin-right: 10px;  */
+  margin-right: 10px;
+  vertical-align: middle;
   -webkit-transition: height 0.3s;
           transition: height 0.3s;
-}
+} 
 .navbar-nav > li > a {
   font-family: "Oswald";
-  font-size: 15px;
+  font-size: 1.1em;
   font-weight: 300;
   letter-spacing: 1px;
   padding-left: 20px;
@@ -648,8 +659,7 @@ background-position: center;
 .navbar-default .navbar-nav > li > a:focus {
   color: #4ecdc4;
 }
-.page-header {
-  background-image: url(../images/hero-img14.png);
+.page-header { 
   background-position: top center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -693,10 +703,15 @@ background-position: center;
   padding: 120px 0;
 }
 .about {
+  font-family: "Oswald";
   padding: 100px 0 0;
-background-color: black;
-      color: #fff;
+  background-color: black;
+  color: #fff;
 }
+.about_col1 {
+  text-align: left;
+}
+
 .st-member {
   position: relative;
   overflow: hidden;
@@ -1459,8 +1474,8 @@ ul.styled-list.list-star li:before {
 .widget ul li .recent-post .post-thumb img {
   border-radius: 10px;
 }
-.widget ul li .recent-post .post-title {
-  font-family: "Open Sans";
+.widget ul li .recent-post .post-title { 
+  font-family: "Oswald";
   font-weight: 600;
   letter-spacing: 0;
   font-size: 15px;
@@ -1694,4 +1709,8 @@ footer.site-footer a:hover {
     cursor: pointer;
     width: 25%;
   }
+}
+
+#sinai_logo {
+  max-height: 80px;
 }

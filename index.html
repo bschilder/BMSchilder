@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>B.M.Schilder</title> 
+    <title>B.M.Schilder</title>
     <meta name="google-site-verification" content="HlmmtnV4N7E_6t-KEs-rYCh0zL__F_XXFeMpveV-Naw" />
 
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,400italic,600,300italic,300|Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,400italic,600,300italic,300|Oswald:400,300,700'
+        rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +22,13 @@
 
     <link href="./css/style.css" rel="stylesheet">
 
+    <!-- Network particles visualization -->
+    <link rel="stylesheet" href="css/neural_style.css">
+    <script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+    <script src='https://threejs.org/examples/js/libs/stats.min.js'></script>
+
+
+
     <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
 
 
@@ -30,9 +38,9 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
     <!-- [if lt IE 9]> -->
-		<!-- <script src="js/html5shiv.min.js"></script>
+    <!-- <script src="js/html5shiv.min.js"></script>
 		<script src="js/respond.min.js"></script> -->
-		<!-- <![endif] -->
+    <!-- <![endif] -->
 </head>
 
 <body data-spy="scroll" data-target=".main-nav">
@@ -43,13 +51,15 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sept-main-nav">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-                    <a class="navbar-brand" href="#home">
-                        <p style="font-size: 30px; color: white"><img src="images/network_icon4.png" alt="" class="img-responsive" align="left"> Brian M. Schilder</p>
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#home" id="logo">
+                        <p style="font-size: 30px; color: white">
+                            <img src="./images/network_icon4.png" alt="" class="img-responsive" align="left">
+                            <span>B</span>rian <span>M</span> <span>S</span>childer</p>
                     </a>
                 </div>
 
@@ -62,7 +72,8 @@
                         <li><a href="#experience">Experience</a></li>
 
                         <li class="nav-item dropdown ">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <ul>
                                     <a class="dropdown-item" href="#portfolio">All Projects</a>
@@ -77,7 +88,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <!--                        <li><a href="#featured">Featured Projects</a></li>-->
+                        <!--  <li><a href="#featured">Featured Projects</a></li>-->
 
 
 
@@ -88,26 +99,36 @@
         </nav>
     </header>
 
-    <section class="home" id="home" data-stellar-background-ratio="0.4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="st-home-unit">
-                        <div class="hero-txt">
 
-                            <h2 class="hero-title">Brian M. Schilder</h2>
-                            <!--							<p class="hero-sub-title">Multi-disciplinary data scientist</p>-->
-                            <!-- <a href="#" class="btn btn-default btn-lg left-btn">Purchase Now</a> -->
-                            <a href="#about" class="btn btn-main btn-lg">Multi-disciplinary data scientist</a>
+
+
+
+
+
+    <section class="neural">
+        <div id="particles-js"></div>
+        <script src="./js/neural.js"></script>
+
+
+        <div class="home container" id="home" data-stellar-background-ratio="0.4" style="pointer-events: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="st-home-unit">
+                            <div class="hero-txt">
+                                <h2 class="hero-title"><span>B</span>rian <span>M</span> <span>S</span>childer</h2>
+                                <!-- <a href="#" class="btn btn-default btn-lg left-btn">Purchase Now</a> -->
+                                <a href="#about" class="btn btn-main btn-lg">Multi-disciplinary scientist</a>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+            <div class="mouse-icon">
+                <div class="wheel"></div>
+            </div>
         </div>
-        <div class="mouse-icon">
-            <div class="wheel"></div>
-        </div>
+
     </section>
 
 
@@ -119,83 +140,107 @@
                 <h1>Passionately pursuing research to improve human lives</h1>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 about_col1">
                     <div class="image-cropper">
                         <img src="./photos/bschilder_LAB.JPG" class="rounded">
                     </div>
 
                     <h2>
-                        <font color="white">Bioinformatician II</font>
+                        <p style="color:white">Bioinformatician II</p>
                     </h2>
 
-                    <h3><a href="http://labs.icahn.mssm.edu/maayanlab/" target="_blank">Ma'ayan Lab -  Computational Systems Biology</a></h3>
-                    <h3><a href="https://icahn.mssm.edu/about/departments/pharmacological-sciences" target="_blank">Department of Pharmacological Sciences</a></h3>
+                    <h3><a href="http://www.rajlab.org/" target="_blank">Raj Lab <i class="fa fa-link"></i></a></h3>
+                    <h3><a href="https://icahn.mssm.edu/about/departments/neuroscience" target="_blank">
+                        Department of Neuroscience</a></h3>
 
-                    <a href="https://goo.gl/maps/yz5UWVQEW7m" target="_blank">
-                        <h4><i class="fa fa-map-marker" aria-hidden="true"></i> One Gustave L. Levy Place, New York, NY 10029</h4>
+                    <a href="https://goo.gl/maps/qNqptWvnexQ2" target="_blank">
+                        <h4><i class="fa fa-map-marker" aria-hidden="true"></i> 1425 Madison Avenue, New York, NY
+                            10029</h4>
                     </a>
 
                     <a href="https://icahn.mssm.edu/" target="_blank">
-                    <img src="logos/mssm_logo_whitetext.png" alt="" class="img-responsive"></a>
-                    
+                        <img src="logos/mssm_logo_whitetext.png" id="sinai_logo"  alt="" class="img-responsive">
+                    </a>
+                   
                     <br><br>
-                    <div class="container">
-                        <h3>Other Affiliations</h3><br>
-                        <a href="http://lincs-dcic.org/" target="_blank"><img src="logos/DCIC.png" alt="" class="img-responsive-fit"></a>
-
-                        <a href="https://druggablegenome.net/" target="_blank"><img src="logos/IDG_hollow.png" alt="" class="img-responsive-fit" ></a>
-                        <br>
-                        <a href="https://commonfund.nih.gov/commons/awardees" target="_blank"><img src="logos/dcppc-logo.svg" alt="" class="img-responsive-fit" style="width: 400px;"></a>
-                        <br>
-                        <a href="http://www.sfn.org/" target="_blank"><img src="logos/sfn.png" alt="" class="img-responsive-fit" style="height: 70px"></a>
-
-                        <br><br><br>
-                    </div>
-
+                   
+                    <h3>Other Affiliations</h3><br>
+                    <a href="https://icahn.mssm.edu/research/loeb-alzheimers" target="_blank">
+                        Ronald M. Loeb Center for Alzheimer’s Disease 
+                    </a> 
+                    <br> 
+                    <a href="http://datascience.icahn.mssm.edu/data-science/" target="_blank">
+                        Icahn Institute for Data Science and Genomic Technology 
+                    </a> 
+                    <br>
+                    <a href="https://icahn.mssm.edu/research/friedman" target="_blank">
+                        The Friedman Brain Institute 
+                    </a> 
+                    <br>
+                    <a href="https://icahn.mssm.edu/research/immunology" target="_blank">
+                        Precision Immunology Institute 
+                    </a> 
+                    <br>
+                    <a href="https://icahn.mssm.edu/research/adrc" target="_blank">
+                        Alzheimer’s Disease Research Center  
+                    </a>  
+                    <br><br><br>
                 </div>
+
+              
 
 
                 <div class="col-md-6" style="border-left-style: solid;   border-left-width: .5px; border-left-color: gray">
-                    <p>I am a believer in the innovation and insights that can be gained from highly inter-disciplinary research. In 2011, I earned my Bachelor of Science degree in Cognitive Neuroscience from Brown University (Providence, RI). The core focus of my work was and continues to be the investigation of human susceptibility to diseases and disorders in order to ultimately improve human health and alleviate suffering.
-                        <br><br> On the path towards this goal, I have gained over eight years of research experience across a wide variety of disciplines and methodologies. In order to uncover the neurobiological underpinnings of human-specific susceptibilities and cognitive abilities, I pursued research in evolutionary neuroscience, cognition and genomics at The George Washington University (Washington, DC). However, my work there also spanned the fields of paleoanthropology, archaeology, climatology, primate ecology, exercise biomechanics, molecular medicine, and others. My graduate research focused specifically on the neuroanatomical, transcriptomic and genomic evolution of the hippocampus, adult neurogenesis and episodic memory.
-                        <br><br> Upon earning my Master’s degree from The George Washington University in 2017, I accepted an opportunity as a Bioinformatician at the Icahn School of Medicine at Mount Sinai (New York, NY) within the Computational Systems Biology laboratory of Dr. Avi Ma’ayan. Within this role, I continue to investigate the mechanisms underlying human diseases and disorders by :
-                        <ul>
-                            <li>Developing novel data visualizations, statistical mining strategies and algorithms</li>
-                            <li>Applying machine learning to identify patterns in large and complex datasets</li>
-                            <li>Integrating and abstracting data from a wide variety of sources</li>
-                            <li>Developing full-stack websites, databases, APIs and novel bioinformatics tools</li>
-                        </ul>
+                    <p>I am a believer in the innovation and insights that can be gained from highly inter-disciplinary
+                        research. In 2011, I earned my Bachelor of Science degree in Cognitive Neuroscience from Brown
+                        University (Providence, RI). The core focus of my work was and continues to be the
+                        investigation of human susceptibility to diseases and disorders in order to ultimately improve
+                        human health and alleviate suffering.
+                        <br><br> On the path towards this goal, I have gained over eight years of research experience
+                        across a wide variety of disciplines and methodologies. In order to uncover the neurobiological
+                        underpinnings of human-specific susceptibilities and cognitive abilities, I pursued research in
+                        evolutionary neuroscience, cognition and genomics at The George Washington University
+                        (Washington, DC). However, my work there also spanned the fields of paleoanthropology,
+                        archaeology, climatology, primate ecology, exercise biomechanics, molecular medicine, and
+                        others. My graduate research focused specifically on the neuroanatomical, transcriptomic and
+                        genomic evolution of the hippocampus, adult neurogenesis and episodic memory.
+                        <br><br> I am currently working as a Bioinformatician at the Icahn School of Medicine at Mount Sinai, 
+                        Department of Neuroscience in the lab of Dr. Towfique Raj. Through the analysis of high-throughput 
+                        multi-omics and clinical data, I seek to elucidate the molecular mechanisms underlying 
+                        neurodegenerative conditions such as Alzheimer's and Parkinsons's disease.   
+                        
+                        <br> 
+                        <hr style="width: 40%;">
+                        <hr style="width: 40%;">
+                        <br>
 
-                        <br><br>
-
-                        <em>If you’d like to learn more, feel free to explore this website, download my CV, and/or contact me at the email address below.</em>
-                    </p>
-
-                    <br>
+                        <em>Feel free to explore download my CV and/or
+                            contact me at the email address below.</em>
+                    </p>  
 
                     <div class="container">
-                        <h3> <a href="./files/B.M.Schilder_CV.pdf" download><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download CV</a></h3>
+                        
+                        <h3> <a href="./files/B.M.Schilder_CV.pdf" download><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                Download CV</a></h3>
                         <h3>Email : <a href='mailto:brian_schilder@alumni.brown.edu'>brian_schilder@alumni.brown.edu</a></h3>
                         <br>
 
                         <a href="https://www.linkedin.com/in/brian-schilder/" target="_blank">
-                        <img src="./logos/linkedIn.png" style='height: 40px;' class="img-responsive">
+                            <img src="./logos/linkedIn.png" style='height: 40px;' class="img-responsive">
                         </a>
                         <a href="https://www.researchgate.net/profile/Brian_Schilder" target="_blank">
-                        <img src="./logos/researchGate.png" style='height: 40px;' class="img-responsive">
+                            <img src="./logos/researchGate.png" style='height: 40px;' class="img-responsive">
                         </a>
                         <a href="https://github.com/bschilder" target="_blank">
-                        <img src="./logos/GitHub_logo.png" style='height: 50px;' class="img-responsive">
+                            <img src="./logos/GitHub_logo.png" style='height: 50px;' class="img-responsive">
                         </a>
                         <a href="https://twitter.com/bschilder1" target="_blank">
-                        <img src="./logos/twitter.png" style='height: 40px;' class="img-responsive">
+                            <img src="./logos/twitter.png" style='height: 40px;' class="img-responsive">
                         </a>
                         <br><br><br>
                     </div>
                 </div>
-               
  
-
     </section>
 
 
@@ -213,7 +258,8 @@
                             <div class="st-feature">
                                 <div class="st-feature-icon"><i class="fa fa-cog"></i></div>
                                 <strong class="st-feature-title">Programming</strong>
-                                <p>Rapidly learns new software & languages to solve problems & develop analytical pipelines.</p>
+                                <p>Rapidly learns new software & languages to solve problems & develop analytical
+                                    pipelines.</p>
                             </div>
 
                             <div class="pricing-table">
@@ -223,7 +269,8 @@
                                 </div>
                                 <div class="pricing-body">
                                     <ul>
-                                        <li><i class="fa fa-check"></i> Python <br><em>(e.g. Tensorflow, Keras, Scikit-learn)</em></li>
+                                        <li><i class="fa fa-check"></i> Python <br><em>(e.g. Tensorflow, Keras,
+                                                Scikit-learn)</em></li>
                                         <li><i class="fa fa-check"></i> R <br><em>(e.g. Bioconductor)</em></li>
                                         <li><i class="fa fa-check"></i> UNIX / Bash</li>
                                     </ul>
@@ -231,7 +278,8 @@
                                         <div class="pt-name">Web Development</div>
                                     </div>
                                     <ul>
-                                        <li><i class="fa fa-check"></i> Javascript <br><em>(e.g. Three.js, D3.js, Bootstrap)</em></li>
+                                        <li><i class="fa fa-check"></i> Javascript <br><em>(e.g. Three.js, D3.js,
+                                                Bootstrap)</em></li>
                                         <li><i class="fa fa-check"></i> HTML</li>
                                         <li><i class="fa fa-check"></i> CSS</li>
                                     </ul>
@@ -283,7 +331,8 @@
                             <div class="st-feature">
                                 <div class="st-feature-icon"><i class="fa fa-pencil-square"></i></div>
                                 <strong class="st-feature-title">Scientific Writing</strong>
-                                <p>Consistently presents scientific evidence in an organized, concise & effective manner.</p>
+                                <p>Consistently presents scientific evidence in an organized, concise & effective
+                                    manner.</p>
                             </div>
 
                             <div class="pricing-table">
@@ -305,7 +354,8 @@
                             <div class="st-feature">
                                 <div class="st-feature-icon"><i class="fa fa-comments-o"></i></div>
                                 <strong class="st-feature-title">Communication</strong>
-                                <p>Engaging speaker capable of distilling complex concepts for a wide range of audiences.</p>
+                                <p>Engaging speaker capable of distilling complex concepts for a wide range of
+                                    audiences.</p>
                             </div>
 
                             <div class="pricing-table">
@@ -317,7 +367,9 @@
                                         <li><i class="fa fa-check"></i> 3 conference podium presentations</li>
                                         <li><i class="fa fa-check"></i> 14 conference poster presentations</li>
                                         <li><i class="fa fa-check"></i> 6 departmental presentations</li>
-                                        <li><i class="fa fa-check"></i> 5 college-level course guest lectures (e.g. biological anthropology, biopsychology, evolutionary neuroscience, bioinformatics)</li>
+                                        <li><i class="fa fa-check"></i> 5 college-level course guest lectures (e.g.
+                                            biological anthropology, biopsychology, evolutionary neuroscience,
+                                            bioinformatics)</li>
                                         <li><i class="fa fa-check"></i> 10+ science outreach programs since 2009</li>
                                     </ul>
                                 </div>
@@ -341,7 +393,8 @@
                     <li>Use the +/- buttons to expand/contract the x-axis (time).</li>
                     <li>Use the vertical slider to zoom in/out.</li>
                     <li>Click on an event to see more information.</li>
-                    <li>To continue scrolling, move your cursor outside the timeline or use the right-side scroller bar.</li>
+                    <li>To continue scrolling, move your cursor outside the timeline or use the right-side scroller
+                        bar.</li>
                 </ul>
             </left>
         </div>
@@ -358,33 +411,44 @@
                 <div class="col-md-12 no-padding ">
                     <div class="section-title st-center">
                         <p>Research Portfolio</p>
-                        <h3>Selected projects with links to publications, tools, <br>websites and/or source code that I've created or contributed to.</h3>
+                        <h3>Selected projects with links to publications, tools, <br>websites and/or source code that
+                            I've created or contributed to.</h3>
                     </div>
 
                     <div class="filter mb40">
                         <form id="filter">
                             <fieldset class="group">
-                                <label class="btn btn-default btn-main"><input type="radio" name="filter" value="all" checked="checked">ALL</label><br> Subset by Content :
+                                <label class="btn btn-default btn-main"><input type="radio" name="filter" value="all"
+                                        checked="checked">ALL</label><br> Subset by Content :
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="publications"><i class="fa fa-book"></i> Publications</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="publications"><i
+                                        class="fa fa-book"></i> Publications</label>
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="tools"><i class="fa fa-wrench"></i> Tools & Websites</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="tools"><i class="fa fa-wrench"></i>
+                                    Tools & Websites</label>
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="code"><i class="fa fa-github"></i> Source Code</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="code"><i class="fa fa-github"></i>
+                                    Source Code</label>
 
                                 <br>Subset by Field :
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Bioinformatics"> Bioinformatics</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="Bioinformatics">
+                                    Bioinformatics</label>
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Transcriptomics"> Transcriptomics</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="Transcriptomics">
+                                    Transcriptomics</label>
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Neuroscience"> Neuroscience</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="Neuroscience">
+                                    Neuroscience</label>
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Biomedicine"> Biomedicine</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="Biomedicine">
+                                    Biomedicine</label>
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Cognitive Science"> Cognitive Science</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="Cognitive Science">
+                                    Cognitive Science</label>
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Human Evolution"> Human Evolution</label>
+                                <label class="btn btn-default"><input type="radio" name="filter" value="Human Evolution">
+                                    Human Evolution</label>
                             </fieldset><br>
                         </form>
                         <!-- #filter -->
@@ -396,8 +460,12 @@
                                 <img src="portfolio/this_website.png" alt="" />
                                 <figcaption>
                                     <h2>This Website</h2>
-                                    <p><em></em><strong>2018</strong><br> I constructed this website as an interactive and more visually intuitive version of my CV. This was done using a combination of HTML, CSS, JavaScript and Bootstrap. All source code for this site can be found in the respective GitHub repository.<br><br>
-                                        <a href="https://github.com/bschilder/BMSchilder_Website" class="btn btn-main" target="_blank"><i class="fa fa-github"></i> GitHub Repository</a>
+                                    <p><em></em><strong>2018</strong><br> I constructed this website as an interactive
+                                        and more visually intuitive version of my CV. This was done using a combination
+                                        of HTML, CSS, JavaScript and Bootstrap. All source code for this site can be
+                                        found in the respective GitHub repository.<br><br>
+                                        <a href="https://github.com/bschilder/BMSchilder_Website" class="btn btn-main"
+                                            target="_blank"><i class="fa fa-github"></i> GitHub Repository</a>
                                     </p>
                                 </figcaption>
                             </figure>
@@ -406,10 +474,17 @@
                                 <img src="portfolio/pub5.jpeg" alt="" />
                                 <figcaption>
                                     <h2>X2K Web</h2>
-                                    <p><em>Nucleic Acids Research, </em><strong>2018</strong><br> While gene expression data at the mRNA level can be globally and accurately measured, profiling the activity of cell signaling pathways is currently much more difficult. eXpression2Kinases (X2K) computationally predicts involvement of upstream cell signaling pathways, given a signature of differentially expressed genes.<br><br>
-                                        <a href="https://academic.oup.com/nar/article/46/W1/W171/5003452" class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
-                                        <a href="http://amp.pharm.mssm.edu/X2K/" class="btn btn-main" target="_blank"><i class="fa fa-wrench"></i> Tool</a>
-                                        <a href="https://github.com/MaayanLab/x2k_web" class="btn btn-main" target="_blank"><i class="fa fa-github"></i> GitHub Repository</a>
+                                    <p><em>Nucleic Acids Research, </em><strong>2018</strong><br> While gene expression
+                                        data at the mRNA level can be globally and accurately measured, profiling the
+                                        activity of cell signaling pathways is currently much more difficult.
+                                        eXpression2Kinases (X2K) computationally predicts involvement of upstream cell
+                                        signaling pathways, given a signature of differentially expressed genes.<br><br>
+                                        <a href="https://academic.oup.com/nar/article/46/W1/W171/5003452" class="btn btn-main"
+                                            target="_blank"><i class="fa fa-book"></i> Publication</a>
+                                        <a href="http://amp.pharm.mssm.edu/X2K/" class="btn btn-main" target="_blank"><i
+                                                class="fa fa-wrench"></i> Tool</a>
+                                        <a href="https://github.com/MaayanLab/x2k_web" class="btn btn-main" target="_blank"><i
+                                                class="fa fa-github"></i> GitHub Repository</a>
                                     </p>
                                 </figcaption>
                             </figure>
@@ -418,8 +493,16 @@
                                 <img src="portfolio/ABA.png" alt="" />
                                 <figcaption>
                                     <h2>Transcriptomic Neuroevolution -<br>Macaques vs. Humans</h2>
-                                    <p><em><br><br><br>AAPA Poster, </em><strong>2016</strong><br><br> The hippocampus (HP) is a neuroanatomical structure that is integral for long-term memory formation and spatial navigation. The manner and degree to which each subfield has diverged may reflect neuroecological adaptations to meet certain memory and spatial navigation demands. Here I investigated this possibility by testing whether the HP subfields of humans and macaques have evolutionarily diverged in terms of: [H1] differential gene expression [H2] gene co-expression networks.<br><br>
-                                        <a href="https://github.com/bschilder/Allen_Brain_Atlas-Macaques_vs_Humans" target="_blank" class="btn btn-main"><i class="fa fa-book"></i> GitHub Repository</a>
+                                    <p><em><br><br><br>AAPA Poster, </em><strong>2016</strong><br><br> The hippocampus
+                                        (HP) is a neuroanatomical structure that is integral for long-term memory
+                                        formation and spatial navigation. The manner and degree to which each subfield
+                                        has diverged may reflect neuroecological adaptations to meet certain memory and
+                                        spatial navigation demands. Here I investigated this possibility by testing
+                                        whether the HP subfields of humans and macaques have evolutionarily diverged in
+                                        terms of: [H1] differential gene expression [H2] gene co-expression networks.<br><br>
+                                        <a href="https://github.com/bschilder/Allen_Brain_Atlas-Macaques_vs_Humans"
+                                            target="_blank" class="btn btn-main"><i class="fa fa-book"></i> GitHub
+                                            Repository</a>
                                     </p>
                                 </figcaption>
                             </figure>
@@ -428,9 +511,17 @@
                                 <img src="portfolio/Enrichr.png" alt="" />
                                 <figcaption>
                                     <h2>Enrichr</h2>
-                                    <p><em></em><strong>2018</strong><br> An integrative web-based and mobile gene-list enrichment analysis tool that includes over 100 gene-set libraries, an alternative approach to rank enriched terms, and various interactive visualization approaches to display enrichment results using the JavaScript library Data-Driven Documents (D3). Enrichr is open source and freely available online. The software can also be embedded easily into any tools that perform gene list analysis.<br><br>
-                                        <a href="http://amp.pharm.mssm.edu/Enrichr/" class="btn btn-main" target="_blank"><i class="fa fa-wrench"></i> Tool</a>
-                                        <a href="https://github.com/MaayanLab/enrichr" class="btn btn-main" target="_blank"><i class="fa fa-github"></i> GitHub Repository</a>
+                                    <p><em></em><strong>2018</strong><br> An integrative web-based and mobile gene-list
+                                        enrichment analysis tool that includes over 100 gene-set libraries, an
+                                        alternative approach to rank enriched terms, and various interactive
+                                        visualization approaches to display enrichment results using the JavaScript
+                                        library Data-Driven Documents (D3). Enrichr is open source and freely available
+                                        online. The software can also be embedded easily into any tools that perform
+                                        gene list analysis.<br><br>
+                                        <a href="http://amp.pharm.mssm.edu/Enrichr/" class="btn btn-main" target="_blank"><i
+                                                class="fa fa-wrench"></i> Tool</a>
+                                        <a href="https://github.com/MaayanLab/enrichr" class="btn btn-main" target="_blank"><i
+                                                class="fa fa-github"></i> GitHub Repository</a>
                                     </p>
                                 </figcaption>
                             </figure>
@@ -439,8 +530,15 @@
                                 <img src="portfolio/marmosita.jpg" alt="" />
                                 <figcaption>
                                     <h2>Take the Monkey and Run</h2>
-                                    <p><em>Journal of Neuroscience Methods, </em><strong>2015</strong><br> A growing body of research has indicated exercise, aerobic exercise especially, imparts beneficial effects to normal aging. Understanding the mechanisms underlying these positive effects of exercise, and the degree to which exercise has neurotherapeutic effects, is an important research focus. Here we describe the marmoset exercise ball (MEB) paradigm: a safe (for both experimenter and subjects), novel and effective means to engage marmosets in aerobic exercise.<br><br>
-                                        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4464801/" class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
+                                    <p><em>Journal of Neuroscience Methods, </em><strong>2015</strong><br> A growing
+                                        body of research has indicated exercise, aerobic exercise especially, imparts
+                                        beneficial effects to normal aging. Understanding the mechanisms underlying
+                                        these positive effects of exercise, and the degree to which exercise has
+                                        neurotherapeutic effects, is an important research focus. Here we describe the
+                                        marmoset exercise ball (MEB) paradigm: a safe (for both experimenter and
+                                        subjects), novel and effective means to engage marmosets in aerobic exercise.<br><br>
+                                        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4464801/" class="btn btn-main"
+                                            target="_blank"><i class="fa fa-book"></i> Publication</a>
                                     </p>
                                 </figcaption>
                             </figure>
@@ -449,8 +547,14 @@
                                 <img src="portfolio/pub3.png" alt="" />
                                 <figcaption>
                                     <h2>Defining Elemental Imitation Mechanisms</h2>
-                                    <p><em><br><br>Cognition and Development, </em><strong>2015</strong><br> During the first 5 years of life, the versatility, breadth, and fidelity with which children imitate change dramatically. Currently, there is no model to explain what underlies such significant changes. To that end, the present study examined whether task-independent but domain-specific—elemental—imitation mechanism explains performance across imitation tasks or domains.<br><br>
-                                        <a href="https://www.tandfonline.com/doi/full/10.1080/15248372.2015.1053483" class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
+                                    <p><em><br><br>Cognition and Development, </em><strong>2015</strong><br> During the
+                                        first 5 years of life, the versatility, breadth, and fidelity with which
+                                        children imitate change dramatically. Currently, there is no model to explain
+                                        what underlies such significant changes. To that end, the present study
+                                        examined whether task-independent but domain-specific—elemental—imitation
+                                        mechanism explains performance across imitation tasks or domains.<br><br>
+                                        <a href="https://www.tandfonline.com/doi/full/10.1080/15248372.2015.1053483"
+                                            class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
                                     </p>
                                 </figcaption>
                             </figure>
@@ -459,8 +563,15 @@
                                 <img src="portfolio/pub2.png" alt="" />
                                 <figcaption>
                                     <h2>What are the Contributions of Social and Individual Learning?</h2>
-                                    <p><em><br><br>Developmental Science, </em><strong>2014</strong><br><br> In contrast to other primates, human children's imitation performance goes from low to high fidelity soon after infancy. Are such changes associated with the development of other forms of learning? We addressed this question by testing 215 children (26–59 months) on two social conditions (imitation, emulation) – involving a demonstration – and two asocial conditions (trial‐and‐error, recall) – involving individual learning – using two touchscreen tasks.<br><br>
-                                        <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/desc.12276" class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
+                                    <p><em><br><br>Developmental Science, </em><strong>2014</strong><br><br> In
+                                        contrast to other primates, human children's imitation performance goes from
+                                        low to high fidelity soon after infancy. Are such changes associated with the
+                                        development of other forms of learning? We addressed this question by testing
+                                        215 children (26–59 months) on two social conditions (imitation, emulation) –
+                                        involving a demonstration – and two asocial conditions (trial‐and‐error,
+                                        recall) – involving individual learning – using two touchscreen tasks.<br><br>
+                                        <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/desc.12276" class="btn btn-main"
+                                            target="_blank"><i class="fa fa-book"></i> Publication</a>
                                     </p>
                                 </figcaption>
                             </figure>
@@ -469,8 +580,16 @@
                                 <img src="portfolio/kid_screen.jpg" alt="" />
                                 <figcaption>
                                     <h2>Working Memory Constraints on Imitation and Emulation</h2>
-                                    <p><em><br><br><br>Developmental Science, </em><strong>2014</strong><br><br> Does working memory (WM) constrain the amount and type of information children copy from a model? To answer this question, preschool-age children (N = 165) were trained and then tested on a touch-screen task that involved touching simultaneously presented pictures. Our results are consistent with the hypothesis that WM constrains not just the amount but also the type of information children copy from models, potentially modulating whether children imitate or emulate in a given task.<br><br>
-                                        <a href="https://www.sciencedirect.com/science/article/pii/S0022096514001349?via%3Dihub" class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
+                                    <p><em><br><br><br>Developmental Science, </em><strong>2014</strong><br><br> Does
+                                        working memory (WM) constrain the amount and type of information children copy
+                                        from a model? To answer this question, preschool-age children (N = 165) were
+                                        trained and then tested on a touch-screen task that involved touching
+                                        simultaneously presented pictures. Our results are consistent with the
+                                        hypothesis that WM constrains not just the amount but also the type of
+                                        information children copy from models, potentially modulating whether children
+                                        imitate or emulate in a given task.<br><br>
+                                        <a href="https://www.sciencedirect.com/science/article/pii/S0022096514001349?via%3Dihub"
+                                            class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
                                     </p>
                                 </figcaption>
                             </figure>
