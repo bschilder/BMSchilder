@@ -6,7 +6,7 @@ var edge_color = "#6EE7E0";
 particlesJS("particles-js", {
   "particles": {
     "number": {
-      "value": 380,
+      "value": 50,
       "density": {
         "enable": true,
         "value_area": 800

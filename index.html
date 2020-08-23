@@ -27,11 +27,10 @@
     <script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
     <script src='https://threejs.org/examples/js/libs/stats.min.js'></script>
 
-
+    <!-- D3 -->
+	<script src="https://d3js.org/d3.v5.min.js"></script> 
 
     <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-
-
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -56,10 +55,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#home" id="logo">
-                        <p style="font-size: 30px; color: white">
-                            <img src="./images/network_icon4.png" alt="" class="img-responsive" align="left">
-                            <span>B</span>rian <span>M</span> <span>S</span>childer</p>
+                    <a class="navbar-brand" href="#home" id="logo"> 
+                            <h2 style="color: rgba(255, 255, 255, 0.7);"> 
+                                <img src="./images/network_icon4.png" alt=""  >
+                                BM Schilder </h2>  
                     </a>
                 </div>
 
@@ -67,31 +66,11 @@
                 <div class="collapse navbar-collapse main-nav" id="sept-main-nav">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="#home">Home</a></li>
-                        <li><a href="#about">About / Contact</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#experience">Experience</a></li>
-
-                        <li class="nav-item dropdown ">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <ul>
-                                    <a class="dropdown-item" href="#portfolio">All Projects</a>
-                                    <br>
-                                    <li role="separator" class="divider"></li>
-
-                                    <a class="dropdown-item" href="#portfolio">Publications</a>
-                                    <br>
-                                    <a class="dropdown-item" href="#portfolio">Tools & Websites</a>
-                                    <br>
-                                    <a class="dropdown-item" href="#portfolio">Source Code</a>
-                                </ul>
-                            </div>
-                        </li>
-                        <!--  <li><a href="#featured">Featured Projects</a></li>-->
-
-
-
+                        <li><a href="#about">About</a></li> 
+                        <li><a href="#skills">Skills</a></li> 
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#timeline">Timeline</a></li>
+                        <li><a href="#contact">Contact</a></li> 
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -118,7 +97,7 @@
                             <div class="hero-txt">
                                 <h2 class="hero-title"><span>B</span>rian <span>M</span> <span>S</span>childer</h2>
                                 <!-- <a href="#" class="btn btn-default btn-lg left-btn">Purchase Now</a> -->
-                                <a href="#about" class="btn btn-main btn-lg">Multi-disciplinary scientist</a>
+                                <a href="#about" class="btn btn-main btn-lg">Multi-disciplinary researcher</a>
                             </div>
                         </div>
                     </div>
@@ -191,59 +170,40 @@
 
 
                 <div class="col-md-6" style="border-left-style: solid;   border-left-width: .5px; border-left-color: gray">
-                    <p>I am a believer in the innovation and insights that can be gained from highly inter-disciplinary
-                        research. In 2011, I earned my Bachelor of Science degree in Cognitive Neuroscience from Brown
-                        University (Providence, RI). The core focus of my work was and continues to be the
-                        investigation of human susceptibility to diseases and disorders in order to ultimately improve
-                        human health and alleviate suffering.
-                        <br><br> On the path towards this goal, I have gained over eight years of research experience
-                        across a wide variety of disciplines and methodologies. In order to uncover the neurobiological
-                        underpinnings of human-specific susceptibilities and cognitive abilities, I pursued research in
-                        evolutionary neuroscience, cognition and genomics at The George Washington University
-                        (Washington, DC). However, my work there also spanned the fields of paleoanthropology,
-                        archaeology, climatology, primate ecology, exercise biomechanics, molecular medicine, and
-                        others. My graduate research focused specifically on the neuroanatomical, transcriptomic and
-                        genomic evolution of the hippocampus, adult neurogenesis and episodic memory.
-                        <br><br> I am currently working as a Bioinformatician at the Icahn School of Medicine at Mount Sinai, 
-                        Department of Neuroscience in the lab of Dr. Towfique Raj. Through the analysis of high-throughput 
-                        multi-omics and clinical data, I seek to elucidate the molecular mechanisms underlying 
-                        neurodegenerative conditions such as Alzheimer's and Parkinsons's disease.   
-                        
+                    <p style="color: rgba(255, 255, 255, 0.9); letter-spacing: 1px;">As a researcher with experiences in a variety of fields, I am a believer in the innovation and insights that can be gained from highly inter-disciplinary research. 
+                        In 2011, I earned my ScB in Cognitive Neuroscience from 
+                        <a href="https://www.brown.edu/academics/cognitive-linguistic-psychological-sciences" target="_blank">Brown University (Providence, RI)</a>. 
+                        The core focus of my work was and continues to be the investigation of human susceptibility to diseases and disorders in order to impact human health and alleviate suffering.
+                        <br><br>
+                        In order to uncover the evolutionary underpinnings of human-specific cognitive abilities and neurobiological susceptibilities, 
+                        I then took on jobs in two labs simultaneously (as Lab Manager and Research Assistant, respectively) at <a href="https://www.gwu.edu" target="_blank">The George Washington University (Washington, DC)</a>. 
+                        At the same institution, I went on to earn my MPhil in Human Paleobiology (2017) investigating the neuroanatomical, transcriptomic and genomic evolution of the hippocampus, adult neurogenesis and episodic memory. 
+                        During this time, I became increasingly interested in applying programming and computational techniques to expand the scale and scope of the questions that I’m able to address.
+                        <br><br>
+                        In the pursuit of further advancing my skills as a computational researcher, 
+                        I thereafter accepted a position as a Bioinformatician at the <a href="https://icahn.mssm.edu" target="_blank">Icahn School of Medicine at Mount Sinai (New York City, NY)</a>. 
+                        There I helped to develop a number of open-access bioinformatics tools; e.g. 
+                        <a href="https://amp.pharm.mssm.edu/X2K" target="_blank">X2K Web</a>, 
+                        <a href="https://amp.pharm.mssm.edu/geneshot/" target="_blank">Geneshot</a>, 
+                        <a href="https://github.com/RajLabMSSM/catalogueR" target="_blank">catalogueR</a> and 
+                        <a href="https://www.biorxiv.org/content/10.1101/2020.07.20.212407v1" target="_blank">echolocatoR</a>. 
+                        My collaborators and I also published work revealing cell-type-specific neurogenomic mechanisms underlying neurological conditions (e.g. Parkinson’s and Alzheimer’s Disease) through the application of statistical and machine learning techniques to large-scale multi-omics and clinical data.
+                        <br><br>
+                        <i>You can learn more about my research experiences, publications, and tools in the <a href="#portfolio">Portfolio</a> and <a href="#timeline"> Timeline</a> sections.
+                        You can also download my full CV below.
+                        </i>
                         <br> 
-                        <hr style="width: 40%;">
-                        <hr style="width: 40%;">
-                        <br>
-
-                        <em>Feel free to explore download my CV and/or
-                            contact me at the email address below.</em>
-                    </p>  
-
-                    <div class="container">
-                        
-                        <h3> <a href="./files/B.M.Schilder_CV.pdf" download><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                Download CV</a></h3>
-                        <h3>Email : <a href='mailto:brian_schilder@alumni.brown.edu'>brian_schilder@alumni.brown.edu</a></h3>
-                        <br>
-
-                        <a href="https://www.linkedin.com/in/brian-schilder/" target="_blank">
-                            <img src="./logos/linkedIn.png" style='height: 40px;' class="img-responsive">
-                        </a>
-                        <a href="https://www.researchgate.net/profile/Brian_Schilder" target="_blank">
-                            <img src="./logos/researchGate.png" style='height: 40px;' class="img-responsive">
-                        </a>
-                        <a href="https://github.com/bschilder" target="_blank">
-                            <img src="./logos/GitHub_logo.png" style='height: 50px;' class="img-responsive">
-                        </a>
-                        <a href="https://twitter.com/bschilder1" target="_blank">
-                            <img src="./logos/twitter.png" style='height: 40px;' class="img-responsive">
-                        </a>
-                        <br><br><br>
-                    </div>
+                        <hr style="width: 10%;"> 
+                        <br> 
+                    </p>   
+                    <h3> <a href="./files/B.M.Schilder_CV.pdf" download><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        Download CV</a></h3>
+                    <br><br>
                 </div>
  
     </section>
 
-
+ 
     <!--    Skills-->
     <section class="service" id="skills">
         <div class="container">
@@ -252,16 +212,44 @@
                     <div class="section-title st-center">
                         <p>Core Qualifications & Skills</p>
                     </div>
-                    <div class="row">
 
+                    <div class="row">
                         <div class="col-md-3">
+
                             <div class="st-feature">
                                 <div class="st-feature-icon"><i class="fa fa-cog"></i></div>
                                 <strong class="st-feature-title">Programming</strong>
                                 <p>Rapidly learns new software & languages to solve problems & develop analytical
                                     pipelines.</p>
+                            </div> 
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="st-feature">
+                                <div class="st-feature-icon"><i class="fa fa-bank"></i></div>
+                                <strong class="st-feature-title">Research</strong>
+                                <p>10+ years of highly multi-disciplinary dry lab, wet lab & field research.</p>
                             </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="st-feature">
+                                <div class="st-feature-icon"><i class="fa fa-pencil-square"></i></div>
+                                <strong class="st-feature-title">Scientific Writing</strong>
+                                <p>Consistently presents scientific evidence in an organized, concise & effective
+                                    manner.</p>
+                            </div> 
+                        </div>
+                        <div class="col-md-3">
+                            <div class="st-feature">
+                                <div class="st-feature-icon"><i class="fa fa-comments-o"></i></div>
+                                <strong class="st-feature-title">Communication</strong>
+                                <p>Engaging speaker capable of distilling complex concepts for a wide range of
+                                    audiences.</p>
+                            </div>
+                        </div> 
+                    </div>
 
+                    <div class="row"> 
+                        <div class="col-md-3"> 
                             <div class="pricing-table">
                                 <div class="pricing-header">
                                     <div class="pt-name">Scripting</div>
@@ -295,14 +283,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <div class="st-feature">
-                                <div class="st-feature-icon"><i class="fa fa-bank"></i></div>
-                                <strong class="st-feature-title">Research</strong>
-                                <p>8+ years of highly multi-disciplinary dry lab, wet lab & field research.</p>
-                            </div>
-
-
+                        <div class="col-md-3"> 
                             <div class="pricing-table">
                                 <div class="pricing-header">
                                     <div class="pt-name">Fields of Study</div>
@@ -327,14 +308,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <div class="st-feature">
-                                <div class="st-feature-icon"><i class="fa fa-pencil-square"></i></div>
-                                <strong class="st-feature-title">Scientific Writing</strong>
-                                <p>Consistently presents scientific evidence in an organized, concise & effective
-                                    manner.</p>
-                            </div>
-
+                        <div class="col-md-3"> 
                             <div class="pricing-table">
                                 <div class="pricing-header">
                                     <div class="pt-name">Evidence</div>
@@ -342,22 +316,14 @@
                                 <div class="pricing-body">
                                     <ul>
                                         <li><i class="fa fa-check"></i> 5 research grants (~$70,000) since 2016 </li>
-                                        <li><i class="fa fa-check"></i> 5 peer-reviewed scientific publications </li>
-                                        <li><i class="fa fa-check"></i> 14 international conference posters</li>
-                                        <li><i class="fa fa-check"></i> 3 blog articles</li>
+                                        <li><i class="fa fa-check"></i> 9 peer-reviewed scientific publications </li>
+                                        <li><i class="fa fa-check"></i> 15 international conference posters</li> 
                                     </ul>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <div class="st-feature">
-                                <div class="st-feature-icon"><i class="fa fa-comments-o"></i></div>
-                                <strong class="st-feature-title">Communication</strong>
-                                <p>Engaging speaker capable of distilling complex concepts for a wide range of
-                                    audiences.</p>
-                            </div>
-
+                        <div class="col-md-3"> 
                             <div class="pricing-table">
                                 <div class="pricing-header">
                                     <div class="pt-name">Experience</div>
@@ -366,7 +332,7 @@
                                     <ul>
                                         <li><i class="fa fa-check"></i> 3 conference podium presentations</li>
                                         <li><i class="fa fa-check"></i> 14 conference poster presentations</li>
-                                        <li><i class="fa fa-check"></i> 6 departmental presentations</li>
+                                        <li><i class="fa fa-check"></i> 10+ departmental presentations</li>
                                         <li><i class="fa fa-check"></i> 5 college-level course guest lectures (e.g.
                                             biological anthropology, biopsychology, evolutionary neuroscience,
                                             bioinformatics)</li>
@@ -383,11 +349,133 @@
         </div>
     </section>
 
-    <section class="features-desc" id="experience">
+    <hr>
+
+
+    <!-- ######### PORTFOLIO ############# -->
+    <section class="portfolio" id="portfolio">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-md-12 no-padding">
+                    <div class="section-title st-center">
+                        <p>Research Portfolio</p>
+                        <h3 style="padding: 0 10%">Links to publications, tools, and/or websites
+                            I've created or contributed to.</h3>
+                    </div>
+
+                    <div class="filter mb40">
+                        <form id="filter">
+                            <fieldset class="group">
+
+                                <div class="row">
+                                    <label class="btn btn-default btn-main"><input type="radio" name="filter" value="all"
+                                        checked="checked">ALL</label>
+                                </div>
+                                
+                                <div class="row"> 
+                                    <h4>Subset by Content</h4>
+
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="publications"><i
+                                            class="fa fa-book"></i> Publications</label>
+                                    
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="preprints"><i
+                                        class="fa fa-book"></i> Preprints</label>
+                                    
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="acknowledgements"><i
+                                        class="fa fa-book"></i> Acknowledgements</label>
+                                        
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="tools"><i class="fa fa-wrench"></i>
+                                        Tools & Software</label>
+
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="code"><i class="fa fa-github"></i>
+                                        Source Code</label>
+                                </div>
+
+                                
+                                <div class="row">
+                                    <h4>Subset by Field</h4>
+
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="Computational Biology">
+                                        Computational Biology</label>
+
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="Bioinformatics">
+                                        Bioinformatics</label> 
+
+                                    <br>
+
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="Neuroscience">
+                                        Neuroscience</label>
+
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="Biomedicine">
+                                        Biomedicine</label>
+
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="Cognition">
+                                        Cognition</label>
+
+                                    <label class="btn btn-default"><input type="radio" name="filter" value="Human Evolution">
+                                        Human Evolution</label>
+                                </div>
+
+                            </fieldset>
+                            <br>
+                        </form>
+                        <!-- #filter --> 
+
+
+                        <!-- .filter .mb40 -->
+                        <div class="grid" id="portfolio-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            d3.csv("./files/portfolio.csv")
+                // D3 Tutorial: https://www.d3-graph-gallery.com/graph/basic_datamanipulation.html
+                .then(function (data) { 
+                    var createDivs = function (data) { 
+                        data.forEach(d => { 
+                            if (d.Title != ""){
+                                var createDiv = function (d){  
+                                    var tags_list = "\""+d.Tags.split(";").map(s => s.trim()).join("\",\"")+"\""; 
+                                    console.log(tags_list)
+                                    
+                                    var title_short = (d.Title_short.trim() === "") ?  ""  : d.Title_short;
+                                    var publication_year = (d.Publication.trim() === "" && d.Year.trim() === "" ) ?  ""  : "<h3>("+d.Publication+", "+d.Year+")</h3>";
+                                    var image_path = (d.Image.trim() === "") ?  "<img src='./images/network_icon4.png'/>"  : "<img src='"+d.Image+"'/>";
+                                    var paper_link = (d.Paper_link.trim() === "") ? "" :  "<a href='"+d.Paper_link+"' class='btn btn-main btn-grid' target='_blank'><i class='fa fa-book'></i>  Publication</a>"
+                                    var acknowledgment_link = (d.Acknowledgment_link.trim() === "") ? "" :  "<a href='"+d.Acknowledgment_link+"' class='btn btn-main btn-grid' target='_blank'><i class='fa fa-book'></i>  Acknowledgment</a>"
+                                    var github_link = (d.GitHub_link.trim() === "") ? "" :  "<a href='"+d.GitHub_link+"' class='btn btn-main btn-grid' target='_blank'><i class='fa fa-github'></i>  GitHub</a>" 
+    
+                                    var htmlStr =  
+                                    "<figure class=\"portfolio-item\" data-groups='["+tags_list+"]'>" +   
+                                        "<center><h1 class='title_short'>"+title_short+"</h1></center>"+
+                                        image_path + 
+                                        "<figcaption>" +  
+                                            "<div class='btn-group'>"+
+                                                "<h2>"+d.Title+"</h2>"+
+                                                publication_year+"<br>"+ 
+                                                paper_link +  acknowledgment_link + github_link +
+                                            "</div>"+
+                                        "</figcaption>" +  
+                                    "</figure>"
+                                    return htmlStr
+                                }
+                                var htmlStr = createDiv(d);  
+                                console.log(htmlStr)
+                                $('#portfolio-grid').append(htmlStr); 
+                            }  
+                        }) 
+                    } 
+                    createDivs(data);
+                });  
+        </script> 
+    </section>
+
+    <section class="features-desc" id="timeline">
         <div class="section-title st-center">
             <p>Research Experience Timeline</p>
-            <h1>An interactive timeline detailing my key research experiences <br>from 2009 to present day.</h1>
-            <left><strong>Controls :</strong>
+            <h1>An interactive timeline detailing my key research experiences</h1>
+            <!-- <left><strong>Controls :</strong>
                 <ul class="ul.styled-list">
                     <li>Click and drag to move around.</li>
                     <li>Use the +/- buttons to expand/contract the x-axis (time).</li>
@@ -396,7 +484,7 @@
                     <li>To continue scrolling, move your cursor outside the timeline or use the right-side scroller
                         bar.</li>
                 </ul>
-            </left>
+            </left> -->
         </div>
 
         <iframe src="https://time.graphics/embed?v=1&id=109212" frameborder="0" allowfullscreen></iframe>
@@ -405,530 +493,43 @@
 
 
 
-    <section class="portfolio" id="portfolio">
-        <div class="container-fluid ">
-            <div class="row">
-                <div class="col-md-12 no-padding ">
-                    <div class="section-title st-center">
-                        <p>Research Portfolio</p>
-                        <h3>Selected projects with links to publications, tools, <br>websites and/or source code that
-                            I've created or contributed to.</h3>
-                    </div>
 
-                    <div class="filter mb40">
-                        <form id="filter">
-                            <fieldset class="group">
-                                <label class="btn btn-default btn-main"><input type="radio" name="filter" value="all"
-                                        checked="checked">ALL</label><br> Subset by Content :
+    <!-- ######### Contact ########## -->
+    <section class="about"> 
+            <div id="contact" class="section-title black st-center">
+                <p>Contact</p>
+                <h1 style="color: rgba(255, 255, 255, 0.9);">Feel free to reach out anytime!</h1>
+                <div class="container"> 
+                    <h3>Email : <a href='mailto:brian_schilder@alumni.brown.edu'>brian_schilder [at] alumni.brown.edu</a></h3>
+                    
+                    <br><br> 
 
-                                <label class="btn btn-default"><input type="radio" name="filter" value="publications"><i
-                                        class="fa fa-book"></i> Publications</label>
-
-                                <label class="btn btn-default"><input type="radio" name="filter" value="tools"><i class="fa fa-wrench"></i>
-                                    Tools & Websites</label>
-
-                                <label class="btn btn-default"><input type="radio" name="filter" value="code"><i class="fa fa-github"></i>
-                                    Source Code</label>
-
-                                <br>Subset by Field :
-
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Bioinformatics">
-                                    Bioinformatics</label>
-
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Transcriptomics">
-                                    Transcriptomics</label>
-
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Neuroscience">
-                                    Neuroscience</label>
-
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Biomedicine">
-                                    Biomedicine</label>
-
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Cognitive Science">
-                                    Cognitive Science</label>
-
-                                <label class="btn btn-default"><input type="radio" name="filter" value="Human Evolution">
-                                    Human Evolution</label>
-                            </fieldset><br>
-                        </form>
-                        <!-- #filter -->
-
-
-                        <!-- .filter .mb40 -->
-                        <div class="grid">
-                            <figure class="portfolio-item" data-groups='["tools", "code"]'>
-                                <img src="portfolio/this_website.png" alt="" />
-                                <figcaption>
-                                    <h2>This Website</h2>
-                                    <p><em></em><strong>2018</strong><br> I constructed this website as an interactive
-                                        and more visually intuitive version of my CV. This was done using a combination
-                                        of HTML, CSS, JavaScript and Bootstrap. All source code for this site can be
-                                        found in the respective GitHub repository.<br><br>
-                                        <a href="https://github.com/bschilder/BMSchilder_Website" class="btn btn-main"
-                                            target="_blank"><i class="fa fa-github"></i> GitHub Repository</a>
-                                    </p>
-                                </figcaption>
-                            </figure>
-
-                            <figure class="portfolio-item" data-groups='["publications", "tools", "code", "Bioinformatics", "Transcriptomics"]'>
-                                <img src="portfolio/pub5.jpeg" alt="" />
-                                <figcaption>
-                                    <h2>X2K Web</h2>
-                                    <p><em>Nucleic Acids Research, </em><strong>2018</strong><br> While gene expression
-                                        data at the mRNA level can be globally and accurately measured, profiling the
-                                        activity of cell signaling pathways is currently much more difficult.
-                                        eXpression2Kinases (X2K) computationally predicts involvement of upstream cell
-                                        signaling pathways, given a signature of differentially expressed genes.<br><br>
-                                        <a href="https://academic.oup.com/nar/article/46/W1/W171/5003452" class="btn btn-main"
-                                            target="_blank"><i class="fa fa-book"></i> Publication</a>
-                                        <a href="http://amp.pharm.mssm.edu/X2K/" class="btn btn-main" target="_blank"><i
-                                                class="fa fa-wrench"></i> Tool</a>
-                                        <a href="https://github.com/MaayanLab/x2k_web" class="btn btn-main" target="_blank"><i
-                                                class="fa fa-github"></i> GitHub Repository</a>
-                                    </p>
-                                </figcaption>
-                            </figure>
-
-                            <figure class="portfolio-item" data-groups='["code","Bioinformatics","Transcriptomics","Human Evolution","Neuroscience"]'>
-                                <img src="portfolio/ABA.png" alt="" />
-                                <figcaption>
-                                    <h2>Transcriptomic Neuroevolution -<br>Macaques vs. Humans</h2>
-                                    <p><em><br><br><br>AAPA Poster, </em><strong>2016</strong><br><br> The hippocampus
-                                        (HP) is a neuroanatomical structure that is integral for long-term memory
-                                        formation and spatial navigation. The manner and degree to which each subfield
-                                        has diverged may reflect neuroecological adaptations to meet certain memory and
-                                        spatial navigation demands. Here I investigated this possibility by testing
-                                        whether the HP subfields of humans and macaques have evolutionarily diverged in
-                                        terms of: [H1] differential gene expression [H2] gene co-expression networks.<br><br>
-                                        <a href="https://github.com/bschilder/Allen_Brain_Atlas-Macaques_vs_Humans"
-                                            target="_blank" class="btn btn-main"><i class="fa fa-book"></i> GitHub
-                                            Repository</a>
-                                    </p>
-                                </figcaption>
-                            </figure>
-
-                            <figure class="portfolio-item" data-groups='["tools", "code", "Bioinformatics", "Transcriptomics"]'>
-                                <img src="portfolio/Enrichr.png" alt="" />
-                                <figcaption>
-                                    <h2>Enrichr</h2>
-                                    <p><em></em><strong>2018</strong><br> An integrative web-based and mobile gene-list
-                                        enrichment analysis tool that includes over 100 gene-set libraries, an
-                                        alternative approach to rank enriched terms, and various interactive
-                                        visualization approaches to display enrichment results using the JavaScript
-                                        library Data-Driven Documents (D3). Enrichr is open source and freely available
-                                        online. The software can also be embedded easily into any tools that perform
-                                        gene list analysis.<br><br>
-                                        <a href="http://amp.pharm.mssm.edu/Enrichr/" class="btn btn-main" target="_blank"><i
-                                                class="fa fa-wrench"></i> Tool</a>
-                                        <a href="https://github.com/MaayanLab/enrichr" class="btn btn-main" target="_blank"><i
-                                                class="fa fa-github"></i> GitHub Repository</a>
-                                    </p>
-                                </figcaption>
-                            </figure>
-
-                            <figure class="portfolio-item" data-groups='["publications", "Biomedicine", "Neuroscience"]'>
-                                <img src="portfolio/marmosita.jpg" alt="" />
-                                <figcaption>
-                                    <h2>Take the Monkey and Run</h2>
-                                    <p><em>Journal of Neuroscience Methods, </em><strong>2015</strong><br> A growing
-                                        body of research has indicated exercise, aerobic exercise especially, imparts
-                                        beneficial effects to normal aging. Understanding the mechanisms underlying
-                                        these positive effects of exercise, and the degree to which exercise has
-                                        neurotherapeutic effects, is an important research focus. Here we describe the
-                                        marmoset exercise ball (MEB) paradigm: a safe (for both experimenter and
-                                        subjects), novel and effective means to engage marmosets in aerobic exercise.<br><br>
-                                        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4464801/" class="btn btn-main"
-                                            target="_blank"><i class="fa fa-book"></i> Publication</a>
-                                    </p>
-                                </figcaption>
-                            </figure>
-
-                            <figure class="portfolio-item" data-groups='["publications","Cognitive Science"]'>
-                                <img src="portfolio/pub3.png" alt="" />
-                                <figcaption>
-                                    <h2>Defining Elemental Imitation Mechanisms</h2>
-                                    <p><em><br><br>Cognition and Development, </em><strong>2015</strong><br> During the
-                                        first 5 years of life, the versatility, breadth, and fidelity with which
-                                        children imitate change dramatically. Currently, there is no model to explain
-                                        what underlies such significant changes. To that end, the present study
-                                        examined whether task-independent but domain-specific—elemental—imitation
-                                        mechanism explains performance across imitation tasks or domains.<br><br>
-                                        <a href="https://www.tandfonline.com/doi/full/10.1080/15248372.2015.1053483"
-                                            class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
-                                    </p>
-                                </figcaption>
-                            </figure>
-
-                            <figure class="portfolio-item" data-groups='["publications","Cognitive Science", "Human Evolution"]'>
-                                <img src="portfolio/pub2.png" alt="" />
-                                <figcaption>
-                                    <h2>What are the Contributions of Social and Individual Learning?</h2>
-                                    <p><em><br><br>Developmental Science, </em><strong>2014</strong><br><br> In
-                                        contrast to other primates, human children's imitation performance goes from
-                                        low to high fidelity soon after infancy. Are such changes associated with the
-                                        development of other forms of learning? We addressed this question by testing
-                                        215 children (26–59 months) on two social conditions (imitation, emulation) –
-                                        involving a demonstration – and two asocial conditions (trial‐and‐error,
-                                        recall) – involving individual learning – using two touchscreen tasks.<br><br>
-                                        <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/desc.12276" class="btn btn-main"
-                                            target="_blank"><i class="fa fa-book"></i> Publication</a>
-                                    </p>
-                                </figcaption>
-                            </figure>
-
-                            <figure class="portfolio-item" data-groups='["publications","Cognitive Science"]'>
-                                <img src="portfolio/kid_screen.jpg" alt="" />
-                                <figcaption>
-                                    <h2>Working Memory Constraints on Imitation and Emulation</h2>
-                                    <p><em><br><br><br>Developmental Science, </em><strong>2014</strong><br><br> Does
-                                        working memory (WM) constrain the amount and type of information children copy
-                                        from a model? To answer this question, preschool-age children (N = 165) were
-                                        trained and then tested on a touch-screen task that involved touching
-                                        simultaneously presented pictures. Our results are consistent with the
-                                        hypothesis that WM constrains not just the amount but also the type of
-                                        information children copy from models, potentially modulating whether children
-                                        imitate or emulate in a given task.<br><br>
-                                        <a href="https://www.sciencedirect.com/science/article/pii/S0022096514001349?via%3Dihub"
-                                            class="btn btn-main" target="_blank"><i class="fa fa-book"></i> Publication</a>
-                                    </p>
-                                </figcaption>
-                            </figure>
-                        </div>
-
-                    </div>
+                    <a href="https://www.linkedin.com/in/brian-schilder/" target="_blank">
+                        <img src="./logos/linkedIn.png"  class="img-responsive">
+                    </a> 
+                    <a href="https://github.com/bschilder" target="_blank">
+                        <img src="./logos/GitHub_logo.png"  class="img-responsive">
+                    </a>
+                    <a href="https://twitter.com/BMSchilder" target="_blank">
+                        <img src="./logos/twitter.png"  class="img-responsive">
+                    </a>
+                    <a href="https://scholar.google.com/citations?hl=en&user=PR6KaQQAAAAJ" target="_blank">
+                        <img src="./logos/google_scholar.png"   class="img-responsive">
+                    </a> 
+                    <a href="https://www.researchgate.net/profile/Brian_Schilder" target="_blank">
+                        <img src="./logos/researchGate.png"   class="img-responsive">
+                    </a>
+                    <br><br><br>
                 </div>
-            </div>
-        </div>
+            </div> 
     </section>
 
-
-
-    <!---
-    <section class="clients">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                     <div class="section-title st-center">
-							<h3>Some Of our clients</h3>
-							<p>Avocent deditum long</p>
-						</div>  
-                    <ul class="clients-carousel">
-                        <li><img src="photos/client.png" class="img-responsive" alt=""></li>
-                        <li><img src="photos/client2.png" class="img-responsive" alt=""></li>
-                        <li><img src="photos/client3.png" class="img-responsive" alt=""></li>
-                        <li><img src="photos/client4.png" class="img-responsive" alt=""></li>
-                        <li><img src="photos/client5.png" class="img-responsive" alt=""></li>
-                        <li><img src="photos/client6.png" class="img-responsive" alt=""></li>
-                        <li><img src="photos/client7.png" class="img-responsive" alt=""></li>
-                        <li><img src="photos/client8.png" class="img-responsive" alt=""></li>
-                        <li><img src="photos/client9.png" class="img-responsive" alt=""></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="testimonials-carousel">
-                        <ul>
-                            <li>
-                                <div class="testimonial">
-                                    <div class="testimonial-img">
-                                        <img src="photos/client.jpg" alt="">
-                                    </div>
-                                    <blockquote>
-                                        <p>Tueri tantis inter variis deterritum facta caret pleniorem, efficiat affert quiete, commodis comparat facio ponti, adolescens recta iucundius mundi nostrum viris quae utilitatibus.</p>
-                                        <footer>Joseph Thompson, <cite title="Source Title">Example Inc.</cite></footer>
-                                    </blockquote>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="testimonial">
-                                    <div class="testimonial-img">
-                                        <img src="photos/client2.jpg" alt="">
-                                    </div>
-                                    <blockquote>
-                                        <p>Contrariis labore vetuit scaevola, contra percurri adamare efficeret quibus. Nostram consulatu mediocritatem maiorem, cyrenaicisque, quandam accedit veniat cognitioque, animadvertat accusantibus temporibus maximeque litterae.</p>
-                                        <footer>Nancy Ford, <cite title="Source Title">Example Inc.</cite></footer>
-                                    </blockquote>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="testimonial">
-                                    <div class="testimonial-img">
-                                        <img src="photos/client3.jpg" alt="">
-                                    </div>
-                                    <blockquote>
-                                        <p>Illas, volumus prosperum. Nostras eoque statua cuius corrumpit praetor aliter quaeso propter ei, quam inducitur ruant doctiores sanguinem atomum molestiae, antiqua inculta dicent.</p>
-                                        <footer>Arthur Fernandez, <cite title="Source Title">Example Inc.</cite></footer>
-                                    </blockquote>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq-sec">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="tac">frequently asked questions</h2> 
-                    <div class="section-title st-center">
-                        <h3>Some questions</h3>
-                        <p>frequently asked questions</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="faq">
-                        <h3><i class="fa fa-question-circle"></i> Minime paulo beatus stare?</h3>
-                        <p>Praesidium quaerat doloribus turpis fruuntur vocant postremo optimus utraque, veserim vitae appellant fructuosam, mediocris consistat impetu illae coniunctione modi consequentis nosque, vis qui deorum, poenis fuisse timorem ferae fastidium.</p>
-                    </div>
-                    <div class="faq">
-                        <h3><i class="fa fa-question-circle"></i> Ferentur interrogari diceret?</h3>
-                        <p>Pertinerent non importari, populo faciendi civium vetuit. Gravitate numquam praesentium fabulas. Abest ponatur ineruditus restat consoletur causam, ordiamur temperantiam repellat desistemus conquirendae molestia aiunt discenda monet.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="faq">
-                        <h3><i class="fa fa-question-circle"></i> Dicent erigimur secutus fortunae?</h3>
-                        <p>Quarum difficilius aegritudo epularum municipem alias. Vidisse litteris, rationibus eadem, mandaremus maluisset, delectus terrore angusta deduceret numquam fidelissimae mens gravissimo propter, tradit, fastidium facta facerem qua quippiam vacuitate cupiditatum admirer navigandi.</p>
-                    </div>
-                    <div class="faq">
-                        <h3><i class="fa fa-question-circle"></i> Molestiae dedocere effluere?</h3>
-                        <p>Habeo mala nocet perpetiuntur legendos dicemus levitatibus abducat futura, occultarum probant vitae evertunt laudantium docendi difficilem, offendit concederetur tuo hortensio deserere, molita gaudemus titillaret difficilius, parum timeret unum molestiam omnis vitae.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="call-us">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>If you like to work with us</h3>
-                    <a href="#" class="btn btn-default-o btn-lg">Call Us Now</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="blog" id="blog">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title st-center">
-                        <h3>Recent News</h3>
-                        <p>Some Recent News from Blog</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="blog-post">
-                        <div class="post-meta">
-                            <span class="author"><a href="#"><img src="photos/author.jpg" alt=""> Raju Ahmmed</a></span>,
-                            <span>Posted in <a href="#">WordPress</a></span>,
-                            <span>At <strong>10 January, 2015</strong></span>
-                        </div>
-                        <h2 class="post-title"><a href="#">A example blog post with image</a></h2>
-                        <div class="post-thumb"><a href="#"><img src="photos/post-thumb.jpg" alt="" class="img-responsive"></a></div>
-                        <div class="post-content">
-                            <p>Torquatos nihil utuntur liberamur benivole epularum evertunt accommodare, democrito didicerimus occulta egregios, praeclaram familiaritatem novi accusamus delectus opinemur mutae expetenda perpauca eas, concederetur fecerit ignorare delectari industria patientiamque. Invenire probes contereret maior opinor iucundo inciderint depravate, concupiscunt, deorum didicerimus, solitudo ingeniis confectum attento illustribus. Quanta suam, quieti usu necessarius. Sapienter existimo fruenda contentiones deduceret dolere minuti animi scientia, inbecilloque servire evertunt. Exeduntur vivi laudatum dicitur omnia verterem fuerit inanitate efficiatur <a href="#" class="more-link">Continue reading <span class="meta-nav">&rarr;</span></a></p>
-                        </div>
-                    </div>
-                    <div class="blog-post">
-                        <div class="post-meta">
-                            <span class="author"><a href="#"><img src="photos/author.jpg" alt=""> Raju Ahmmed</a></span>,
-                            <span>Posted in <a href="#">WordPress</a></span>,
-                            <span>At <strong>10 January, 2015</strong></span>
-                        </div>
-                        <h2 class="post-title"><a href="#">A example blog post with image</a></h2>
-                        <div class="post-thumb"><a href="#"><img src="photos/post-thumb.jpg" alt="" class="img-responsive"></a></div>
-                        <div class="post-content">
-                            <p>Torquatos nihil utuntur liberamur benivole epularum evertunt accommodare, democrito didicerimus occulta egregios, praeclaram familiaritatem novi accusamus delectus opinemur mutae expetenda perpauca eas, concederetur fecerit ignorare delectari industria patientiamque. Invenire probes contereret maior opinor iucundo inciderint depravate, concupiscunt, deorum didicerimus, solitudo ingeniis confectum attento illustribus. Quanta suam, quieti usu necessarius. Sapienter existimo fruenda contentiones deduceret dolere minuti animi scientia, inbecilloque servire evertunt. Exeduntur vivi laudatum dicitur omnia verterem fuerit inanitate efficiatur <a href="#" class="more-link">Continue reading <span class="meta-nav">&rarr;</span></a></p>
-                        </div>
-                    </div>
-                    <div class="blog-post">
-                        <div class="post-meta">
-                            <span class="author"><a href="#"><img src="photos/author.jpg" alt=""> Raju Ahmmed</a></span>,
-                            <span>Posted in <a href="#">WordPress</a></span>,
-                            <span>At <strong>10 January, 2015</strong></span>
-                        </div>
-                        <h2 class="post-title"><a href="#">A example blog post without image</a></h2>
-                        <div class="post-content">
-                            <p>Torquatos nihil utuntur liberamur benivole epularum evertunt accommodare, democrito didicerimus occulta egregios, praeclaram familiaritatem novi accusamus delectus opinemur mutae expetenda perpauca eas, concederetur fecerit ignorare delectari industria patientiamque. Invenire probes contereret maior opinor iucundo inciderint depravate, concupiscunt, deorum didicerimus, solitudo ingeniis confectum attento illustribus. Quanta suam, quieti usu necessarius. Sapienter existimo fruenda contentiones deduceret dolere minuti animi scientia, inbecilloque servire evertunt. Exeduntur vivi laudatum dicitur omnia verterem fuerit inanitate efficiatur <a href="#" class="more-link">Continue reading <span class="meta-nav">&rarr;</span></a></p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="widgets">
-                        <div class="widget">
-                            <form action="" class="">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn">
-											<button class="btn btn-default btn-lg" type="submit"><i class="fa fa-search"></i></button>
-										</span>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="widget">
-                            <h2 class="widget-title">Categories</h2>
-                            <ul>
-                                <li><a href="#">Video <span class="badge pull-right">5</span></a></li>
-                                <li><a href="#">Flyer <span class="badge pull-right">7</span></a></li>
-                                <li><a href="#">PSD <span class="badge pull-right">2</span></a></li>
-                                <li><a href="#">Theme <span class="badge pull-right">6</span></a></li>
-                                <li><a href="#">Music <span class="badge pull-right">8</span></a></li>
-                                <li><a href="#">Bootstrap <span class="badge pull-right">2</span></a></li>
-                                <li><a href="#">WordPress <span class="badge pull-right">9</span></a></li>
-                                <li><a href="#">Framework <span class="badge pull-right">7</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="widget">
-                            <h2 class="widget-title">Recent Post</h2>
-                            <ul>
-                                <li>
-                                    <div class="recent-post clearfix">
-                                        <a href="#" class="post-thumb"><img src="photos/post-thumb-sm.jpg"></a>
-                                        <h2 class="post-title">
-                                            <a href="#">A example blog post with image</a>
-                                        </h2>
-                                        <div class="post-meta">
-                                            <span>Posted in <a href="#">WordPress</a></span>
-                                        </div>
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="recent-post clearfix">
-                                        <a href="#" class="post-thumb"><img src="photos/post-thumb-sm.jpg"></a>
-                                        <h2 class="post-title">
-                                            <a href="#">A example blog post with image</a>
-                                        </h2>
-                                        <div class="post-meta">
-                                            <span>Posted in <a href="#">WordPress</a></span>
-                                        </div>
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="recent-post clearfix">
-                                        <a href="#" class="post-thumb"><img src="photos/post-thumb-sm.jpg"></a>
-                                        <h2 class="post-title">
-                                            <a href="#">A example blog post with image</a>
-                                        </h2>
-                                        <div class="post-meta">
-                                            <span>Posted in <a href="#">WordPress</a></span>
-                                        </div>
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="recent-post clearfix">
-                                        <a href="#" class="post-thumb"><img src="photos/post-thumb-sm.jpg"></a>
-                                        <h2 class="post-title">
-                                            <a href="#">A example blog post with image</a>
-                                        </h2>
-                                        <div class="post-meta">
-                                            <span>Posted in <a href="#">WordPress</a></span>
-                                        </div>
-
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="tag_cloud-3" class="widget widget_tag_cloud">
-                            <h2 class="widget-title">Tags</h2>
-                            <div class="tagcloud">
-                                <a href="#">bootstrap3</a>
-                                <a href="#">css</a>
-                                <a href="#">html</a>
-                                <a href="#">js</a>
-                                <a href="#">php</a>
-                                <a href="#">wordpress</a>
-                                <a href="#">jquery</a>
-                                <a href="#">less</a>
-                                <a href="#">editor</a>
-                                <a href="#">responsive</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="subscribe">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="subscribe-title">Subscribe Newsletter</h3>
-                    <form role="form" class="subscribe-form">
-                        <div class="input-group">
-                            <input type="email" class="form-control" id="mc-email" placeholder="Enter E-mail...">
-                            <span class="input-group-btn">
-									<button class="btn btn-main btn-lg" type="submit">Subscribe!</button>
-								</span>
-                        </div>
-                    </form>
-                    <div class="subscribe-result"></div>
-                    <p class="subscribe-or">or</p>
-                    <ul class="subscribe-social">
-                        <li><a href="#" class="social twitter"><i class="fa fa-twitter"></i> Follow</a></li>
-                        <li><a href="#" class="social facebook"><i class="fa fa-facebook"></i> Like</a></li>
-                        <li><a href="#" class="social rss"><i class="fa fa-rss"></i> RSS</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title st-center">
-                        <h3>Contact Us</h3>
-                        <p>Get in Touch with Us</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <form class="contact-form" role="form">
-                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Your Full Name">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Your E-mail">
-                        <input type="text" class="form-control" id="subj" name="subj" placeholder="Your Subject">
-                        <textarea id="mssg" name="mssg" placeholder="Your Message" class="form-control" rows="10"></textarea>
-                        <button class="btn btn-main btn-lg" type="submit" id="send" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Sending..."><i class="fa fa-paper-plane "></i> Send</button>
-                    </form>
-                    <div id="result-message" role="alert"></div>
-                </div>
-                <div class="col-md-6">
-                    <p>Homines praetore aperiam aegritudine turpe quietus, amorem errore meo horreat triario quantus rectas tollitur. Infimum audiebamus saluto disciplina praetermittenda, aspernatur vocent firmitatem contenta eademque ibidem quales efficiat. Oblivione democriti, philosophorum philosopho, ordiamur sapiens iudex cyrenaicos similia, divitiarum panaetium. Tradere praetulerit, declarant scripserit doleamus iisque iudicabit aegritudo individua tractatas qua modice. Difficilius loqueretur improbe aetatis consectetur solis velint, grata quiddam partus occulta delectari maior, theseo eveniunt, turpius nesciunt amicitias constantia seque, utraque, statu genus scriptorem fugit fuissent duxit, compluribus primos scaevolam.</p>
-                    <address>
-							<strong>Twitter, Inc.</strong><br>
-							795 Folsom Ave, Suite 600<br>
-							San Francisco, CA 94107<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-						</address>
-                </div>
-            </div>
-        </div>
-    </section>
- 
--->
+    
+     <!-- ######### Footer ########## -->
     <footer class="site-footer">
-        <p>Created by Brian M. Schilder - 2018</p>
+        <a href="https://github.com/bschilder/BMSchilder" target="_blank">
+            Created by Brian M. Schilder - © 2018
+        </a>
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
