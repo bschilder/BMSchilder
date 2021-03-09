@@ -78,6 +78,9 @@
         let mesh
         loader.load('./models/stl/mybrain.stl', function (geometry) {
             mesh = new THREE.Mesh(geometry, material); 
+            const mergedGeometry = THREE.BufferGeometryUtils.mergeVertices(geometry);
+            mergedGeometry.computeVertexNormals();
+            mesh.geometry = mergedGeometry;
             scene.add(mesh);
             mesh.position.set(0, 0, 0);
             mesh.rotation.set(1.4,3.1,0)

@@ -4,7 +4,7 @@
 <head>
     <title>Three.js TypeScript Tutorials by Sean Bradley : https://sbcode.net/threejs</title>
     <meta name="author" content="Sean Bradley">
-    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./3D_brain/main.css">
     <!-- Original source: https://sbcode.net/threejs/loaders-stl/#useful-links -->
     <!-- Documentation: https://threejs.org/docs/#api/en/core/Object3D.rotation -->
     <!-- Mesh options test browser: https://threejs.org/docs/scenes/material-browser.html#MeshPhongMaterial -->
@@ -33,10 +33,10 @@
     <a href="/view_source/loader-stl.html" id="vwSrcLink" target="_blank">&lt;&gt;</a>
     <progress value="0" max="100" id="progressBar"></progress>
     <script type="module">
-        import * as THREE from '/3D_brain/build/three.module.js';
-        import { OrbitControls } from '/3D_brain/jsm/controls/OrbitControls.js';
-        import { STLLoader } from '/3D_brain/jsm/loaders/STLLoader.js';
-        import Stats from '/3D_brain/jsm/libs/stats.module.js';
+        import * as THREE from './3D_brain/build/three.module.js';
+        import { OrbitControls } from './3D_brain/jsm/controls/OrbitControls.js';
+        import { STLLoader } from './3D_brain/jsm/loaders/STLLoader.js';
+        import Stats from './3D_brain/jsm/libs/stats.module.js';
         const scene = new THREE.Scene();
         const axesHelper = new THREE.AxesHelper(5);
         scene.add(axesHelper);
@@ -76,7 +76,7 @@
         });
         const loader = new STLLoader();
         let mesh
-        loader.load('./models/stl/mybrain.stl', function (geometry) {
+        loader.load('./3D_brain/models/stl/mybrain.stl', function (geometry) {
             mesh = new THREE.Mesh(geometry, material); 
             scene.add(mesh);
             mesh.position.set(0, 0, 0);
