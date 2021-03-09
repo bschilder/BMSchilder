@@ -1,0 +1,3 @@
+[submodule "3D-model"]
+	path = 3D-model
+	url = https://github.com/bschilder/3D-model.git
