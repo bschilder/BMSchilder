@@ -27,7 +27,8 @@
 
 <body>
     <div>
-        <h1>3D brain model</h1>
+        <h1 style="margin-left: 10vw;">3D Brain Model</h1>
+        <h4 style="margin-left: 10vw;">This is my brain. I love gooooold!</h4>
     </div> 
     <progress value="0" max="100" id="progressBar"></progress>
     <script type="module"> 
@@ -97,8 +98,10 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             render();
         }
+        ///// Show some stats on the upper left corner
         const stats = Stats();
         document.body.appendChild(stats.dom);
+        
         var animate = function () {
             requestAnimationFrame(animate);
             controls.update();
