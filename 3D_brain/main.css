@@ -8,19 +8,19 @@ body {
 	overscroll-behavior: none;
 }
 
-a {
+/* a {
 	color: #ff0;
 	text-decoration: none;
-}
-
+} */
+/* 
 a:hover {
 	text-decoration: underline;
-}
+} */
 
-button {
+/* button {
 	cursor: pointer;
 	text-transform: uppercase;
-}
+} */
 
 #info {
 	position: absolute;
@@ -75,10 +75,10 @@ a, button, input, select {
 		cursor: pointer;
 	}
 
-#notSupported {
+/* #notSupported {
 	width: 50%;
 	margin: auto;
 	background-color: #f00;
 	margin-top: 20px;
 	padding: 10px;
-}
+} */
