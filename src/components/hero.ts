@@ -602,18 +602,126 @@ function initCanvas(): void {
       return pts;
     }
 
-    // Draw rock texture on a mountain range — evolves with cragginess
+    // Texture mode: 'tetra' (default) or 'strata'
+    const MTN_TEXTURE: 'tetra' | 'strata' = 'tetra';
+
+    // Dispatch to the active texture renderer
     function drawRockTexture(
       profile: number[], segments: number, baseY: number,
       lightColor: string, darkColor: string,
     ) {
-      if (!ctx) return;
-      const intensity = 0.15 + crag * 0.85; // 0.15 at smooth → 1.0 at max crag
+      if (MTN_TEXTURE === 'tetra') {
+        drawTetraTexture(profile, segments, baseY, lightColor, darkColor);
+      } else {
+        drawStrataTexture(profile, segments, baseY, lightColor, darkColor);
+      }
+    }
 
-      // ── Horizontal strata bands ──
+    // ── Tetrahedron mesh texture (default) ──
+    function drawTetraTexture(
+      profile: number[], segments: number, baseY: number,
+      lightColor: string, darkColor: string,
+    ) {
+      if (!ctx) return;
+      const intensity = 0.2 + crag * 0.8;
+
+      // Grid resolution scales with cragginess
+      const cols = Math.floor(18 + crag * 30);
+      const rows = Math.floor(6 + crag * 14);
+
+      const lightRgb = hexToRgb(lightColor);
+      const darkRgb = hexToRgb(darkColor);
+
+      for (let col = 0; col < cols; col++) {
+        const xPct = col / cols;
+        const xPctNext = (col + 1) / cols;
+        const x0 = xPct * width;
+        const x1 = xPctNext * width;
+        const xMid = (x0 + x1) / 2;
+
+        // Sample ridge Y at these x positions
+        const seg0 = Math.min(Math.floor(xPct * segments), segments);
+        const seg1 = Math.min(Math.floor(xPctNext * segments), segments);
+        const segMid = Math.min(Math.floor(((xPct + xPctNext) / 2) * segments), segments);
+        const ridgeY0 = profile[seg0] ?? baseY;
+        const ridgeY1 = profile[seg1] ?? baseY;
+        const ridgeYMid = profile[segMid] ?? baseY;
+
+        for (let row = 0; row < rows; row++) {
+          const yPct = row / rows;
+          const yPctNext = (row + 1) / rows;
+
+          // Compute y positions within the mountain face at each x
+          const yRange0 = baseY - ridgeY0;
+          const yRange1 = baseY - ridgeY1;
+          const yRangeMid = baseY - ridgeYMid;
+          if (yRange0 < 3 && yRange1 < 3) continue;
+
+          const tl = { x: x0, y: ridgeY0 + yPct * yRange0 };
+          const tr = { x: x1, y: ridgeY1 + yPct * yRange1 };
+          const bl = { x: x0, y: ridgeY0 + yPctNext * yRange0 };
+          const br = { x: x1, y: ridgeY1 + yPctNext * yRange1 };
+          // Offset center point for irregular triangulation
+          const jitterX = Math.sin(col * 7.3 + row * 13.1) * (x1 - x0) * 0.2 * crag;
+          const jitterY = Math.cos(col * 11.7 + row * 5.3) * (yPctNext - yPct) * yRangeMid * 0.25 * crag;
+          const cx = xMid + jitterX;
+          const cy = ridgeYMid + ((yPct + yPctNext) / 2) * yRangeMid + jitterY;
+
+          // Draw 4 triangles from quad corners to center
+          const triangles = [
+            [tl, tr, { x: cx, y: cy }],
+            [tr, br, { x: cx, y: cy }],
+            [br, bl, { x: cx, y: cy }],
+            [bl, tl, { x: cx, y: cy }],
+          ];
+
+          for (let ti = 0; ti < triangles.length; ti++) {
+            const [a, b, c] = triangles[ti];
+
+            // Pseudo-random shade per facet based on position
+            const hash = Math.sin(col * 3.7 + row * 11.3 + ti * 7.1) * 0.5 + 0.5;
+            // Depth darkening: triangles lower in the face are darker
+            const depthFade = 1 - ((yPct + yPctNext) / 2) * 0.4;
+            const shade = hash * depthFade;
+
+            // Blend between dark and light based on shade
+            const r = Math.round(darkRgb.r + (lightRgb.r - darkRgb.r) * shade);
+            const g = Math.round(darkRgb.g + (lightRgb.g - darkRgb.g) * shade);
+            const bv = Math.round(darkRgb.b + (lightRgb.b - darkRgb.b) * shade);
+
+            ctx.globalAlpha = intensity * (0.12 + shade * 0.18);
+            ctx.fillStyle = `rgb(${r},${g},${bv})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.lineTo(c.x, c.y);
+            ctx.closePath();
+            ctx.fill();
+
+            // Draw edges for wireframe look
+            ctx.globalAlpha = intensity * (0.06 + crag * 0.12);
+            ctx.strokeStyle = lightColor;
+            ctx.lineWidth = 0.4 + crag * 0.3;
+            ctx.stroke();
+          }
+        }
+      }
+
+      ctx.globalAlpha = 1;
+    }
+
+    // ── Strata texture (alternative) ──
+    function drawStrataTexture(
+      profile: number[], segments: number, baseY: number,
+      lightColor: string, darkColor: string,
+    ) {
+      if (!ctx) return;
+      const intensity = 0.15 + crag * 0.85;
+
+      // Horizontal strata bands
       const strataCount = Math.floor(4 + crag * 12);
       for (let s = 0; s < strataCount; s++) {
-        const bandPct = (s + 0.5) / strataCount; // 0..1 within the mountain face
+        const bandPct = (s + 0.5) / strataCount;
         ctx.globalAlpha = intensity * (0.06 + crag * 0.10);
         ctx.strokeStyle = s % 2 === 0 ? lightColor : darkColor;
         ctx.lineWidth = 0.8 + crag * 0.5;
@@ -624,7 +732,6 @@ function initCanvas(): void {
           const yRange = baseY - ridgeY;
           if (yRange < 4) continue;
           const bandY = ridgeY + bandPct * yRange;
-          // Add subtle waviness to the strata
           const wobble = Math.sin(x * 0.02 + s * 7.3) * (2 + crag * 4);
           if (i === 0) ctx.moveTo(x, bandY + wobble);
           else ctx.lineTo(x, bandY + wobble);
@@ -632,7 +739,7 @@ function initCanvas(): void {
         ctx.stroke();
       }
 
-      // ── Stipple / shard dots ──
+      // Stipple / shard dots
       const dotCount = Math.floor(ROCK_SEEDS * intensity);
       for (let di = 0; di < dotCount; di++) {
         const dot = rockDots[di];
@@ -650,7 +757,6 @@ function initCanvas(): void {
         ctx.fillStyle = dot.seed > 0.5 ? lightColor : darkColor;
 
         if (crag > 0.4 && di % 3 === 0) {
-          // Angular shards at higher crag
           const shardSize = size * (1.0 + crag);
           const angle = dot.xPct * 17 + dot.yPct * 31;
           ctx.beginPath();
@@ -666,7 +772,7 @@ function initCanvas(): void {
         }
       }
 
-      // ── Crack lines (vertical fissures) ──
+      // Crack lines (vertical fissures)
       const crackCount = Math.floor(crag * 18);
       for (let c = 0; c < crackCount; c++) {
         const crack = rockDots[c % ROCK_SEEDS];
@@ -684,7 +790,6 @@ function initCanvas(): void {
         ctx.lineWidth = 0.5 + crag * 0.8;
         ctx.beginPath();
         ctx.moveTo(crackX, crackTopY);
-        // Jagged crack path
         const steps = 3 + Math.floor(crag * 4);
         for (let s = 1; s <= steps; s++) {
           const t = s / steps;
