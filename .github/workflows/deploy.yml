@@ -29,9 +29,6 @@ jobs:
 
       - run: npm ci
 
-      - name: Copy CV data
-        run: cp -r cv/cv_data/* public/data/
-
       - run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
