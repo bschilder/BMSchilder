@@ -106,12 +106,13 @@ export function initTimeline(data: CVData): void {
   render();
 }
 
-/* ── Visual timeline with fisheye navigator ── */
+/* ── Visual timeline: center line with alternating left/right nodes ── */
 function renderVisualTimeline(
   years: number[], filtered: TimelineItem[],
   minYear: number, maxYear: number,
 ): string {
   const defaultFocus = maxYear;
+  let nodeIndex = 0; // alternates left/right
 
   let html = `
     <div class="tl-explorer">
@@ -140,20 +141,19 @@ function renderVisualTimeline(
     const dist = Math.abs(year - defaultFocus);
     const proximity = dist === 0 ? 'focus' : dist <= 1 ? 'near' : dist <= 3 ? 'mid' : 'far';
 
-    // Year marker
+    // Year badge — centered on the line
     html += `<div class="tl-year tl-year--${proximity}" data-year="${year}"><span class="tl-year__badge">${year}</span></div>`;
 
     for (const item of yearItems) {
       const color = TYPE_COLORS[item.type] || 'var(--vapor-teal)';
       const icon = TYPE_ICONS[item.type] || '';
+      const side = nodeIndex % 2 === 0 ? 'left' : 'right';
+      nodeIndex++;
 
       html += `
-        <div class="tl-node tl-node--${proximity}" data-id="${item.id}" data-year="${item.year}">
-          <div class="tl-node__dot" style="color:${color}">
-            <span class="tl-node__icon">${icon}</span>
-          </div>
-          <div class="tl-node__content">
-            <span class="tl-node__type" style="color:${color}">${TYPE_LABELS[item.type]}</span>
+        <div class="tl-node tl-node--${proximity} tl-node--${side}" data-id="${item.id}" data-year="${item.year}">
+          <div class="tl-node__card">
+            <span class="tl-node__type" style="color:${color}">${icon} ${TYPE_LABELS[item.type]}</span>
             <div class="tl-node__title">
               ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>` : item.title}
             </div>
@@ -166,6 +166,9 @@ function renderVisualTimeline(
                 </ul>
               ` : ''}
             </div>
+          </div>
+          <div class="tl-node__dot" style="--dot-color:${color}">
+            <span class="tl-node__icon">${icon}</span>
           </div>
         </div>
       `;

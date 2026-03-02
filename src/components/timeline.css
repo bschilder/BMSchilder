@@ -50,13 +50,13 @@
 }
 
 /* ══════════════════════════════════════════
-   VISUAL TIMELINE — Explorer layout
+   VISUAL TIMELINE — Center-line layout
    ══════════════════════════════════════════ */
 
 .tl-explorer {
   display: flex;
   gap: var(--space-6);
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -175,36 +175,40 @@
   opacity: 0.7;
 }
 
-/* ── Stream (the actual timeline) ── */
+/* ── Stream (scrollable timeline area) ── */
 .tl-stream {
   flex: 1;
   position: relative;
-  padding-left: 28px;
   min-width: 0;
-  max-height: 520px;
+  max-height: 600px;
   overflow-y: auto;
   scroll-behavior: smooth;
-  scrollbar-width: none;           /* Firefox */
-  -ms-overflow-style: none;        /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: var(--space-4) 0;
 }
 
 .tl-stream::-webkit-scrollbar { display: none; }
 
-/* Center line */
+/* Center vertical line */
 .tl-stream::before {
   content: '';
   position: absolute;
-  left: 8px;
+  left: 50%;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, var(--vapor-teal), rgba(1, 205, 254, 0.08));
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, var(--vapor-teal), var(--vapor-purple), rgba(1, 205, 254, 0.08));
+  z-index: 1;
 }
 
-/* ── Year badges ── */
+/* ── Year badges — centered on the line ── */
 .tl-year {
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  text-align: center;
+  margin: var(--space-3) 0;
   transition: all 0.35s ease;
 }
 
@@ -241,57 +245,114 @@
 }
 
 /* ══════════════════════════════════════════
-   NODES — the core fisheye items
+   NODES — Center-line with alternating sides
    ══════════════════════════════════════════ */
 
 .tl-node {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  align-items: start;
   position: relative;
   cursor: pointer;
+  margin-bottom: var(--space-2);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dot (always visible) */
+/* Dot — always in center column */
 .tl-node__dot {
-  flex-shrink: 0;
+  grid-column: 2;
+  grid-row: 1;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  position: relative;
-  left: -20px;
+  justify-self: center;
+  background: var(--bg-elevated);
+  border: 2px solid var(--dot-color, var(--vapor-teal));
   z-index: 2;
   transition: all 0.35s ease;
+  margin-top: var(--space-2);
 }
 
 .tl-node__icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.3s ease;
+  color: var(--dot-color, var(--vapor-teal));
 }
 
 .tl-node__icon svg {
   display: block;
+  width: 10px;
+  height: 10px;
 }
 
-/* Content area */
-.tl-node__content {
-  flex: 1;
-  min-width: 0;
+/* Card — positioned left or right */
+.tl-node__card {
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* LEFT node: card on left (col 1), dot in center (col 2) */
+.tl-node--left .tl-node__card {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: right;
+  padding-right: var(--space-4);
+}
+
+/* RIGHT node: card on right (col 3), dot in center (col 2) */
+.tl-node--right .tl-node__card {
+  grid-column: 3;
+  grid-row: 1;
+  text-align: left;
+  padding-left: var(--space-4);
+}
+
+/* Connector line from dot to card */
+.tl-node--left .tl-node__card::after,
+.tl-node--right .tl-node__card::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--space-2) + 9px); /* align with dot center */
+  width: var(--space-4);
+  height: 2px;
+  background: var(--dot-color, var(--vapor-teal));
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.tl-node--left .tl-node__card::after {
+  right: 0;
+}
+
+.tl-node--right .tl-node__card::before {
+  left: 0;
+}
+
+/* Type label */
 .tl-node__type {
   font-family: var(--font-mono);
   font-size: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-1);
   transition: all 0.3s ease;
+}
+
+.tl-node--left .tl-node__type {
+  justify-content: flex-end;
+}
+
+.tl-node__type svg {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
 }
 
 .tl-node__title {
@@ -336,6 +397,11 @@
   margin-bottom: var(--space-2);
 }
 
+.tl-node--left .tl-node__bullets li {
+  padding-left: 0;
+  padding-right: var(--space-4);
+}
+
 .tl-node__bullets li::before {
   content: '▸';
   position: absolute;
@@ -343,53 +409,48 @@
   color: var(--vapor-teal);
 }
 
-/* ── FAR: just a dot, no text ── */
+.tl-node--left .tl-node__bullets li::before {
+  left: auto;
+  right: 0;
+  content: '◂';
+}
+
+/* ── Proximity: FAR — tiny dot only ── */
 .tl-node--far {
-  padding: 2px 0;
   margin-bottom: 0;
   opacity: 0.5;
 }
 
 .tl-node--far .tl-node__dot {
-  width: 14px;
-  height: 14px;
-  background: var(--bg-elevated);
-  border: 2px solid currentColor;
+  width: 12px;
+  height: 12px;
 }
 
 .tl-node--far .tl-node__icon {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .tl-node--far .tl-node__icon svg {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
-.tl-node--far .tl-node__content {
+.tl-node--far .tl-node__card {
   max-height: 0;
   opacity: 0;
   padding: 0;
   margin: 0;
 }
 
-/* ── MID: small dot + tiny one-line title ── */
+/* ── Proximity: MID — dot + tiny title ── */
 .tl-node--mid {
-  padding: 3px 0;
   margin-bottom: 1px;
   opacity: 0.65;
 }
 
 .tl-node--mid .tl-node__dot {
-  width: 16px;
-  height: 16px;
-  background: var(--bg-elevated);
-  border: 2px solid currentColor;
-}
-
-.tl-node--mid .tl-node__content {
-  max-height: 18px;
-  opacity: 0.7;
+  width: 14px;
+  height: 14px;
 }
 
 .tl-node--mid .tl-node__type {
@@ -409,21 +470,17 @@
   opacity: 0;
 }
 
-/* ── NEAR: visible card with title ── */
+/* ── Proximity: NEAR — visible card ── */
 .tl-node--near {
-  padding: var(--space-2) 0;
-  margin-bottom: var(--space-1);
   opacity: 0.9;
 }
 
 .tl-node--near .tl-node__dot {
-  width: 20px;
-  height: 20px;
-  background: var(--bg-elevated);
-  border: 2px solid currentColor;
+  width: 18px;
+  height: 18px;
 }
 
-.tl-node--near .tl-node__content {
+.tl-node--near .tl-node__card {
   background: var(--gradient-card);
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
@@ -439,18 +496,22 @@
   opacity: 0;
 }
 
-/* ── FOCUS: fully expanded, glowing ── */
+/* ── Proximity: FOCUS — fully expanded, glowing ── */
 .tl-node--focus {
-  padding: var(--space-3) 0;
-  margin-bottom: var(--space-2);
   opacity: 1;
+  margin-bottom: var(--space-3);
 }
 
 .tl-node--focus .tl-node__dot {
   width: 24px;
   height: 24px;
-  background: currentColor;
-  box-shadow: 0 0 12px currentColor;
+  background: var(--dot-color, var(--vapor-teal));
+  border-color: var(--dot-color, var(--vapor-teal));
+  box-shadow: 0 0 12px var(--dot-color, var(--vapor-teal));
+}
+
+.tl-node--focus .tl-node__icon {
+  color: var(--bg-deep);
 }
 
 .tl-node--focus .tl-node__icon svg {
@@ -459,11 +520,11 @@
   height: 14px;
 }
 
-.tl-node--focus .tl-node__content {
+.tl-node--focus .tl-node__card {
   background: var(--gradient-card);
   border: 1px solid var(--border-glow);
   border-radius: 10px;
-  padding: var(--space-6) var(--space-6);
+  padding: var(--space-4) var(--space-5);
   box-shadow: var(--glow-teal);
 }
 
@@ -479,6 +540,11 @@
 .tl-node--focus .tl-node__detail {
   max-height: 400px;
   opacity: 1;
+}
+
+.tl-node--focus .tl-node__card::after,
+.tl-node--focus .tl-node__card::before {
+  opacity: 0.6;
 }
 
 /* ══════════════════════════════════════════
@@ -718,6 +784,47 @@
   .tl-navigator__year-display {
     font-size: var(--text-base);
     flex-shrink: 0;
+  }
+
+  /* On mobile: single column, all nodes on right */
+  .tl-node {
+    grid-template-columns: 30px 1fr;
+  }
+
+  .tl-node__dot {
+    grid-column: 1;
+  }
+
+  .tl-node--left .tl-node__card,
+  .tl-node--right .tl-node__card {
+    grid-column: 2;
+    text-align: left;
+    padding-left: var(--space-3);
+    padding-right: 0;
+  }
+
+  .tl-node--left .tl-node__type {
+    justify-content: flex-start;
+  }
+
+  .tl-node--left .tl-node__bullets li {
+    padding-left: var(--space-4);
+    padding-right: 0;
+  }
+
+  .tl-node--left .tl-node__bullets li::before {
+    left: 0;
+    right: auto;
+    content: '▸';
+  }
+
+  .tl-node--left .tl-node__card::after,
+  .tl-node--right .tl-node__card::before {
+    display: none;
+  }
+
+  .tl-stream::before {
+    left: 15px;
   }
 
   .timeline__node-type { display: none; }
