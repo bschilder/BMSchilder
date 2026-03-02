@@ -12,11 +12,21 @@
  * ║    'lagoon'      — minty teal/purple/pink      ║
  * ╚═══════════════════════════════════════════════╝
  */
-export const ACTIVE_PALETTE: PaletteName = 'lagoon';
+export let ACTIVE_PALETTE: PaletteName = 'lagoon';
 
 // ─────────────────────────────────────────────────
 
 export type PaletteName = 'vaporwave' | 'midnight' | 'sunset' | 'cyberpunk' | 'arctic' | 'sakura' | 'lagoon';
+
+export const PALETTE_NAMES: PaletteName[] = ['vaporwave', 'midnight', 'sunset', 'cyberpunk', 'arctic', 'sakura', 'lagoon'];
+
+/** Cycle to the next palette and apply it. Returns the new palette name. */
+export function cyclePalette(): PaletteName {
+  const idx = PALETTE_NAMES.indexOf(ACTIVE_PALETTE);
+  ACTIVE_PALETTE = PALETTE_NAMES[(idx + 1) % PALETTE_NAMES.length];
+  applyPalette(ACTIVE_PALETTE);
+  return ACTIVE_PALETTE;
+}
 
 interface Palette {
   bgDeep: string;
