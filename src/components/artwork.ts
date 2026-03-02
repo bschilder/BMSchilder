@@ -1,29 +1,24 @@
 import type { CVData } from '../types/cv-data';
 import { cleanDescription } from '../utils/format';
 
-// Known image files in public/images/artwork/
-const LOCAL_IMAGES = [
-  'wildfire_circle.png',
-  'wildfire.png',
-  'BioPsych_cover.jpg',
-  'clever_girl.jpg',
-  'clever_girl_small.jpg',
-  'HPO_sideways.png',
-  'multi-omic_medicine_TradingCard.jpeg',
-  'Multi-omic_Medicine_TradingCard4.jpeg',
-  'Multi-omic_Medicine_TradingCard5.jpeg',
-  'Neurodegeneration_TradingCard.jpeg',
-  'Neurodegeneration_TradingCard2.jpeg',
-];
+const IMAGE_EXTS = /\.(jpg|jpeg|png|gif|webp)$/i;
 
+/** Extract local artwork image paths from Link and bullet fields in the CSV */
 function findAllImages(link: string, bullets: string[]): string[] {
   const found: string[] = [];
   const allText = [link, ...bullets].join(' ');
-  for (const filename of LOCAL_IMAGES) {
-    if (allText.includes(filename)) {
-      found.push(`images/artwork/${filename}`);
+
+  // Match filenames from URLs pointing to images/artwork/
+  const urlPattern = /images\/artwork\/([^\s)"',]+)/g;
+  let match: RegExpExecArray | null;
+  while ((match = urlPattern.exec(allText)) !== null) {
+    const filename = match[1];
+    if (IMAGE_EXTS.test(filename)) {
+      const path = `images/artwork/${filename}`;
+      if (!found.includes(path)) found.push(path);
     }
   }
+
   return found;
 }
 
