@@ -181,7 +181,14 @@
   position: relative;
   padding-left: 28px;
   min-width: 0;
+  max-height: 520px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE/Edge */
 }
+
+.tl-stream::-webkit-scrollbar { display: none; }
 
 /* Center line */
 .tl-stream::before {
