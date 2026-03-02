@@ -93,6 +93,40 @@ function createFlagSlider(): { getValue: () => number } {
   return { getValue: () => Number(input.value) };
 }
 
+/** Read a CSS custom property value from :root */
+function cssVar(name: string, fallback: string): string {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+}
+
+/** Hex string → {r, g, b} integers */
+function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  const h = hex.replace('#', '');
+  return {
+    r: parseInt(h.substring(0, 2), 16),
+    g: parseInt(h.substring(2, 4), 16),
+    b: parseInt(h.substring(4, 6), 16),
+  };
+}
+
+/** Blend two hex colors by ratio (0 = a, 1 = b) */
+function blendHex(a: string, b: string, ratio: number): string {
+  const ca = hexToRgb(a);
+  const cb = hexToRgb(b);
+  const r = Math.round(ca.r + (cb.r - ca.r) * ratio);
+  const g = Math.round(ca.g + (cb.g - ca.g) * ratio);
+  const bl = Math.round(ca.b + (cb.b - ca.b) * ratio);
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${bl.toString(16).padStart(2, '0')}`;
+}
+
+/** Darken a hex color by a factor (0 = black, 1 = original) */
+function darkenHex(hex: string, factor: number): string {
+  const { r, g, b } = hexToRgb(hex);
+  const dr = Math.round(r * factor);
+  const dg = Math.round(g * factor);
+  const db = Math.round(b * factor);
+  return `#${dr.toString(16).padStart(2, '0')}${dg.toString(16).padStart(2, '0')}${db.toString(16).padStart(2, '0')}`;
+}
+
 function initCanvas(): void {
   const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
   if (!canvas) return;
@@ -101,6 +135,68 @@ function initCanvas(): void {
   if (!ctx) return;
 
   const mtnSlider = createFlagSlider();
+
+  // ── Read palette colors from CSS custom properties ──
+  const palBgDeep = cssVar('--bg-deep', '#0d0221');
+  const palBgPrimary = cssVar('--bg-primary', '#150535');
+  const palBgElevated = cssVar('--bg-elevated', '#1a0a4a');
+  const palBgSurface = cssVar('--bg-surface', '#241660');
+  const palTeal = cssVar('--vapor-teal', '#01cdfe');
+  const palPink = cssVar('--vapor-pink', '#ff71ce');
+  const palPurple = cssVar('--vapor-purple', '#b967ff');
+  const palGold = cssVar('--vapor-gold', '#fffb96');
+  const palLavender = cssVar('--vapor-lavender', '#d9b3ff');
+  const palTextPrimary = cssVar('--text-primary', '#e8e0f0');
+
+  // Derived colors for the landscape
+  const tealRgb = hexToRgb(palTeal);
+  const pinkRgb = hexToRgb(palPink);
+
+  // Sky gradient stops (from deep → elevated → surface → a lighter mix)
+  const skyTop = palBgDeep;
+  const skyMid1 = palBgElevated;
+  const skyMid2 = palBgSurface;
+  const skyBottom = blendHex(palBgSurface, palPurple, 0.25);
+
+  // Sun glow colors (with alpha suffixes)
+  const sunGlowInner = palPink + '66';
+  const sunGlowMid = palPurple + '33';
+  const sunGlowOuter = palTeal + '15';
+
+  // Sun disc gradient
+  const sunDiscTop = palGold;
+  const sunDiscMid = palPink;
+  const sunDiscBottom = palPurple;
+
+  // Mountain gradient colors (progressively darker from far to near)
+  const mtnFarLight = palBgSurface;
+  const mtnFarMid = blendHex(palBgElevated, palBgSurface, 0.4);
+  const mtnFarDark = palBgElevated;
+  const mtnFarBase = palBgPrimary;
+
+  const mtnMidLight = palBgElevated;
+  const mtnMidMid = blendHex(palBgPrimary, palBgElevated, 0.5);
+  const mtnMidBase = darkenHex(palBgPrimary, 0.7);
+
+  const mtnNearLight = darkenHex(palBgPrimary, 0.7);
+  const mtnNearMid = darkenHex(palBgPrimary, 0.5);
+  const mtnNearBase = darkenHex(palBgDeep, 0.7);
+
+  // Mountain ridge highlights
+  const ridgeFarColor = `rgba(${pinkRgb.r}, ${pinkRgb.g}, ${pinkRgb.b}, 0.18)`;
+  const ridgeMidColor = `rgba(${tealRgb.r}, ${tealRgb.g}, ${tealRgb.b}, 0.10)`;
+
+  // Rock texture colors
+  const rockFarLight = palLavender;
+  const rockFarDark = palBgElevated;
+  const rockMidLight = palTeal;
+  const rockMidDark = darkenHex(palBgDeep, 0.6);
+  const rockNearLight = blendHex(palPurple, palBgSurface, 0.5);
+  const rockNearDark = darkenHex(palBgDeep, 0.3);
+
+  // Ground colors
+  const groundTop = palBgPrimary;
+  const groundBottom = palBgDeep;
 
   let animId: number;
   let width: number;
@@ -226,10 +322,10 @@ function initCanvas(): void {
 
     // ---- SKY ----
     const skyGrad = ctx.createLinearGradient(0, 0, 0, horizon);
-    skyGrad.addColorStop(0, '#0d0221');
-    skyGrad.addColorStop(0.4, '#1a0a4a');
-    skyGrad.addColorStop(0.75, '#2d1b69');
-    skyGrad.addColorStop(1, '#4a1a7a');
+    skyGrad.addColorStop(0, skyTop);
+    skyGrad.addColorStop(0.4, skyMid1);
+    skyGrad.addColorStop(0.75, skyMid2);
+    skyGrad.addColorStop(1, skyBottom);
     ctx.fillStyle = skyGrad;
     ctx.fillRect(0, 0, width, horizon);
 
@@ -265,14 +361,14 @@ function initCanvas(): void {
       // Glow for bright stars
       if (brightness > 0.15) {
         ctx.globalAlpha = brightness * 0.3;
-        ctx.fillStyle = '#01cdfe';
+        ctx.fillStyle = palTeal;
         ctx.beginPath();
         ctx.arc(x, y, starSize + 4, 0, Math.PI * 2);
         ctx.fill();
       }
 
       ctx.globalAlpha = alpha;
-      ctx.fillStyle = brightness > 0.2 ? '#ffffff' : '#e8e0f0';
+      ctx.fillStyle = brightness > 0.2 ? '#ffffff' : palTextPrimary;
       ctx.beginPath();
       ctx.arc(x, y, starSize, 0, Math.PI * 2);
       ctx.fill();
@@ -298,7 +394,7 @@ function initCanvas(): void {
           if (alpha > 0.015) {
             ctx.globalAlpha = Math.min(1, alpha);
             ctx.lineWidth = pairBright > 0.2 ? 1.2 : 0.6;
-            ctx.strokeStyle = pairBright > 0.2 ? '#01cdfe' : 'rgba(1, 205, 254, 0.8)';
+            ctx.strokeStyle = pairBright > 0.2 ? palTeal : `rgba(${tealRgb.r}, ${tealRgb.g}, ${tealRgb.b}, 0.8)`;
             ctx.beginPath();
             ctx.moveTo(starPositions[i].x, starPositions[i].y);
             ctx.lineTo(starPositions[j].x, starPositions[j].y);
@@ -386,9 +482,9 @@ function initCanvas(): void {
     const sunY = horizon - 20;
     const sunR = Math.min(width, height) * 0.11;
     const sunGlow = ctx.createRadialGradient(width / 2, sunY, 0, width / 2, sunY, sunR * 2.5);
-    sunGlow.addColorStop(0, '#ff71ce66');
-    sunGlow.addColorStop(0.3, '#b967ff33');
-    sunGlow.addColorStop(0.6, '#01cdfe15');
+    sunGlow.addColorStop(0, sunGlowInner);
+    sunGlow.addColorStop(0.3, sunGlowMid);
+    sunGlow.addColorStop(0.6, sunGlowOuter);
     sunGlow.addColorStop(1, 'transparent');
     ctx.fillStyle = sunGlow;
     ctx.fillRect(0, 0, width, height);
@@ -402,9 +498,9 @@ function initCanvas(): void {
     }
     ctx.clip();
     const discGrad = ctx.createLinearGradient(0, sunY - sunR, 0, sunY + sunR);
-    discGrad.addColorStop(0, '#fffb96');
-    discGrad.addColorStop(0.35, '#ff71ce');
-    discGrad.addColorStop(1, '#b967ff');
+    discGrad.addColorStop(0, sunDiscTop);
+    discGrad.addColorStop(0.35, sunDiscMid);
+    discGrad.addColorStop(1, sunDiscBottom);
     ctx.beginPath();
     ctx.arc(width / 2, sunY, sunR, 0, Math.PI * 2);
     ctx.fillStyle = discGrad;
@@ -541,10 +637,10 @@ function initCanvas(): void {
     // Far range
     const farProfile = mountainProfile(42.7, mtnSegments, horizon, 150);
     const farGrad = ctx.createLinearGradient(0, horizon - 180, 0, horizon);
-    farGrad.addColorStop(0, '#2d1b69');
-    farGrad.addColorStop(0.3, '#1f1055');
-    farGrad.addColorStop(0.7, '#1a0a4a');
-    farGrad.addColorStop(1, '#150535');
+    farGrad.addColorStop(0, mtnFarLight);
+    farGrad.addColorStop(0.3, mtnFarMid);
+    farGrad.addColorStop(0.7, mtnFarDark);
+    farGrad.addColorStop(1, mtnFarBase);
     ctx.fillStyle = farGrad;
     ctx.beginPath();
     ctx.moveTo(0, horizon);
@@ -557,7 +653,7 @@ function initCanvas(): void {
 
     // Ridge highlight
     ctx.save();
-    ctx.strokeStyle = 'rgba(185, 103, 255, 0.18)';
+    ctx.strokeStyle = ridgeFarColor;
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     for (let i = 0; i <= mtnSegments; i++) {
@@ -568,14 +664,14 @@ function initCanvas(): void {
     ctx.stroke();
     ctx.restore();
 
-    drawRockTexture(farProfile, mtnSegments, horizon, '#c88aff', '#1a0a4a');
+    drawRockTexture(farProfile, mtnSegments, horizon, rockFarLight, rockFarDark);
 
     // Mid range
     const midProfile = mountainProfile(19.3, mtnSegments, horizon, 100);
     const midGrad = ctx.createLinearGradient(0, horizon - 120, 0, horizon);
-    midGrad.addColorStop(0, '#1a0a4a');
-    midGrad.addColorStop(0.5, '#130740');
-    midGrad.addColorStop(1, '#0f0328');
+    midGrad.addColorStop(0, mtnMidLight);
+    midGrad.addColorStop(0.5, mtnMidMid);
+    midGrad.addColorStop(1, mtnMidBase);
     ctx.fillStyle = midGrad;
     ctx.beginPath();
     ctx.moveTo(0, horizon);
@@ -587,7 +683,7 @@ function initCanvas(): void {
     ctx.fill();
 
     ctx.save();
-    ctx.strokeStyle = 'rgba(1, 205, 254, 0.10)';
+    ctx.strokeStyle = ridgeMidColor;
     ctx.lineWidth = 1;
     ctx.beginPath();
     for (let i = 0; i <= mtnSegments; i++) {
@@ -598,14 +694,14 @@ function initCanvas(): void {
     ctx.stroke();
     ctx.restore();
 
-    drawRockTexture(midProfile, mtnSegments, horizon, '#4ae0ff', '#0a0220');
+    drawRockTexture(midProfile, mtnSegments, horizon, rockMidLight, rockMidDark);
 
     // Near range
     const nearProfile = mountainProfile(7.1, mtnSegments, horizon + 5, 65);
     const nearGrad = ctx.createLinearGradient(0, horizon - 70, 0, horizon + 5);
-    nearGrad.addColorStop(0, '#0f0328');
-    nearGrad.addColorStop(0.6, '#0a0220');
-    nearGrad.addColorStop(1, '#080118');
+    nearGrad.addColorStop(0, mtnNearLight);
+    nearGrad.addColorStop(0.6, mtnNearMid);
+    nearGrad.addColorStop(1, mtnNearBase);
     ctx.fillStyle = nearGrad;
     ctx.beginPath();
     ctx.moveTo(0, horizon + 5);
@@ -616,12 +712,12 @@ function initCanvas(): void {
     ctx.closePath();
     ctx.fill();
 
-    drawRockTexture(nearProfile, mtnSegments, horizon + 5, '#3d2080', '#050110');
+    drawRockTexture(nearProfile, mtnSegments, horizon + 5, rockNearLight, rockNearDark);
 
     // ---- GROUND ----
     const groundGrad = ctx.createLinearGradient(0, horizon, 0, height);
-    groundGrad.addColorStop(0, '#150535');
-    groundGrad.addColorStop(1, '#0d0221');
+    groundGrad.addColorStop(0, groundTop);
+    groundGrad.addColorStop(1, groundBottom);
     ctx.fillStyle = groundGrad;
     ctx.fillRect(0, horizon, width, height - horizon);
 
@@ -633,7 +729,7 @@ function initCanvas(): void {
       const rawT = ((i / lineCount) + (time * gridSpeed)) % 1.0;
       const y = horizon + (height - horizon) * (rawT * rawT);
       const alpha = 0.08 + rawT * 0.25;
-      ctx.strokeStyle = `rgba(1, 205, 254, ${alpha})`;
+      ctx.strokeStyle = `rgba(${tealRgb.r}, ${tealRgb.g}, ${tealRgb.b}, ${alpha})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(0, y);
@@ -645,7 +741,7 @@ function initCanvas(): void {
     const vanishX = width / 2;
     for (let i = -vLines / 2; i <= vLines / 2; i++) {
       const bottomX = vanishX + i * (width / vLines) * 1.6;
-      ctx.strokeStyle = 'rgba(1, 205, 254, 0.1)';
+      ctx.strokeStyle = `rgba(${tealRgb.r}, ${tealRgb.g}, ${tealRgb.b}, 0.1)`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(vanishX, horizon);
@@ -709,7 +805,7 @@ function initCanvas(): void {
 
         // Outer glow ring
         ctx.globalAlpha = 0.3;
-        ctx.fillStyle = '#01cdfe';
+        ctx.fillStyle = palTeal;
         ctx.beginPath();
         ctx.arc(currentX, currentY, 7, 0, Math.PI * 2);
         ctx.fill();

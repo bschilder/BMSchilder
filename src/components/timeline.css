@@ -181,14 +181,7 @@
   position: relative;
   padding-left: 28px;
   min-width: 0;
-  max-height: 520px;
-  overflow-y: auto;
-  scroll-behavior: smooth;
 }
-
-.tl-stream::-webkit-scrollbar { width: 5px; }
-.tl-stream::-webkit-scrollbar-track { background: transparent; }
-.tl-stream::-webkit-scrollbar-thumb { background: var(--vapor-teal); border-radius: 3px; opacity: 0.4; }
 
 /* Center line */
 .tl-stream::before {
