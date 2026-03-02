@@ -66,7 +66,7 @@ function initTypewriter(): void {
 /* ── Flag slider (planted in the landscape) ── */
 function createFlagSlider(): { getValue: () => number } {
   const hero = document.querySelector('.hero') as HTMLElement;
-  if (!hero) return { getValue: () => 50 };
+  if (!hero) return { getValue: () => 100 };
 
   const wrap = document.createElement('div');
   wrap.className = 'hero__flag-slider';
@@ -75,7 +75,7 @@ function createFlagSlider(): { getValue: () => number } {
       <svg width="22" height="16" viewBox="0 0 22 16"><polygon points="0,0 22,4 0,12" fill="var(--vapor-teal)" opacity="0.85"/></svg>
     </div>
     <div class="hero__flag-pole"></div>
-    <input type="range" min="0" max="100" value="50" class="hero__flag-input" orient="vertical" aria-label="Mountain cragginess" />
+    <input type="range" min="0" max="100" value="100" class="hero__flag-input" orient="vertical" aria-label="Mountain cragginess" />
     <div class="hero__flag-base">▲</div>
   `;
   hero.appendChild(wrap);
@@ -597,7 +597,10 @@ function initCanvas(): void {
           val += Math.sin(t * freqs[o] + seed * seedMults[o]) * weights[o];
         }
         const envelope = Math.sin(t * Math.PI) * 0.7 + 0.3;
-        pts.push(baseY - val * amplitude * ampScale * envelope);
+        // Dip in the center so the sun stays visible
+        const centerDist = (t - 0.5) * 2; // -1..1
+        const sunDip = 1 - Math.exp(-(centerDist * centerDist) / 0.04) * 0.7;
+        pts.push(baseY - val * amplitude * ampScale * envelope * sunDip);
       }
       return pts;
     }
