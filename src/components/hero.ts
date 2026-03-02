@@ -187,7 +187,7 @@ function initCanvas(): void {
       mtnNearLight: darkenHex(bgPrimary, 0.7), mtnNearMid: darkenHex(bgPrimary, 0.5),
       mtnNearBase: darkenHex(bgDeep, 0.7),
       ridgeFarColor: `rgba(${pinkRgb.r}, ${pinkRgb.g}, ${pinkRgb.b}, 0.18)`,
-      ridgeMidColor: `rgba(${C.tealRgb.r}, ${C.tealRgb.g}, ${C.tealRgb.b}, 0.10)`,
+      ridgeMidColor: `rgba(${tealRgb.r}, ${tealRgb.g}, ${tealRgb.b}, 0.10)`,
       rockFarLight: lavender, rockFarDark: bgElevated,
       rockMidLight: teal, rockMidDark: darkenHex(bgDeep, 0.6),
       rockNearLight: blendHex(purple, bgSurface, 0.5), rockNearDark: darkenHex(bgDeep, 0.3),
