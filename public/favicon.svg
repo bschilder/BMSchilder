@@ -1,13 +1,30 @@
-<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="fg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#01cdfe"/>
+      <stop offset="50%" stop-color="#b967ff"/>
       <stop offset="100%" stop-color="#ff71ce"/>
     </linearGradient>
   </defs>
-  <rect width="40" height="40" rx="8" fill="#0d0221"/>
-  <text x="20" y="29" text-anchor="middle" font-family="sans-serif"
-        font-size="26" font-weight="700" fill="url(#fg)">B</text>
-  <path d="M10 8 Q16 14 10 20 Q4 26 10 32" stroke="#01cdfe" stroke-width="1" fill="none" opacity="0.5"/>
-  <path d="M14 8 Q8 14 14 20 Q20 26 14 32" stroke="#ff71ce" stroke-width="1" fill="none" opacity="0.5"/>
+
+  <!-- Dark background -->
+  <rect width="64" height="64" rx="12" fill="#0d0221"/>
+
+  <!-- DNA strand 1 -->
+  <path d="M18 8 C24 18, 24 26, 18 32 C12 38, 12 46, 18 56"
+        stroke="url(#fg)" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- DNA strand 2 -->
+  <path d="M46 8 C40 18, 40 26, 46 32 C52 38, 52 46, 46 56"
+        stroke="url(#fg)" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Rungs -->
+  <line x1="22" y1="14" x2="42" y2="14" stroke="url(#fg)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <line x1="20" y1="23" x2="44" y2="23" stroke="url(#fg)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <line x1="20" y1="41" x2="44" y2="41" stroke="url(#fg)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <line x1="22" y1="50" x2="42" y2="50" stroke="url(#fg)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Central node -->
+  <circle cx="32" cy="32" r="8" stroke="url(#fg)" stroke-width="3" fill="none"/>
+  <circle cx="32" cy="32" r="3.5" fill="url(#fg)"/>
 </svg>

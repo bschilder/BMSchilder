@@ -141,14 +141,30 @@ async function loadThreeJS(): Promise<void> {
       `;
     });
 
-    // Animation loop
+    // Animation loop with proper lifecycle
     let animId: number;
+    let brainRunning = false;
+    let brainInView = false;
+
     function animate() {
-      animId = requestAnimationFrame(animate);
+      if (!brainRunning) return;
       controls.update();
       renderer.render(scene, camera);
+      animId = requestAnimationFrame(animate);
     }
-    animate();
+
+    function startBrain() {
+      if (brainRunning) return;
+      brainRunning = true;
+      controls.autoRotate = true;
+      animate();
+    }
+
+    function stopBrain() {
+      brainRunning = false;
+      cancelAnimationFrame(animId);
+      controls.autoRotate = false;
+    }
 
     // Resize handler
     const resizeObserver = new ResizeObserver(() => {
@@ -158,16 +174,27 @@ async function loadThreeJS(): Promise<void> {
     });
     resizeObserver.observe(container);
 
-    // Pause when hidden
+    // Pause when tab hidden or scrolled out of viewport
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
-        cancelAnimationFrame(animId);
-        controls.autoRotate = false;
-      } else {
-        controls.autoRotate = true;
-        animate();
+        stopBrain();
+      } else if (brainInView) {
+        startBrain();
       }
     });
+
+    const brainIO = new IntersectionObserver(
+      (entries) => {
+        brainInView = entries[0].isIntersecting;
+        if (brainInView && !document.hidden) {
+          startBrain();
+        } else {
+          stopBrain();
+        }
+      },
+      { threshold: 0 },
+    );
+    brainIO.observe(container);
   } catch {
     // Three.js failed to load - show fallback
     const BASE = import.meta.env.BASE_URL;

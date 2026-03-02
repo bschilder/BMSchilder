@@ -139,6 +139,25 @@
   color: var(--vapor-lavender);
 }
 
+.about__paper-link {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-left: 2px;
+  color: var(--vapor-teal);
+  opacity: 0.7;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.about__paper-link:hover {
+  opacity: 1;
+  color: var(--vapor-pink);
+}
+
+.about__paper-link svg {
+  display: block;
+}
+
 .about__metric-link {
   text-decoration: none;
   color: inherit;

@@ -193,7 +193,9 @@ function initTetraMesh(section: HTMLElement): void {
     }
 
     time++;
-    animId = requestAnimationFrame(draw);
+    if (meshRunning) {
+      animId = requestAnimationFrame(draw);
+    }
   }
 
   function drawTri(
@@ -238,13 +240,28 @@ function initTetraMesh(section: HTMLElement): void {
     cx.stroke();
   }
 
-  // Only animate when visible
+  // Lifecycle: only animate when visible in viewport + tab is active
+  let meshRunning = false;
+  let meshInView = false;
+
+  function startMesh() {
+    if (meshRunning) return;
+    meshRunning = true;
+    draw();
+  }
+
+  function stopMesh() {
+    meshRunning = false;
+    cancelAnimationFrame(animId);
+  }
+
   const io = new IntersectionObserver(
     (entries) => {
-      if (entries[0].isIntersecting) {
-        draw();
+      meshInView = entries[0].isIntersecting;
+      if (meshInView && !document.hidden) {
+        startMesh();
       } else {
-        cancelAnimationFrame(animId);
+        stopMesh();
       }
     },
     { threshold: 0 },
@@ -252,6 +269,10 @@ function initTetraMesh(section: HTMLElement): void {
   io.observe(section);
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) cancelAnimationFrame(animId);
+    if (document.hidden) {
+      stopMesh();
+    } else if (meshInView) {
+      startMesh();
+    }
   });
 }

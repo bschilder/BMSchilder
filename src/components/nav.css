@@ -34,6 +34,17 @@
   height: var(--nav-height);
 }
 
+.nav__logo-icon {
+  display: flex;
+  align-items: center;
+  margin-right: var(--space-2);
+  flex-shrink: 0;
+}
+
+.nav__logo-icon svg {
+  display: block;
+}
+
 .nav__collapse {
   display: inline-block;
   max-width: 4em;

@@ -1,3 +1,5 @@
+import { generateLogoSVG } from './logo';
+
 const NAV_LINKS = [
   { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
@@ -14,6 +16,7 @@ export function initNav(): void {
 
   nav.innerHTML = `
     <a href="#hero" class="nav__logo">
+      <span class="nav__logo-icon">${generateLogoSVG(28)}</span>
       <span>B</span><span class="nav__collapse">rian </span><span>M Schilder</span>
     </a>
     <div class="nav__links">

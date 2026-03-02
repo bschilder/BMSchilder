@@ -536,7 +536,7 @@ function initCanvas(): void {
     sunGlow.addColorStop(0.3, C.sunGlowMid);
     sunGlow.addColorStop(0.6, C.sunGlowOuter);
     sunGlow.addColorStop(1, 'transparent');
-    ctx.globalAlpha = 1 + sunHoverGlow * 0.6;
+    ctx.globalAlpha = Math.min(1, 0.7 + sunHoverGlow * 0.3);
     ctx.fillStyle = sunGlow;
     ctx.fillRect(0, 0, width, height);
     ctx.globalAlpha = 1;
@@ -1026,18 +1026,49 @@ function initCanvas(): void {
     }
 
     time++;
+    if (running) {
+      animId = requestAnimationFrame(draw);
+    }
+  }
+
+  // Track whether the hero should animate
+  let heroInView = true;
+  let running = false;
+
+  function startLoop() {
+    if (running) return;
+    running = true;
     animId = requestAnimationFrame(draw);
+  }
+
+  function stopLoop() {
+    running = false;
+    cancelAnimationFrame(animId);
   }
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-      cancelAnimationFrame(animId);
-    } else {
-      draw();
+      stopLoop();
+    } else if (heroInView) {
+      startLoop();
     }
   });
 
+  // Pause hero animation when scrolled out of viewport
+  const heroIO = new IntersectionObserver(
+    (entries) => {
+      heroInView = entries[0].isIntersecting;
+      if (heroInView && !document.hidden) {
+        startLoop();
+      } else {
+        stopLoop();
+      }
+    },
+    { threshold: 0 },
+  );
+  heroIO.observe(canvas.parentElement || canvas);
+
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    draw();
+    startLoop();
   }
 }

@@ -187,13 +187,11 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
   const yearBadges = section.querySelectorAll<HTMLElement>('.tl-year');
 
   let scrollRaf = 0;
+  let programmaticScroll = false;  // prevents scroll→slider→scroll loop
+  let scrollTimer = 0;
 
-  function updateFocus(focusYear: number) {
+  function applyProximityClasses(focusYear: number) {
     yearDisplay.textContent = String(focusYear);
-
-    // Find nearest year badge that actually exists (for years with no events)
-    let scrollTarget: HTMLElement | null = null;
-    let nearestDist = Infinity;
 
     nodes.forEach((node) => {
       const year = Number(node.dataset.year);
@@ -213,30 +211,68 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
       else if (dist <= 1) badge.classList.add('tl-year--near');
       else if (dist <= 3) badge.classList.add('tl-year--mid');
       else badge.classList.add('tl-year--far');
+    });
+  }
 
-      // Track the nearest year badge for scroll target
-      if (dist < nearestDist) {
-        nearestDist = dist;
-        scrollTarget = badge;
-      }
+  /** Slider drives scroll: update classes + scroll stream to year */
+  function updateFromSlider(focusYear: number) {
+    applyProximityClasses(focusYear);
+
+    let scrollTarget: HTMLElement | null = null;
+    let nearestDist = Infinity;
+    yearBadges.forEach((badge) => {
+      const dist = Math.abs(Number(badge.dataset.year) - focusYear);
+      if (dist < nearestDist) { nearestDist = dist; scrollTarget = badge; }
     });
 
-    // Scroll within the .tl-stream container — use rAF so layout settles first
     cancelAnimationFrame(scrollRaf);
     scrollRaf = requestAnimationFrame(() => {
       const target = scrollTarget || section.querySelector('.tl-year--focus') as HTMLElement;
       if (stream && target) {
+        programmaticScroll = true;
         const scrollPos = target.offsetTop - stream.clientHeight / 2 + target.clientHeight / 2;
         stream.scrollTo({ top: scrollPos, behavior: 'smooth' });
+        // Release lock after smooth scroll settles
+        clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(() => { programmaticScroll = false; }, 400);
       }
     });
   }
 
+  /** Scroll drives slider: find which year badge is closest to stream center */
+  function updateFromScroll() {
+    if (programmaticScroll) return;
+
+    const streamCenter = stream.scrollTop + stream.clientHeight / 2;
+    let closestYear = maxYear;
+    let closestDist = Infinity;
+
+    yearBadges.forEach((badge) => {
+      const badgeCenter = badge.offsetTop + badge.clientHeight / 2;
+      const dist = Math.abs(badgeCenter - streamCenter);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestYear = Number(badge.dataset.year);
+      }
+    });
+
+    // Update slider value (inverted: top=max)
+    slider.value = String(minYear + maxYear - closestYear);
+    applyProximityClasses(closestYear);
+  }
+
+  // Slider → scroll
   slider?.addEventListener('input', () => {
-    // Invert: top of slider = max year
     const focusYear = minYear + maxYear - Number(slider.value);
-    updateFocus(focusYear);
+    updateFromSlider(focusYear);
   });
+
+  // Scroll → slider (throttled via rAF)
+  let scrollListenerRaf = 0;
+  stream?.addEventListener('scroll', () => {
+    cancelAnimationFrame(scrollListenerRaf);
+    scrollListenerRaf = requestAnimationFrame(updateFromScroll);
+  }, { passive: true });
 
   // Click item to focus its year
   nodes.forEach((node) => {
@@ -244,7 +280,7 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
       if ((e.target as HTMLElement).closest('a')) return;
       const year = Number(node.dataset.year);
       slider.value = String(minYear + maxYear - year);
-      updateFocus(year);
+      updateFromSlider(year);
     });
   });
 }
