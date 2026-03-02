@@ -3,7 +3,7 @@ const NAV_LINKS = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Timeline', href: '#timeline' },
-  { label: 'Research', href: '#publications' },
+  { label: 'Publications', href: '#publications' },
   { label: 'Software', href: '#tools' },
   { label: 'Artwork', href: '#artwork' },
   { label: 'Contact', href: '#contact' },
@@ -38,25 +38,28 @@ export function initNav(): void {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Scroll-spy
+  // Scroll-spy: highlights the nav link for the section closest to the viewport top
   const sections = NAV_LINKS.map((l) => document.getElementById(l.href.slice(1))).filter(Boolean) as HTMLElement[];
   const links = nav.querySelectorAll<HTMLAnchorElement>('.nav__link');
 
-  const spyObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          links.forEach((link) => {
-            link.classList.toggle('nav__link--active', link.dataset.section === id);
-          });
-        }
-      });
-    },
-    { threshold: 0.2, rootMargin: `-${64}px 0px -40% 0px` }
-  );
+  function updateActiveSection() {
+    const offset = 100; // px below viewport top to consider as "current"
+    let activeId = sections[0]?.id || '';
 
-  sections.forEach((s) => spyObserver.observe(s));
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= offset) {
+        activeId = section.id;
+      }
+    }
+
+    links.forEach((link) => {
+      link.classList.toggle('nav__link--active', link.dataset.section === activeId);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveSection, { passive: true });
+  updateActiveSection();
 
   // Mobile menu
   const hamburger = nav.querySelector('.nav__hamburger')!;
