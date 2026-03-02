@@ -1,4 +1,58 @@
-/* Skills */
+/* Skills — section wrapper for cloud background */
+#skills {
+  position: relative;
+}
+
+/* Cloud layer spans full viewport width, only clips top/bottom */
+.skills__clouds {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  pointer-events: none;
+  z-index: 0;
+  overflow-x: visible;
+  overflow-y: hidden;
+}
+
+.skills__cloud {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+.skills__cloud--pink {
+  background: var(--vapor-pink);
+  box-shadow: 0 0 120px 60px var(--vapor-pink);
+}
+.skills__cloud--teal {
+  background: var(--vapor-teal);
+  box-shadow: 0 0 120px 60px var(--vapor-teal);
+}
+.skills__cloud--purple {
+  background: var(--vapor-purple);
+  box-shadow: 0 0 120px 60px var(--vapor-purple);
+}
+
+@keyframes cloudFloat {
+  0%   { transform: translate(0, 0) scale(1);          opacity: 0.06; }
+  20%  { transform: translate(30px, -20px) scale(1.1);  opacity: 0.10; }
+  45%  { transform: translate(-20px, 15px) scale(0.92); opacity: 0.05; }
+  70%  { transform: translate(20px, 25px) scale(1.08);  opacity: 0.09; }
+  100% { transform: translate(0, 0) scale(1);          opacity: 0.06; }
+}
+
+/* Content sits above clouds */
+#skills > .section__title,
+#skills > .skills__core,
+#skills > .skills__fields,
+#skills > h3 {
+  position: relative;
+  z-index: 1;
+}
+
 .skills__core {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

@@ -307,8 +307,8 @@
 
 .tl-node__detail {
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.3s ease;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s ease;
 }
 
 .tl-node__subtitle {
@@ -477,7 +477,7 @@
 }
 
 .tl-node--focus .tl-node__detail {
-  max-height: 600px;
+  max-height: 400px;
   opacity: 1;
 }
 

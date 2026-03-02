@@ -27,7 +27,34 @@ export function initSkills(data: CVData): void {
   // Group field skills
   const fieldGroups = groupBy(fieldSkills, 'Group');
 
+  // Build cloud plumes after render
+  function spawnClouds() {
+    const cloudLayer = section.querySelector('.skills__clouds') as HTMLElement;
+    if (!cloudLayer) return;
+
+    const clouds = [
+      { cls: 'pink',   size: 400, x: 5,  y: 5,  dur: 28, delay: 0 },
+      { cls: 'teal',   size: 350, x: 65, y: 15, dur: 34, delay: -8 },
+      { cls: 'purple', size: 420, x: 35, y: 50, dur: 26, delay: -14 },
+      { cls: 'pink',   size: 320, x: 75, y: 60, dur: 32, delay: -4 },
+      { cls: 'teal',   size: 380, x: 15, y: 75, dur: 30, delay: -18 },
+      { cls: 'purple', size: 300, x: 50, y: 30, dur: 36, delay: -10 },
+    ];
+
+    clouds.forEach((c) => {
+      const el = document.createElement('div');
+      el.className = `skills__cloud skills__cloud--${c.cls}`;
+      el.style.width = `${c.size}px`;
+      el.style.height = `${c.size}px`;
+      el.style.left = `${c.x}%`;
+      el.style.top = `${c.y}%`;
+      el.style.animation = `cloudFloat ${c.dur}s ease-in-out ${c.delay}s infinite`;
+      cloudLayer.appendChild(el);
+    });
+  }
+
   section.innerHTML = `
+    <div class="skills__clouds"></div>
     <h2 class="section__title">Skills</h2>
     <div class="skills__core fade-in">
       ${Object.entries(coreGroups).map(([group, skills]) => renderCoreCard(group, skills, {
@@ -45,6 +72,8 @@ export function initSkills(data: CVData): void {
       ${Object.entries(fieldGroups).map(([group, skills]) => renderFieldGroup(group, skills)).join('')}
     </div>
   `;
+
+  spawnClouds();
 
   // Toggle core card items
   section.querySelectorAll('.skill-card__header').forEach((header) => {

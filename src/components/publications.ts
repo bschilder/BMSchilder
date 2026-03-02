@@ -11,6 +11,7 @@ const PUB_LABELS: Record<string, string> = {
 
 export function initPublications(data: CVData): void {
   const section = document.getElementById('publications')!;
+
   const allowedTypes = new Set(['publication', 'preprint', 'poster']);
   const pubs = [...data.publications].filter(p => allowedTypes.has(p.Type)).sort((a, b) => b.Year - a.Year);
 

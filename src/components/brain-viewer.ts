@@ -6,7 +6,7 @@ export function initBrainViewer(): void {
     <div class="brain-viewer__container" id="brain-container">
       <div class="brain-viewer__loading">Loading 3D viewer...</div>
     </div>
-    <p class="brain-viewer__controls-hint">Click and drag to rotate. Scroll to zoom. Generated from MRI scans.</p>
+    <p class="brain-viewer__controls-hint">Click and drag to rotate. Scroll to zoom. This is actually my own brain, rendered from a personal MRI scan.</p>
   `;
 
   // Lazy-load Three.js when section comes into view
@@ -101,6 +101,10 @@ async function loadThreeJS(): Promise<void> {
       });
 
       const mesh = new THREE.Mesh(geometry, material);
+
+      // Rotate from MRI coordinates to natural viewing orientation
+      // (frontal lobe was pointing up along +Y; tip it forward along -Z)
+      mesh.rotation.x = -Math.PI / 2;
 
       // Wireframe overlay
       const wireframe = new THREE.WireframeGeometry(geometry);

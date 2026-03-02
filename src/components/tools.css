@@ -1,4 +1,26 @@
 /* Tools */
+#tools {
+  position: relative;
+}
+
+/* Full-width animated tetrahedron mesh */
+.tools-mesh {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#tools > .section__title,
+#tools > .tools__filters,
+#tools > .tools__size-control,
+#tools > .tools__grid {
+  position: relative;
+  z-index: 1;
+}
+
 .tools__filters {
   display: flex;
   flex-wrap: wrap;

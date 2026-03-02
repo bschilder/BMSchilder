@@ -2,6 +2,8 @@ import type { CVData } from '../types/cv-data';
 
 export function initTools(data: CVData): void {
   const section = document.getElementById('tools')!;
+  initTetraMesh(section);
+
   const tools = data.tools;
 
   const languages = [...new Set(tools.map((t) => t.Language).filter(Boolean))].sort();
@@ -88,4 +90,168 @@ export function initTools(data: CVData): void {
   }
 
   render();
+}
+
+/* ── Animated tetrahedron mesh background ── */
+function initTetraMesh(section: HTMLElement): void {
+  const canvas = document.createElement('canvas');
+  canvas.className = 'tools-mesh';
+  // Insert before any content; re-insert after each innerHTML wipe via MutationObserver
+  section.prepend(canvas);
+
+  const mo = new MutationObserver(() => {
+    if (!section.contains(canvas)) {
+      section.prepend(canvas);
+    }
+  });
+  mo.observe(section, { childList: true });
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let w = 0;
+  let h = 0;
+  let animId = 0;
+
+  const COLS = 28;
+  const ROWS = 18;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = section.offsetHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+    ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  const ro = new ResizeObserver(resize);
+  ro.observe(section);
+
+  function cssVar(name: string, fallback: string): string {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+  }
+
+  function hexToRgb(hex: string): { r: number; g: number; b: number } {
+    const c = hex.replace('#', '');
+    return {
+      r: parseInt(c.substring(0, 2), 16),
+      g: parseInt(c.substring(2, 4), 16),
+      b: parseInt(c.substring(4, 6), 16),
+    };
+  }
+
+  let time = 0;
+
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, w, h);
+
+    const teal = cssVar('--vapor-teal', '#01cdfe');
+    const purple = cssVar('--vapor-purple', '#b967ff');
+    const pink = cssVar('--vapor-pink', '#ff71ce');
+    const tealRgb = hexToRgb(teal);
+    const purpleRgb = hexToRgb(purple);
+    const pinkRgb = hexToRgb(pink);
+
+    const cellW = w / COLS;
+    const cellH = h / ROWS;
+    const t = time * 0.006;
+
+    // Build vertex grid with animated wave displacement
+    const verts: { x: number; y: number; z: number }[][] = [];
+    for (let row = 0; row <= ROWS; row++) {
+      verts[row] = [];
+      for (let col = 0; col <= COLS; col++) {
+        const bx = col * cellW;
+        const by = row * cellH;
+        const z =
+          Math.sin(col * 0.4 + t * 1.2) * 12 +
+          Math.cos(row * 0.5 + t * 0.8) * 10 +
+          Math.sin((col + row) * 0.3 + t * 1.5) * 8 +
+          Math.cos(col * 0.15 - t * 0.6) * 6;
+        const jx = Math.sin(col * 2.3 + row * 1.7 + t * 0.4) * cellW * 0.08;
+        const jy = Math.cos(col * 1.9 + row * 2.1 + t * 0.3) * cellH * 0.08;
+        verts[row][col] = { x: bx + jx, y: by + jy, z };
+      }
+    }
+
+    for (let row = 0; row < ROWS; row++) {
+      for (let col = 0; col < COLS; col++) {
+        const tl = verts[row][col];
+        const tr = verts[row][col + 1];
+        const bl = verts[row + 1][col];
+        const br = verts[row + 1][col + 1];
+        drawTri(ctx, tl, tr, bl, col, row, 0, tealRgb, purpleRgb, pinkRgb);
+        drawTri(ctx, tr, br, bl, col, row, 1, tealRgb, purpleRgb, pinkRgb);
+      }
+    }
+
+    time++;
+    animId = requestAnimationFrame(draw);
+  }
+
+  function drawTri(
+    cx: CanvasRenderingContext2D,
+    a: { x: number; y: number; z: number },
+    b: { x: number; y: number; z: number },
+    c: { x: number; y: number; z: number },
+    col: number, row: number, _tri: number,
+    tealRgb: { r: number; g: number; b: number },
+    purpleRgb: { r: number; g: number; b: number },
+    pinkRgb: { r: number; g: number; b: number },
+  ) {
+    const avgZ = (a.z + b.z + c.z) / 3;
+    const zNorm = (avgZ + 36) / 72;
+
+    // Color blend: teal → purple → pink based on wave height
+    let r: number, g: number, bv: number;
+    if (zNorm < 0.5) {
+      const t2 = zNorm * 2;
+      r = tealRgb.r + (purpleRgb.r - tealRgb.r) * t2;
+      g = tealRgb.g + (purpleRgb.g - tealRgb.g) * t2;
+      bv = tealRgb.b + (purpleRgb.b - tealRgb.b) * t2;
+    } else {
+      const t2 = (zNorm - 0.5) * 2;
+      r = purpleRgb.r + (pinkRgb.r - purpleRgb.r) * t2;
+      g = purpleRgb.g + (pinkRgb.g - purpleRgb.g) * t2;
+      bv = purpleRgb.b + (pinkRgb.b - purpleRgb.b) * t2;
+    }
+
+    const brightness = 0.3 + zNorm * 0.7;
+    const alpha = 0.06 + brightness * 0.10;
+
+    // Wireframe only — no fill
+    cx.globalAlpha = alpha;
+    cx.strokeStyle = `rgb(${Math.round(r)},${Math.round(g)},${Math.round(bv)})`;
+    cx.lineWidth = 0.7;
+    cx.beginPath();
+    cx.moveTo(a.x, a.y);
+    cx.lineTo(b.x, b.y);
+    cx.lineTo(c.x, c.y);
+    cx.closePath();
+    cx.stroke();
+  }
+
+  // Only animate when visible
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        draw();
+      } else {
+        cancelAnimationFrame(animId);
+      }
+    },
+    { threshold: 0 },
+  );
+  io.observe(section);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(animId);
+  });
 }

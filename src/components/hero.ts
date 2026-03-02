@@ -75,7 +75,7 @@ function createFlagSlider(): { getValue: () => number } {
       <svg width="22" height="16" viewBox="0 0 22 16"><polygon points="0,0 22,4 0,12" fill="var(--vapor-teal)" opacity="0.85"/></svg>
     </div>
     <div class="hero__flag-pole"></div>
-    <input type="range" min="0" max="100" value="100" class="hero__flag-input" orient="vertical" aria-label="Mountain cragginess" />
+    <input type="range" min="0" max="100" value="50" class="hero__flag-input" orient="vertical" aria-label="Mountain cragginess" />
     <div class="hero__flag-base">▲</div>
   `;
   hero.appendChild(wrap);
@@ -574,18 +574,19 @@ function initCanvas(): void {
 
     // ---- MOUNTAINS ----
     const crag = mtnSlider.getValue() / 100; // 0..1
-    // Higher max: amplitude scale goes from 0.3 (gentle) to 2.0 (towering)
-    const ampScale = 0.3 + crag * 1.7;
+    const rough = Math.min(1, crag * 2);     // 2× cragginess, clamped
+    // Amplitude: 0.3 at min, ~4.0 at midpoint (50), 8.0 at max (100)
+    const ampScale = 0.3 + crag * 7.7;
 
     function mountainProfile(seed: number, segments: number, baseY: number, amplitude: number): number[] {
       const pts: number[] = [];
       const weights = [
         0.30,
-        0.18 + crag * 0.12,
-        0.05 + crag * 0.20,
-        crag * 0.22,
-        crag * crag * 0.14,
-        crag * crag * crag * 0.08,
+        0.18 + rough * 0.12,
+        0.05 + rough * 0.20,
+        rough * 0.22,
+        rough * rough * 0.14,
+        rough * rough * rough * 0.08,
       ];
       const freqs = [3.1, 7.7, 15.3, 31.1, 63.7, 127.0];
       const seedMults = [1, 2.3, 0.7, 1.9, 3.1, 0.3];
@@ -596,10 +597,11 @@ function initCanvas(): void {
         for (let o = 0; o < freqs.length; o++) {
           val += Math.sin(t * freqs[o] + seed * seedMults[o]) * weights[o];
         }
-        const envelope = Math.sin(t * Math.PI) * 0.7 + 0.3;
-        // Dip in the center so the sun stays visible
+        // U-shaped envelope: tallest at edges, lowest in center
+        const envelope = (1 - Math.sin(t * Math.PI)) * 0.7 + 0.3;
+        // Gentle extra dip right at the sun for clearance
         const centerDist = (t - 0.5) * 2; // -1..1
-        const sunDip = 1 - Math.exp(-(centerDist * centerDist) / 0.04) * 0.7;
+        const sunDip = 1 - Math.exp(-(centerDist * centerDist) / 0.06) * 0.4;
         pts.push(baseY - val * amplitude * ampScale * envelope * sunDip);
       }
       return pts;
@@ -626,11 +628,11 @@ function initCanvas(): void {
       lightColor: string, darkColor: string,
     ) {
       if (!ctx) return;
-      const intensity = 0.2 + crag * 0.8;
+      const intensity = 0.2 + rough * 0.8;
 
-      // Grid resolution scales with cragginess
-      const cols = Math.floor(18 + crag * 30);
-      const rows = Math.floor(6 + crag * 14);
+      // Grid resolution scales with roughness
+      const cols = Math.floor(18 + rough * 30);
+      const rows = Math.floor(6 + rough * 14);
 
       const lightRgb = hexToRgb(lightColor);
       const darkRgb = hexToRgb(darkColor);
@@ -665,8 +667,8 @@ function initCanvas(): void {
           const bl = { x: x0, y: ridgeY0 + yPctNext * yRange0 };
           const br = { x: x1, y: ridgeY1 + yPctNext * yRange1 };
           // Offset center point for irregular triangulation
-          const jitterX = Math.sin(col * 7.3 + row * 13.1) * (x1 - x0) * 0.2 * crag;
-          const jitterY = Math.cos(col * 11.7 + row * 5.3) * (yPctNext - yPct) * yRangeMid * 0.25 * crag;
+          const jitterX = Math.sin(col * 7.3 + row * 13.1) * (x1 - x0) * 0.2 * rough;
+          const jitterY = Math.cos(col * 11.7 + row * 5.3) * (yPctNext - yPct) * yRangeMid * 0.25 * rough;
           const cx = xMid + jitterX;
           const cy = ridgeYMid + ((yPct + yPctNext) / 2) * yRangeMid + jitterY;
 
@@ -702,9 +704,9 @@ function initCanvas(): void {
             ctx.fill();
 
             // Draw edges for wireframe look
-            ctx.globalAlpha = intensity * (0.06 + crag * 0.12);
+            ctx.globalAlpha = intensity * (0.06 + rough * 0.12);
             ctx.strokeStyle = lightColor;
-            ctx.lineWidth = 0.4 + crag * 0.3;
+            ctx.lineWidth = 0.4 + rough * 0.3;
             ctx.stroke();
           }
         }
@@ -719,15 +721,15 @@ function initCanvas(): void {
       lightColor: string, darkColor: string,
     ) {
       if (!ctx) return;
-      const intensity = 0.15 + crag * 0.85;
+      const intensity = 0.15 + rough * 0.85;
 
       // Horizontal strata bands
-      const strataCount = Math.floor(4 + crag * 12);
+      const strataCount = Math.floor(4 + rough * 12);
       for (let s = 0; s < strataCount; s++) {
         const bandPct = (s + 0.5) / strataCount;
-        ctx.globalAlpha = intensity * (0.06 + crag * 0.10);
+        ctx.globalAlpha = intensity * (0.06 + rough * 0.10);
         ctx.strokeStyle = s % 2 === 0 ? lightColor : darkColor;
-        ctx.lineWidth = 0.8 + crag * 0.5;
+        ctx.lineWidth = 0.8 + rough * 0.5;
         ctx.beginPath();
         for (let i = 0; i <= segments; i++) {
           const x = (i / segments) * width;
@@ -735,7 +737,7 @@ function initCanvas(): void {
           const yRange = baseY - ridgeY;
           if (yRange < 4) continue;
           const bandY = ridgeY + bandPct * yRange;
-          const wobble = Math.sin(x * 0.02 + s * 7.3) * (2 + crag * 4);
+          const wobble = Math.sin(x * 0.02 + s * 7.3) * (2 + rough * 4);
           if (i === 0) ctx.moveTo(x, bandY + wobble);
           else ctx.lineTo(x, bandY + wobble);
         }
@@ -754,13 +756,13 @@ function initCanvas(): void {
         const dotX = dot.xPct * width;
         const dotY = ridgeY + dot.yPct * yRange;
         const alpha = (0.08 + dot.seed * 0.15) * intensity;
-        const size = dot.size * (0.6 + crag * 0.8);
+        const size = dot.size * (0.6 + rough * 0.8);
 
         ctx.globalAlpha = alpha;
         ctx.fillStyle = dot.seed > 0.5 ? lightColor : darkColor;
 
-        if (crag > 0.4 && di % 3 === 0) {
-          const shardSize = size * (1.0 + crag);
+        if (rough > 0.4 && di % 3 === 0) {
+          const shardSize = size * (1.0 + rough);
           const angle = dot.xPct * 17 + dot.yPct * 31;
           ctx.beginPath();
           ctx.moveTo(dotX, dotY - shardSize);
@@ -776,7 +778,7 @@ function initCanvas(): void {
       }
 
       // Crack lines (vertical fissures)
-      const crackCount = Math.floor(crag * 18);
+      const crackCount = Math.floor(rough * 18);
       for (let c = 0; c < crackCount; c++) {
         const crack = rockDots[c % ROCK_SEEDS];
         const seg = Math.floor(crack.xPct * segments);
@@ -788,15 +790,15 @@ function initCanvas(): void {
         const crackTopY = ridgeY + crack.yPct * yRange * 0.3;
         const crackLen = yRange * (0.15 + crack.seed * 0.35);
 
-        ctx.globalAlpha = (0.1 + crag * 0.2) * intensity;
+        ctx.globalAlpha = (0.1 + rough * 0.2) * intensity;
         ctx.strokeStyle = darkColor;
-        ctx.lineWidth = 0.5 + crag * 0.8;
+        ctx.lineWidth = 0.5 + rough * 0.8;
         ctx.beginPath();
         ctx.moveTo(crackX, crackTopY);
-        const steps = 3 + Math.floor(crag * 4);
+        const steps = 3 + Math.floor(rough * 4);
         for (let s = 1; s <= steps; s++) {
           const t = s / steps;
-          const jitter = (Math.sin(crackX * 0.1 + s * 5.7 + crack.seed * 20) * 3) * crag;
+          const jitter = (Math.sin(crackX * 0.1 + s * 5.7 + crack.seed * 20) * 3) * rough;
           ctx.lineTo(crackX + jitter, crackTopY + crackLen * t);
         }
         ctx.stroke();
