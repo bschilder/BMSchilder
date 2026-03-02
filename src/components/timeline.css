@@ -484,7 +484,7 @@
   background: var(--gradient-card);
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-5);
 }
 
 .tl-node--near .tl-node__title {
@@ -524,7 +524,7 @@
   background: var(--gradient-card);
   border: 1px solid var(--border-glow);
   border-radius: 10px;
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-6) var(--space-8);
   box-shadow: var(--glow-teal);
 }
 
