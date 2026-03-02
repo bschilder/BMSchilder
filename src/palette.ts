@@ -10,15 +10,16 @@
  * ║    'arctic'      — ice blue/white/silver       ║
  * ║    'sakura'      — cherry blossom pink/white   ║
  * ║    'lagoon'      — minty teal/purple/pink      ║
+ * ║    'greyscale'   — monochrome silver/white      ║
  * ╚═══════════════════════════════════════════════╝
  */
-export let ACTIVE_PALETTE: PaletteName = 'lagoon';
+export let ACTIVE_PALETTE: PaletteName = 'vaporwave';
 
 // ─────────────────────────────────────────────────
 
-export type PaletteName = 'vaporwave' | 'midnight' | 'sunset' | 'cyberpunk' | 'arctic' | 'sakura' | 'lagoon';
+export type PaletteName = 'vaporwave' | 'midnight' | 'sunset' | 'cyberpunk' | 'arctic' | 'sakura' | 'lagoon' | 'greyscale';
 
-export const PALETTE_NAMES: PaletteName[] = ['vaporwave', 'midnight', 'sunset', 'cyberpunk', 'arctic', 'sakura', 'lagoon'];
+export const PALETTE_NAMES: PaletteName[] = ['vaporwave', 'midnight', 'sunset', 'cyberpunk', 'arctic', 'sakura', 'lagoon', 'greyscale'];
 
 /** Cycle to the next palette and apply it. Returns the new palette name. */
 export function cyclePalette(): PaletteName {
@@ -211,6 +212,29 @@ const PALETTES: Record<PaletteName, Palette> = {
     gradientText: 'linear-gradient(90deg, #05ffa1 0%, #00e5c8 30%, #a37be8 65%, #e88acd 100%)',
     gradientCard: 'linear-gradient(160deg, #0c2828 0%, #061a1a 100%)',
     gradientHero: 'linear-gradient(135deg, #030f0f 0%, #0c2828 30%, #123535 60%, #061a1a 100%)',
+  },
+
+  greyscale: {
+    bgDeep: '#0a0a0a',
+    bgPrimary: '#141414',
+    bgElevated: '#1e1e1e',
+    bgSurface: '#2a2a2a',
+    pink: '#c0c0c0',
+    teal: '#d0d0d0',
+    purple: '#a0a0a0',
+    lavender: '#b8b8b8',
+    peach: '#e0e0e0',
+    mint: '#e8e8e8',
+    gold: '#f0f0f0',
+    coral: '#909090',
+    textPrimary: '#e8e8e8',
+    textSecondary: '#999999',
+    textDim: '#555555',
+    borderSubtle: '#2a2a2a40',
+    borderGlow: '#d0d0d033',
+    gradientText: 'linear-gradient(90deg, #e8e8e8 0%, #c0c0c0 40%, #a0a0a0 70%, #d0d0d0 100%)',
+    gradientCard: 'linear-gradient(160deg, #1e1e1e 0%, #141414 100%)',
+    gradientHero: 'linear-gradient(135deg, #0a0a0a 0%, #1e1e1e 30%, #2a2a2a 60%, #141414 100%)',
   },
 };
 
