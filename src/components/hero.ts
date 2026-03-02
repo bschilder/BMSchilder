@@ -202,6 +202,10 @@ function initCanvas(): void {
   let sunBarOffset = 0;    // vertical offset for animating bar scroll on click
   let sunBarSpeed = 0;     // decaying speed for bar animation
 
+  // Palette name toast
+  let toastText = '';
+  let toastAlpha = 0;      // 0..1, fades out over time
+
   let animId: number;
   let width: number;
   let height: number;
@@ -286,10 +290,13 @@ function initCanvas(): void {
     const dySun = clickY - sunY;
     if (Math.sqrt(dxSun * dxSun + dySun * dySun) < sunR * 1.3) {
       // Cycle palette and recompute colors
-      cyclePalette();
+      const newName = cyclePalette();
       C = computeColors();
       // Trigger bar scroll animation
       sunBarSpeed = 6;
+      // Show palette name toast
+      toastText = newName;
+      toastAlpha = 1;
       canvas.style.cursor = 'pointer';
       return;
     }
@@ -874,6 +881,32 @@ function initCanvas(): void {
     // Decay shooting star activation
     for (let si = 0; si < NUM_STARS; si++) {
       starShootActivated[si] *= 0.992;
+    }
+
+    // ---- PALETTE NAME TOAST ----
+    if (toastAlpha > 0.01) {
+      ctx.save();
+      ctx.globalAlpha = toastAlpha;
+      ctx.font = '600 14px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const toastY = horizon - 20 - (Math.min(width, height) * 0.11) - 30 + (1 - toastAlpha) * -12;
+      // Background pill
+      const metrics = ctx.measureText(toastText);
+      const pillW = metrics.width + 24;
+      const pillH = 26;
+      ctx.fillStyle = C.groundTop;
+      ctx.beginPath();
+      ctx.roundRect(width / 2 - pillW / 2, toastY - pillH / 2, pillW, pillH, 13);
+      ctx.fill();
+      ctx.strokeStyle = C.palTeal;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      // Text
+      ctx.fillStyle = C.palTeal;
+      ctx.fillText(toastText, width / 2, toastY);
+      ctx.restore();
+      toastAlpha *= 0.98;
     }
 
     // ---- SCANLINES ----
