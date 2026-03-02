@@ -208,9 +208,14 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
       else badge.classList.add('tl-year--far');
     });
 
-    // Scroll the focused year into view
-    const focusBadge = section.querySelector(`.tl-year--focus`);
-    focusBadge?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Scroll within the .tl-stream container (not the page)
+    const stream = section.querySelector('.tl-stream') as HTMLElement;
+    const focusBadge = section.querySelector(`.tl-year--focus`) as HTMLElement;
+    if (stream && focusBadge) {
+      const badgeTop = focusBadge.offsetTop - stream.offsetTop;
+      const target = badgeTop - stream.clientHeight / 2 + focusBadge.clientHeight / 2;
+      stream.scrollTo({ top: target, behavior: 'smooth' });
+    }
   }
 
   slider?.addEventListener('input', () => {
