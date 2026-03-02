@@ -1,0 +1,30 @@
+{
+  "name": "bmschilder",
+  "version": "2.0.0",
+  "description": "Brian M. Schilder - Personal Website",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "copy-data": "cp -r cv/cv_data/* public/data/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bschilder/BMSchilder.git"
+  },
+  "author": "Brian M. Schilder",
+  "license": "ISC",
+  "homepage": "https://bschilder.github.io/BMSchilder",
+  "devDependencies": {
+    "@types/papaparse": "^5.5.2",
+    "@types/three": "^0.183.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "lucide": "^0.576.0",
+    "papaparse": "^5.5.3",
+    "three": "^0.183.2"
+  }
+}

@@ -1,0 +1,24 @@
+/* Footer */
+.footer {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  border-top: 1px solid transparent;
+  background-image: linear-gradient(var(--bg-deep), var(--bg-deep)),
+    var(--gradient-text);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+  border-top: 1px solid transparent;
+}
+
+.footer__text {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+.footer__text a {
+  color: var(--text-secondary);
+}
+
+.footer__text a:hover {
+  color: var(--vapor-teal);
+}

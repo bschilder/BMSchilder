@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bschilder.github.io/BMSchilder/sitemap.xml

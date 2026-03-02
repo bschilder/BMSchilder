@@ -1,684 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>B.M.Schilder</title>
-    <meta name="google-site-verification" content="HlmmtnV4N7E_6t-KEs-rYCh0zL__F_XXFeMpveV-Naw" />
-     <!-- Preview images -->
-     <!-- https://stackoverflow.com/questions/62743304/customize-preview-image-for-github-pages -->
-    <meta property="og:image" content="./images/preview_image.png" />
-    <meta name="twitter:image" content="./images/preview_image.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brian M. Schilder — Computational Genomics &amp; AI</title>
+  <meta name="description" content="Brian M. Schilder — Postdoctoral Research Scientist at Cold Spring Harbor Laboratory. Computational Genomics, AI & Machine Learning." />
 
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,400italic,600,300italic,300|Oswald:400,300,700'
-        rel='stylesheet' type='text/css'>
+  <!-- OG / Social -->
+  <meta property="og:title" content="Brian M. Schilder" />
+  <meta property="og:description" content="Computational Genomics &amp; AI Researcher" />
+  <meta property="og:image" content="https://bschilder.github.io/BMSchilder/images/preview.png" />
+  <meta property="og:url" content="https://bschilder.github.io/BMSchilder" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+  <!-- Google verification -->
+  <meta name="google-site-verification" content="0vBmYFrlXn4yJCsDJoPOJRI3nGES7Qqq9LWzB5MUqpc" />
 
-    <!-- Bootstrap -->
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/font-awesome.min.css" rel="stylesheet"> 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <link href="./css/style.css" rel="stylesheet"> 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/BMSchilder/favicon.svg" />
+  <link rel="icon" href="/BMSchilder/favicon.ico" />
 
-    <!-- Network particles visualization -->
-    <link rel="stylesheet" href="css/neural_style.css">
-    <script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
-    <script src='https://threejs.org/examples/js/libs/stats.min.js'></script>
-
-    <!-- Carousel -->
-    <!-- <link href="./css/owl.carousel.css" rel="stylesheet">
-    <link href="./css/owl.theme.css" rel="stylesheet">
-    <link href="./css/owl.transitions.css" rel="stylesheet"> -->
-    <!-- <link href="./css/Carousel.scss" rel="stylesheet">  -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <!-- D3 -->
-	<script src="https://d3js.org/d3.v5.min.js"></script> 
-
-    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-    <!-- [if lt IE 9]> -->
-    <!-- <script src="js/html5shiv.min.js"></script>
-		<script src="js/respond.min.js"></script> -->
-    <!-- <![endif] -->
+  <script type="module" src="/src/main.ts"></script>
 </head>
-
-<body data-spy="scroll" data-target=".main-nav">
-
-    <header class="st-navbar">
-        <nav class="navbar navbar-default navbar-fixed-top clearfix" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sept-main-nav">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#home" id="logo"> 
-                            <h2 style="color: rgba(255, 255, 255, 0.7);"> 
-                                <img src="./images/network_icon4.png" alt=""  >
-                                Brian M Schilder </h2>  
-                    </a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse main-nav" id="sept-main-nav">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li> 
-                        <li><a href="#skills">Skills</a></li> 
-                        <li><a href="#portfolio">Research</a></li>
-                        <li><a href="#timeline">Timeline</a></li>
-                        <li><a href="#artwork">Artwork</a></li>
-                        <li><a href="#contact">Contact</a></li> 
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-        </nav>
-    </header>
-
-
-
-
-
-
-
-    <section class="neural">
-        <div id="particles-js"></div>
-        <script src="./js/neural.js"></script>
-
-
-        <div class="home container" id="home" data-stellar-background-ratio="0.4" style="pointer-events: none;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="st-home-unit">
-                            <div class="hero-txt">
-                                <h2 class="hero-title"><span>B</span>rian <span>M</span> <span>S</span>childer</h2>
-                                <!-- <a href="#" class="btn btn-default btn-lg left-btn">Purchase Now</a> -->
-                                <a href="#about" class="btn btn-main btn-lg">Multi-disciplinary researcher</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mouse-icon">
-                <div class="wheel"></div>
-            </div>
-        </div>
-
-    </section>
-
-
-
-    <section class="about">
-        <div class="container">
-            <div id="about" class="section-title st-center">
-                <p>About Me</p>
-                <h1>Passionately pursuing research to improve human lives</h1>
-            </div>
-            <div class="row">
-                <div class="col-md-6 about_col1">
-                    <div style="border-radius: 50px;">
-                    <!-- <div class="image-cropper"> -->
-                        <img src="./photos/Imperial_headshot_bright.jpg" class="rounded"  style="border-radius: 100px; padding:50px">
-                    </div>
-
-                    <h2>
-                        <p style="color:white">PhD Candidate</p>
-                    </h2>
-                    <h3><a href="https://www.neurogenomics.co.uk/", target="_blank">Neurogenomics Lab</a></h3>
-                    <h3><a href="https://www.imperial.ac.uk/dementia-research-institute" target="_blank">
-                        UK Dementia Research Institute</a></h3>
-                    <h3><a href="https://www.imperial.ac.uk/" target="_blank">Imperial College London</a></h3>
-                    <h3><a href="https://www.imperial.ac.uk/brain-sciences/" target="_blank">
-                        Department of Brain Sciences</a></h3>
-                    <h3><a href="https://www.imperial.ac.uk/medicine/" target="_blank">
-                        Faculty of Medicine</a></h3>
-
-
-                    <a href="https://goo.gl/maps/Uqfu3kiFqGFVLk9r5" target="_blank">
-                        <h4><i class="fa fa-map-marker" aria-hidden="true"></i> 
-                            Sir Michael Uren Hub<br>
-                            86 Wood Ln, London W12 0BZ
-                        </h4>
-                    </a>
-                    <!-- <div class="container" style="height:100px; width:100px">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9931.425329194386!2d-0.2252862!3d51.5158517!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6a3c35cddb839a3b!2sSir%20Michael%20Uren%20Hub%2C%20Imperial%20College!5e0!3m2!1sen!2suk!4v1606130367634!5m2!1sen!2suk" width="100" height="100" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                    </div>> --> 
-                    <br><br>
-                    <h2 style="color:white">Affiliations</h2>
-                    <div  style="background-color: rgba(255,255,255, 0.9); border-radius: 5px;">
-                        <a href="https://ukdri.ac.uk/" target="_blank">
-                            <img src="./logos/UKDRI.svg" id="UKDRI_logo"  alt="" class="img-responsive">
-                        </a>
-                        <br>
-                        <a href="https://www.imperial.ac.uk/" target="_blank">
-                            <img src="./logos/Imperial_noBG.png" id="ICL_logo"  alt="" class="img-responsive">
-                        </a>
-                        <br>
-                        <a href="http://demondementia.com/" target="_blank">
-                            <img src="./logos/DEMON.png" id="DEMON_logo"  alt="" class="img-responsive">
-                        </a>
-                    </div>
-                   
-                     
-                    <br><br><br>
-                </div>
-
-              
-
-
-                <div class="col-md-6" style="border-left-style: solid;   border-left-width: .5px; border-left-color: gray">
-                    <p style="color: rgba(255, 255, 255, 0.9); letter-spacing: 1px;">As a researcher with experience in a variety of fields, I am a believer in the innovation and insights that can be gained from highly inter-disciplinary research. 
-                        In 2011, I earned my ScB in Cognitive Neuroscience from 
-                        <a href="https://www.brown.edu/academics/cognitive-linguistic-psychological-sciences" target="_blank">Brown University (Providence, RI)</a>. 
-                        The core focus of my work was and continues to be the investigation of human susceptibility to diseases and disorders in order to impact human health and alleviate suffering.
-                        <br><br>
-                        In order to uncover the evolutionary underpinnings of human-specific cognitive abilities and neurobiological susceptibilities, 
-                        I then took on jobs in two labs simultaneously (as Lab Manager and Research Assistant, respectively) at <a href="https://www.gwu.edu" target="_blank">The George Washington University (Washington, DC)</a>. 
-                        At the same institution, I went on to earn my MPhil in Human Paleobiology (2017) investigating the neuroanatomical, transcriptomic and genomic evolution of the hippocampus, adult neurogenesis and episodic memory. 
-                        During this time, I became increasingly interested in applying programming and computational techniques to expand the scale and scope of the questions that I’m able to address.
-                        <br><br>
-                        In the pursuit of further advancing my skills as a computational researcher, 
-                        I thereafter accepted a position as a Bioinformatician at the <a href="https://icahn.mssm.edu" target="_blank">Icahn School of Medicine at Mount Sinai (New York City, NY)</a>. 
-                        There, in the labs of <a href="https://labs.icahn.mssm.edu/maayanlab/" target="_blank">Dr. Avi Ma'ayan</a> and
-                        <a href="www.rajlab.org" target="_blank">Dr. Towfique Raj</a>, 
-                        I helped to develop a number of open-access bioinformatics tools; e.g. 
-                        <a href="https://amp.pharm.mssm.edu/X2K" target="_blank">X2K Web</a>, 
-                        <a href="https://amp.pharm.mssm.edu/geneshot/" target="_blank">Geneshot</a>, 
-                        <a href="https://github.com/RajLabMSSM/catalogueR" target="_blank">catalogueR</a> and 
-                        <a href="https://github.com/RajLabMSSM/echolocatoR" target="_blank">echolocatoR</a>. 
-                        My collaborators and I also published work revealing cell-type-specific neurogenomic mechanisms underlying neurological conditions (e.g. Parkinson’s and Alzheimer’s Disease) through the application of statistical and machine learning techniques to large-scale multi-omics and clinical data.
-                        <br><br>
-                        I am now pursuing my PhD at the <a href="https://www.imperial.ac.uk/dementia-research-institute" target="_blank">UK Dementia Research Institute at Imperial College London</a> 
-                        within the <a href="https://www.neurogenomics.co.uk/", target="_blank">Neurogenomics Lab</a>. 
-                        <a href="https://www.imperial.ac.uk/dementia-research-institute/about-us/phd-students/brian-schilder/" target="_blank">The focus of my work</a> 
-                        is the application of statistical and machine learning techniques to multi-omics and clinical phenotypic data to accurately predict cell-type- and developmentally-contextualized effects of neurological diseases,
-                        and ultimately identify effective therapeutics. 
-                        <br><br>
-
-                        <i>You can learn more about my research experiences, publications, and tools in the <a href="#portfolio">Research Portfolio</a> and <a href="#timeline"> Timeline</a> sections.
-                        You can also download my full CV below.
-                        </i>
-                        <br> 
-                        <hr style="width: 10%;"> 
-                        <br> 
-                    </p>   
-                    <h3> <a href="./files/B.M. Schilder CV.pdf" download><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                        Download CV</a></h3>
-                    <br><br>
-                </div>
- 
-    </section>
-
- 
-    <!--    Skills-->
-    <section class="service" id="skills">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title st-center">
-                        <p>Core Qualifications & Skills</p>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-
-                            <div class="st-feature">
-                                <div class="st-feature-icon"><i class="fa fa-cog"></i></div>
-                                <strong class="st-feature-title">Programming</strong>
-                                <p>Rapidly learns new software & languages to solve problems & develop analytical
-                                    pipelines.</p>
-                            </div> 
-                        </div> 
-                        <div class="col-md-3">
-                            <div class="st-feature">
-                                <div class="st-feature-icon"><i class="fa fa-bank"></i></div>
-                                <strong class="st-feature-title">Research</strong>
-                                <p>10+ years of highly multi-disciplinary dry lab, wet lab & field research.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="st-feature">
-                                <div class="st-feature-icon"><i class="fa fa-pencil-square"></i></div>
-                                <strong class="st-feature-title">Scientific Writing</strong>
-                                <p>Consistently presents scientific evidence in an organized, concise & effective
-                                    manner.</p>
-                            </div> 
-                        </div>
-                        <div class="col-md-3">
-                            <div class="st-feature">
-                                <div class="st-feature-icon"><i class="fa fa-comments-o"></i></div>
-                                <strong class="st-feature-title">Communication</strong>
-                                <p>Engaging speaker capable of distilling complex concepts for a wide range of
-                                    audiences.</p>
-                            </div>
-                        </div> 
-                    </div>
-
-                    <div class="row"> 
-                        <div class="col-md-3"> 
-                            <div class="pricing-table">
-                                <div class="pricing-header">
-                                    <div class="pt-name">Scripting</div>
-
-                                </div>
-                                <div class="pricing-body">
-                                    <ul>
-                                        <li><i class="fa fa-check"></i> Python <br><em>(e.g. Tensorflow, Keras,
-                                                Scikit-learn)</em></li>
-                                        <li><i class="fa fa-check"></i> R <br><em>(e.g. Bioconductor)</em></li>
-                                        <li><i class="fa fa-check"></i> UNIX / Bash</li>
-                                    </ul>
-                                    <div class="pricing-header">
-                                        <div class="pt-name">Web Development</div>
-                                    </div>
-                                    <ul>
-                                        <li><i class="fa fa-check"></i> Javascript <br><em>(e.g. Three.js, D3.js,
-                                                Bootstrap)</em></li>
-                                        <li><i class="fa fa-check"></i> HTML</li>
-                                        <li><i class="fa fa-check"></i> CSS</li>
-                                    </ul>
-                                    <div class="pricing-header">
-                                        <div class="pt-name">Databases</div>
-                                    </div>
-                                    <ul>
-                                        <li><i class="fa fa-check"></i> MongoDB</li>
-                                        <li><i class="fa fa-check"></i> SQL</li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3"> 
-                            <div class="pricing-table">
-                                <div class="pricing-header">
-                                    <div class="pt-name">Fields of Study</div>
-                                </div>
-                                <div class="pricing-body">
-                                    <ul>
-                                        <li><i class="fa fa-check"></i> Neuroscience</li>
-                                        <li><i class="fa fa-check"></i> AI & Machine Learning</li>
-                                        <li><i class="fa fa-check"></i> Systems Biology</li>
-                                        <li><i class="fa fa-check"></i> Bioinformatics</li>
-                                        <li><i class="fa fa-check"></i> Computational Biology</li>
-                                        <li><i class="fa fa-check"></i> Genomics</li>
-                                        <li><i class="fa fa-check"></i> Transcriptomics</li>
-                                        <li><i class="fa fa-check"></i> Biomedicine</li>
-                                        <li><i class="fa fa-check"></i> Developmental Cognition</li>
-                                        <li><i class="fa fa-check"></i> Human Origins & Biological Anthropology</li>
-                                        <li><i class="fa fa-check"></i> Evolutionary Phylogenetics</li>
-                                        <li><i class="fa fa-check"></i> Paleoclimatology & Ecology</li>
-                                        <li><i class="fa fa-check"></i> Running Biomechanics</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3"> 
-                            <div class="pricing-table">
-                                <div class="pricing-header">
-                                    <div class="pt-name">Evidence</div>
-                                </div>
-                                <div class="pricing-body">
-                                    <ul>
-                                        <li><i class="fa fa-check"></i> 5 research grants (~$70,000) since 2016 </li>
-                                        <li><i class="fa fa-check"></i> 9 peer-reviewed scientific publications </li>
-                                        <li><i class="fa fa-check"></i> 15 international conference posters</li> 
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3"> 
-                            <div class="pricing-table">
-                                <div class="pricing-header">
-                                    <div class="pt-name">Experience</div>
-                                </div>
-                                <div class="pricing-body">
-                                    <ul>
-                                        <li><i class="fa fa-check"></i> 3 conference podium presentations</li>
-                                        <li><i class="fa fa-check"></i> 14 conference poster presentations</li>
-                                        <li><i class="fa fa-check"></i> 10+ departmental presentations</li>
-                                        <li><i class="fa fa-check"></i> 5 college-level course guest lectures
-                                            <ul>
-                                                <li>Biological anthropology</li>
-                                                <li>Biopsychology</li>
-                                                <li>Evolutionary neuroscience</li>
-                                                <li>Computational biology & bioinformatics</li>
-                                            </ul>  
-                                        </li>
-                                        <li><i class="fa fa-check"></i> 10+ science outreach programs since 2009</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-
-    <hr>
-
-
-    <!-- ######### RESEARCH PORTFOLIO ############# -->
-    <section class="portfolio" id="portfolio">
-        <div class="container-fluid ">
-            <div class="row">
-                <div class="col-md-12 no-padding">
-                    <div class="section-title st-center">
-                        <p>Research Portfolio</p>
-                        <h3 style="padding: 0 10%">Links to publications, tools, and/or websites
-                            I've created or contributed to.</h3>
-                    </div>
-
-                    <div class="filter mb40">
-                        <form id="filter">
-                            <fieldset class="group">
-
-                                <div class="row">
-                                    <label class="btn btn-default btn-main"><input type="radio" name="filter" value="all"
-                                        checked="checked">ALL</label>
-                                </div>
-                                
-                                <div class="row"> 
-                                    <h4>Subset by Content</h4>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="publications"><i
-                                            class="fa fa-book"></i> Publications</label>
-                                    
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="preprints"><i
-                                        class="fa fa-book"></i> Preprints</label>
-                                    
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="acknowledgements"><i
-                                        class="fa fa-book"></i> Acknowledgements</label>
-                                        
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="tools"><i class="fa fa-wrench"></i>
-                                        Tools & Software</label>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="code"><i class="fa fa-github"></i>
-                                        Source Code</label>
-                                </div>
-
-                                
-                                <div class="row">
-                                    <h4>Subset by Field</h4>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="Genomics">
-                                        Genomics</label>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="Computational Biology">
-                                        Computational Biology</label>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="Bioinformatics">
-                                        Bioinformatics</label> 
-
-                                    <br>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="Neuroscience">
-                                        Neuroscience</label>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="Biomedicine">
-                                        Biomedicine</label>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="Cognition">
-                                        Cognition</label>
-
-                                    <label class="btn btn-default"><input type="radio" name="filter" value="Human Evolution">
-                                        Human Evolution</label>
-                                </div>
-
-                            </fieldset>
-                            <br>
-                        </form>
-                        <!-- #filter --> 
-
-
-                        <!-- .filter .mb40 -->
-                        <div class="grid" id="portfolio-grid"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            d3.csv("./files/portfolio.csv")
-                // D3 Tutorial: https://www.d3-graph-gallery.com/graph/basic_datamanipulation.html
-                .then(function (data) { 
-                    var createDivs = function (data) { 
-                        data.forEach(d => { 
-                            if (d.Title != ""){
-                                var createDiv = function (d){  
-                                    var tags_list = "\""+d.Tags.split(";").map(s => s.trim()).join("\",\"")+"\""; 
-                                    console.log(tags_list)
-                                    
-                                    var title_short = (d.Title_short.trim() === "") ?  ""  : d.Title_short;
-                                    var publication_year = (d.Publication.trim() === "" && d.Year.trim() === "" ) ?  ""  : "<h3>("+d.Publication+", "+d.Year+")</h3>";
-                                    var image_path = (d.Image.trim() === "") ?  "<img src='./images/network_icon4.png'/>"  : "<img src='"+d.Image+"'/>";
-                                    var paper_link = (d.Paper_link.trim() === "") ? "" :  "<a href='"+d.Paper_link+"' class='btn btn-main btn-grid' target='_blank'><i class='fa fa-book'></i>  Publication</a>"
-                                    var acknowledgment_link = (d.Acknowledgment_link.trim() === "") ? "" :  "<a href='"+d.Acknowledgment_link+"' class='btn btn-main btn-grid' target='_blank'><i class='fa fa-book'></i>  Acknowledgment</a>"
-                                    var github_link = (d.GitHub_link.trim() === "") ? "" :  "<a href='"+d.GitHub_link+"' class='btn btn-main btn-grid' target='_blank'><i class='fa fa-github'></i>  GitHub</a>" 
-    
-                                    var htmlStr =  
-                                    "<figure class=\"portfolio-item\" data-groups='["+tags_list+"]'>" +   
-                                        "<center><h1 class='title_short'>"+title_short+"</h1></center>"+
-                                        image_path + 
-                                        "<figcaption>" +  
-                                            "<div class='btn-group'>"+
-                                                "<h2>"+d.Title+"</h2>"+
-                                                publication_year+"<br>"+ 
-                                                paper_link +  acknowledgment_link + github_link +
-                                            "</div>"+
-                                        "</figcaption>" +  
-                                    "</figure>"
-                                    return htmlStr
-                                }
-                                var htmlStr = createDiv(d);  
-                                console.log(htmlStr)
-                                $('#portfolio-grid').append(htmlStr); 
-                            }  
-                        }) 
-                    } 
-                    createDivs(data);
-                });  
-        </script> 
-    </section>
-
-    <section class="features-desc" id="timeline">
-        <div class="section-title st-center">
-            <p>Research Experience Timeline</p>
-            <h1>An interactive timeline detailing my key research experiences</h1>
-            <!-- <left><strong>Controls :</strong>
-                <ul class="ul.styled-list">
-                    <li>Click and drag to move around.</li>
-                    <li>Use the +/- buttons to expand/contract the x-axis (time).</li>
-                    <li>Use the vertical slider to zoom in/out.</li>
-                    <li>Click on an event to see more information.</li>
-                    <li>To continue scrolling, move your cursor outside the timeline or use the right-side scroller
-                        bar.</li>
-                </ul>
-            </left> -->
-        </div>
-
-        <iframe src="https://time.graphics/embed?v=1&id=109212" frameborder="0" allowfullscreen></iframe>
-        <!--   <div id="front">FRONT</div>-->
-    </section>
-
-
-
-    <!-- ######### ARTWORK ########## -->
-    <section id="artwork">
-        <div class="section-title st-center">
-            <p>Artwork</p>
-            <h1>Science-related original artwork I've created over the years.</h1>
-        </div> 
-
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            
-            <div class="carousel-inner">
-                <!-- Item 1 -->
-              <div class="carousel-item active"> 
-                <img class="d-block w-100" src="./images/artwork/wildfire_circle.png" alt="slide0">
-                <div class="carousel-caption  d-none d-md-block">
-                    <h2>Wildfire Circle</h2>
-                    <p>
-                        Awarded 2nd place in the 
-                        <a href="https://friedmanbrain.icahn.mssm.edu/art-of-the-brain/?fbclid=IwAR3AOREAeytcazg4XglJ3_6yVC0xX7RJ70_qzSgqzV1E3WyYqJyWKT9Bbr8" target="_blank">
-                            2019 Art of the Brain, put on by the Mount Sinai’s Friedman Brain Institute.
-                        </a>
-                        <br>
-                        Exhibited and auctioned at the 
-                        <a href="https://tallerlatino.org/about-the-grady-alexis-gallery" target="_blank">
-                            Grady Alexis Gallery (New York City)
-                        </a>, where all proceeds were donated to the 
-                        <a href="http://neuroscience.mssm.edu/diversityinneuroscience/" target="_blank">
-                            Diversity in Neuroscience Initiative
-                        </a>. 
-                    </p>
-                </div>
-              </div>
-              <!-- Item 2 -->
-              <div class="carousel-item"> 
-                <img class="d-block w-100" src="./images/artwork/BioPsych_cover.jpg" alt="slide1">
-                <div class="carousel-caption  d-none d-md-block">
-                    <h2>Wildfire Circle</h2>
-                    <p>This work was also featured on the cover of
-                        <a href="https://www.biologicalpsychiatryjournal.com/issue/S0006-3223(19)X0012-8#" target="_blank">
-                        Biological Psychiatry (issue: July 15th 2020).
-                        </a>
-                    </p>
-                </div>
-              </div>
-              <!-- Item 3 -->
-              <div class="carousel-item">
-                <img class="d-block w-100" src="./images/artwork/wildfire.png" alt="slide1">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>Wildfire</h2>
-                    <p>Transcriptomic data from 16k+ individual brain cells (shown as points) after reducing the dimensionality with an autoencoder and UMAP. 
-                       5 million tracts are shown interconnecting these cells, where shorter tract length represents greater similarity in their molecular profiles.</p>
-                </div>
-              </div>
-               <!-- Item 4 -->
-               <div class="carousel-item">
-                <img class="d-block w-100" src="./images/artwork/clever_girl.jpg" alt="slide1">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>"Clever Girl"</h2>
-                    <p> It is a velociraptor using an API. What more could you possibly want? <br><em>(Acrylic on canvas)</em></p>
-                </div>
-              </div>
-
-               <!-- Item 5 -->
-               <div class="carousel-item">
-                <img class="d-block w-100" src="./images/brian_brain/neon_brain.png" alt="slide1">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>Neon Brain</h2>
-                    <p>Here's a 3D model of my brain.<br><em>(MRI scans rendered with <a href="https://surfer.nmr.mgh.harvard.edu" target="_blank">Freesurfer</a>)</em></p>
-                </div>
-              </div>
-
-              <!-- Item 6 -->
-              <div class="carousel-item">
-                <img class="d-block w-100" src="./images/brian_brain/gold_brain.png" alt="slide1">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>Golden Brain</h2>
-                    <p>Here's a 3D model of my brain....in GOLD! <br><em>(A medium I could never actually afford to make in real life)</em></p>
-                </div>
-              </div>
-
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li> 
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> 
-            </ol>
-              
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-        </div>
-     <!-- 3D brain model! --> 
-     <embed src="https://bschilder.github.io/BMSchilder/3D_brain.html" style="width:100%; height: 70vh;">
-
- 
-    </section>
-
-    
-
-
-    <!-- ######### Contact ########## -->
-    <section class="about"> 
-            <div id="contact" class="section-title black st-center">
-                <p>Contact</p>
-                <h1 style="color: rgba(255, 255, 255, 0.9);">Feel free to reach out anytime!</h1>
-                <div class="container"> 
-                    <h3>Email : <a href='mailto:brian_schilder@alumni.brown.edu'>brian_schilder [at] alumni.brown.edu</a></h3>
-                    
-                    <br><br> 
-
-                    <a href="https://www.linkedin.com/in/brian-schilder/" target="_blank">
-                        <img src="./logos/linkedIn.png"  class="img-responsive">
-                    </a> 
-                    <a href="https://github.com/bschilder" target="_blank">
-                        <img src="./logos/GitHub_logo.png"  class="img-responsive">
-                    </a>
-                    <a href="https://twitter.com/BMSchilder" target="_blank">
-                        <img src="./logos/twitter.png"  class="img-responsive">
-                    </a>
-                    <a href="https://scholar.google.com/citations?hl=en&user=PR6KaQQAAAAJ" target="_blank">
-                        <img src="./logos/google_scholar.png"   class="img-responsive">
-                    </a> 
-                    <a href="https://www.researchgate.net/profile/Brian_Schilder" target="_blank">
-                        <img src="./logos/researchGate.png"   class="img-responsive">
-                    </a>
-                    <br><br><br>
-                </div>
-            </div> 
-    </section>
-
-    
-     <!-- ######### Footer ########## -->
-    <footer class="site-footer">
-        <a href="https://github.com/bschilder/BMSchilder" target="_blank">
-            Created by Brian M. Schilder - © 2018
-        </a>
-    </footer>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/jquery.stellar.js"></script>
-    <script src="js/jquery.appear.js"></script>
-    <script src="js/jquery.nicescroll.min.js"></script>
-    <script src="js/jquery.countTo.js"></script>
-    <script src="js/jquery.shuffle.modernizr.js"></script>
-    <script src="js/jquery.shuffle.js"></script>
-    <script src="js/owl.carousel.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="js/script.js"></script>
+<body>
+  <!-- Skip to content -->
+  <a href="#about" class="skip-link">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="nav" aria-label="Main navigation"></nav>
+
+  <!-- Hero -->
+  <header id="hero" class="hero">
+    <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+    <div class="hero__content">
+      <h1 class="hero__name">BRIAN M SCHILDER</h1>
+      <p class="hero__subtitle" aria-live="polite">
+        <span class="hero__typed"></span><span class="hero__cursor">|</span>
+      </p>
+      <div class="hero__scroll-indicator" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="section about"></section>
+
+  <!-- Skills -->
+  <section id="skills" class="section skills"></section>
+
+  <!-- Timeline -->
+  <section id="timeline" class="section timeline"></section>
+
+  <!-- Publications -->
+  <section id="publications" class="section publications"></section>
+
+  <!-- Tools -->
+  <section id="tools" class="section tools"></section>
+
+  <!-- Grants -->
+  <section id="grants" class="section grants"></section>
+
+  <!-- Artwork -->
+  <section id="artwork" class="section artwork"></section>
+
+  <!-- Brain Viewer -->
+  <section id="brain" class="section brain-viewer"></section>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact"></section>
+
+  <!-- Footer -->
+  <footer id="footer" class="footer"></footer>
 </body>
-
 </html>

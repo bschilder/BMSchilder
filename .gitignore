@@ -1,5 +1,10 @@
 .DS_Store
 /**/.DS_Store
-/**/**/.DS_Store
-/**/**/**/.DS_Store
-/**/**/**/**/.DS_Store
+
+# Build output
+node_modules/
+dist/
+
+# Environment
+.env
+.env.local

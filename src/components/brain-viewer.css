@@ -1,0 +1,64 @@
+/* Brain Viewer */
+.brain-viewer__container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.brain-viewer__canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.brain-viewer__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.brain-viewer__fallback {
+  text-align: center;
+  padding: var(--space-12);
+}
+
+.brain-viewer__fallback-link {
+  display: inline-block;
+  padding: var(--space-3) var(--space-6);
+  background: var(--bg-elevated);
+  border: 1px solid var(--vapor-teal);
+  border-radius: 8px;
+  color: var(--vapor-teal);
+  font-family: var(--font-display);
+  font-weight: 500;
+  margin-top: var(--space-4);
+  transition: box-shadow var(--transition-fast);
+}
+
+.brain-viewer__fallback-link:hover {
+  box-shadow: var(--glow-teal);
+  color: var(--vapor-teal);
+}
+
+.brain-viewer__controls-hint {
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 640px) {
+  .brain-viewer__container {
+    height: 350px;
+  }
+}

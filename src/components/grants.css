@@ -1,0 +1,190 @@
+/* Grants */
+.grants__size-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.grants__size-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.grants__size-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 180px;
+  height: 4px;
+  background: var(--bg-elevated);
+  border-radius: 2px;
+  outline: none;
+}
+
+.grants__size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--vapor-mint);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(5, 255, 161, 0.4);
+}
+
+.grants__size-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--vapor-mint);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 8px rgba(5, 255, 161, 0.4);
+}
+
+.grants__subsection-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--vapor-lavender);
+  margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+.grants__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grant-cols, 2), 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
+}
+
+.grant-card {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: var(--space-4) var(--space-5);
+  position: relative;
+  transition: border-color var(--transition-fast), padding 0.3s ease;
+  overflow: hidden;
+}
+
+.grant-card:hover {
+  border-color: var(--border-glow);
+}
+
+.grant-card--active {
+  border-color: var(--vapor-mint);
+  box-shadow: 0 0 15px rgba(5, 255, 161, 0.15);
+}
+
+.grant-card--award {
+  border-color: var(--vapor-gold);
+}
+
+.grant-card--award:hover {
+  box-shadow: 0 0 15px rgba(255, 251, 150, 0.15);
+}
+
+.grant-card__status {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+.grant-card__status--active {
+  background: rgba(5, 255, 161, 0.15);
+  color: var(--vapor-mint);
+}
+
+.grant-card__status--completed {
+  background: rgba(176, 160, 200, 0.15);
+  color: var(--text-secondary);
+}
+
+.grant-card__project {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  line-height: 1.4;
+  transition: font-size 0.3s ease;
+}
+
+.grant-card__source {
+  font-size: var(--text-sm);
+  color: var(--vapor-teal);
+  margin-bottom: var(--space-2);
+  max-height: 40px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+}
+
+.grant-card__meta {
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  margin-bottom: var(--space-2);
+}
+
+.grant-card__amount {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--vapor-mint);
+  transition: font-size 0.3s ease;
+}
+
+.grant-card__amount--award {
+  color: var(--vapor-gold);
+}
+
+.grant-card__comments {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-3);
+  line-height: 1.5;
+  max-height: 100px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+}
+
+/* Compact mode */
+.grants__grid--compact .grant-card {
+  padding: var(--space-2) var(--space-3);
+}
+
+.grants__grid--compact .grant-card__project {
+  font-size: var(--text-sm);
+}
+
+.grants__grid--compact .grant-card__source {
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+}
+
+.grants__grid--compact .grant-card__comments {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.grants__grid--compact .grant-card__amount {
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 768px) {
+  .grants__grid {
+    grid-template-columns: 1fr !important;
+  }
+}

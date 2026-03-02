@@ -1,0 +1,176 @@
+/* About */
+.about__grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.about__photo-wrap {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--vapor-teal);
+  box-shadow: var(--glow-teal);
+  flex-shrink: 0;
+}
+
+.about__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about__bio {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: var(--space-6);
+}
+
+.about__position {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--vapor-lavender);
+  margin-bottom: var(--space-2);
+}
+
+.about__institution {
+  font-size: var(--text-base);
+  color: var(--vapor-teal);
+  margin-bottom: var(--space-6);
+}
+
+.about__affiliations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.about__affiliation {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.about__affiliation:hover {
+  border-color: var(--vapor-purple);
+  color: var(--text-primary);
+}
+
+.about__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+  padding: var(--space-6);
+  background: var(--gradient-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.about__metric {
+  text-align: center;
+}
+
+.about__metric-value {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about__metric-label {
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.about__cv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border: 2px solid transparent;
+  background: var(--bg-elevated);
+  background-clip: padding-box;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-weight: 600;
+  position: relative;
+  transition: box-shadow var(--transition-fast);
+}
+
+.about__cv-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  background: var(--gradient-text);
+  z-index: -1;
+}
+
+.about__cv-btn:hover {
+  box-shadow: var(--glow-teal);
+  color: var(--text-primary);
+}
+
+.about__bio em {
+  color: var(--vapor-teal);
+  font-style: italic;
+}
+
+.about__bio strong {
+  color: var(--vapor-lavender);
+}
+
+.about__metric-link {
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast);
+  display: block;
+}
+
+.about__metric-link:hover {
+  transform: scale(1.05);
+}
+
+.about__metric-link:hover .about__metric-value {
+  filter: brightness(1.2);
+}
+
+@media (max-width: 768px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .about__photo-wrap {
+    width: 200px;
+    height: 200px;
+  }
+
+  .about__affiliations {
+    justify-content: center;
+  }
+
+  .about__metrics {
+    justify-content: center;
+  }
+}

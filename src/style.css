@@ -1,0 +1,226 @@
+/* Component CSS imports — must be first */
+@import './components/nav.css';
+@import './components/hero.css';
+@import './components/about.css';
+@import './components/skills.css';
+@import './components/timeline.css';
+@import './components/publications.css';
+@import './components/tools.css';
+@import './components/grants.css';
+@import './components/artwork.css';
+@import './components/brain-viewer.css';
+@import './components/contact.css';
+@import './components/footer.css';
+
+/* ===== Design Tokens ===== */
+:root {
+  /* Backgrounds */
+  --bg-deep: #0d0221;
+  --bg-primary: #150535;
+  --bg-elevated: #1a0a4a;
+  --bg-surface: #241660;
+
+  /* Vaporwave accents */
+  --vapor-pink: #ff71ce;
+  --vapor-teal: #01cdfe;
+  --vapor-purple: #b967ff;
+  --vapor-lavender: #d9b3ff;
+  --vapor-peach: #ffb7c5;
+  --vapor-mint: #05ffa1;
+  --vapor-gold: #fffb96;
+  --vapor-coral: #ff6e6e;
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, #0d0221 0%, #1a0a4a 30%, #2d1b69 60%, #150535 100%);
+  --gradient-sunset: linear-gradient(180deg, #b967ff 0%, #ff71ce 40%, #ff9a56 100%);
+  --gradient-ocean: linear-gradient(180deg, #01cdfe 0%, #b967ff 50%, #ff71ce 100%);
+  --gradient-text: linear-gradient(90deg, #01cdfe 0%, #01cdfe 25%, #b967ff 65%, #ff71ce 100%);
+  --gradient-card: linear-gradient(160deg, #1a0a4a 0%, #150535 100%);
+
+  /* Glows */
+  --glow-pink: 0 0 15px #ff71ce55, 0 0 45px #ff71ce22;
+  --glow-teal: 0 0 15px #01cdfe55, 0 0 45px #01cdfe22;
+  --glow-purple: 0 0 15px #b967ff55, 0 0 45px #b967ff22;
+
+  /* Text */
+  --text-primary: #e8e0f0;
+  --text-secondary: #b0a0c8;
+  --text-dim: #6a5a80;
+
+  /* Borders */
+  --border-subtle: #2d1b6940;
+  --border-glow: #01cdfe33;
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Fluid type scale */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1rem + 1.25vw, 1.75rem);
+  --text-2xl: clamp(1.5rem, 1rem + 2.5vw, 2.5rem);
+  --text-3xl: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+  --text-hero: clamp(2.5rem, 2rem + 3vw, 5rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --nav-height: 64px;
+
+  /* Animation */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 150ms var(--ease-out-expo);
+  --transition-base: 300ms var(--ease-out-expo);
+  --transition-slow: 500ms var(--ease-out-expo);
+}
+
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-deep);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--vapor-teal);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--vapor-pink);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--vapor-teal);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--vapor-teal);
+  outline-offset: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ===== Skip Link ===== */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--vapor-teal);
+  color: var(--bg-deep);
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  z-index: 9999;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ===== Section base ===== */
+.section {
+  padding: var(--space-24) var(--space-4);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section__title {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-12);
+  text-align: center;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== Scroll animations ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .fade-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__canvas {
+    display: none;
+  }
+}
