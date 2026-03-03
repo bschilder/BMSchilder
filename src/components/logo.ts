@@ -1,11 +1,14 @@
 /**
- * Icon-only logo: a DNA double helix woven through a central network node.
- * Represents the intersection of computational genomics and neuroscience.
- * No text — just the icon, using the vaporwave gradient palette.
+ * "The Nexus" — icon-only logo.
+ *
+ * Three orbital ellipses (teal / purple / pink) converge through a central
+ * gradient node, with six satellite dots at the orbital endpoints forming
+ * a hexagonal pattern.  Represents the harmonisation of many disciplines
+ * through a single creative nexus.
  */
 
 export function generateLogoSVG(size = 32): string {
-  const id = `logo-g-${Math.random().toString(36).slice(2, 7)}`;
+  const id = `nx-${Math.random().toString(36).slice(2, 7)}`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" aria-label="Logo">
   <defs>
@@ -16,35 +19,30 @@ export function generateLogoSVG(size = 32): string {
     </linearGradient>
   </defs>
 
-  <!-- DNA strand 1 (left backbone) -->
-  <path d="M18 8 C24 18, 24 26, 18 32 C12 38, 12 46, 18 56"
-        stroke="url(#${id})" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Orbital 1 — teal (horizontal) -->
+  <ellipse cx="32" cy="32" rx="27" ry="10"
+           stroke="#01cdfe" stroke-width="2" fill="none" opacity="0.85"/>
 
-  <!-- DNA strand 2 (right backbone) -->
-  <path d="M46 8 C40 18, 40 26, 46 32 C52 38, 52 46, 46 56"
-        stroke="url(#${id})" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Orbital 2 — purple (60°) -->
+  <ellipse cx="32" cy="32" rx="27" ry="10"
+           transform="rotate(60 32 32)"
+           stroke="#b967ff" stroke-width="2" fill="none" opacity="0.85"/>
 
-  <!-- Base-pair rungs -->
-  <line x1="22" y1="14" x2="42" y2="14" stroke="url(#${id})" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="20" y1="23" x2="44" y2="23" stroke="url(#${id})" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="20" y1="41" x2="44" y2="41" stroke="url(#${id})" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-  <line x1="22" y1="50" x2="42" y2="50" stroke="url(#${id})" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Orbital 3 — pink (120°) -->
+  <ellipse cx="32" cy="32" rx="27" ry="10"
+           transform="rotate(120 32 32)"
+           stroke="#ff71ce" stroke-width="2" fill="none" opacity="0.85"/>
 
-  <!-- Central node (network vertex) -->
-  <circle cx="32" cy="32" r="8" stroke="url(#${id})" stroke-width="2.5" fill="none"/>
-  <circle cx="32" cy="32" r="3" fill="url(#${id})" opacity="0.8"/>
+  <!-- Satellite nodes (discipline endpoints) -->
+  <circle cx="59"   cy="32"   r="2.5" fill="#01cdfe" opacity="0.8"/>
+  <circle cx="5"    cy="32"   r="2.5" fill="#01cdfe" opacity="0.8"/>
+  <circle cx="45.5" cy="55.4" r="2.5" fill="#b967ff" opacity="0.8"/>
+  <circle cx="18.5" cy="8.6"  r="2.5" fill="#b967ff" opacity="0.8"/>
+  <circle cx="18.5" cy="55.4" r="2.5" fill="#ff71ce" opacity="0.8"/>
+  <circle cx="45.5" cy="8.6"  r="2.5" fill="#ff71ce" opacity="0.8"/>
 
-  <!-- Satellite nodes + connection lines -->
-  <circle cx="12" cy="32" r="3" stroke="url(#${id})" stroke-width="1.5" fill="none" opacity="0.7"/>
-  <line x1="15" y1="32" x2="24" y2="32" stroke="url(#${id})" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-
-  <circle cx="52" cy="32" r="3" stroke="url(#${id})" stroke-width="1.5" fill="none" opacity="0.7"/>
-  <line x1="49" y1="32" x2="40" y2="32" stroke="url(#${id})" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-
-  <circle cx="32" cy="10" r="2.5" stroke="url(#${id})" stroke-width="1.5" fill="none" opacity="0.7"/>
-  <line x1="32" y1="12.5" x2="32" y2="24" stroke="url(#${id})" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-
-  <circle cx="32" cy="54" r="2.5" stroke="url(#${id})" stroke-width="1.5" fill="none" opacity="0.7"/>
-  <line x1="32" y1="51.5" x2="32" y2="40" stroke="url(#${id})" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <!-- Central nexus -->
+  <circle cx="32" cy="32" r="6" fill="url(#${id})"/>
+  <circle cx="32" cy="32" r="2.5" fill="white" opacity="0.5"/>
 </svg>`;
 }

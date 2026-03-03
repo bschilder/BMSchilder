@@ -190,14 +190,19 @@
 
 .tl-stream::-webkit-scrollbar { display: none; }
 
-/* Center vertical line — must span full scroll height, not just viewport */
-.tl-stream::before {
+/* Inner wrapper — establishes the natural content height for the center line */
+.tl-stream__inner {
+  position: relative;
+}
+
+/* Center vertical line — spans the inner wrapper's content height */
+.tl-stream__inner::before {
   content: '';
   position: absolute;
   left: 50%;
   top: 0;
+  bottom: 0;
   width: 2px;
-  height: 10000px;
   transform: translateX(-50%);
   background: linear-gradient(to bottom, var(--vapor-teal) 0%, var(--vapor-purple) 30%, rgba(1, 205, 254, 0.08) 100%);
   z-index: 1;
@@ -824,7 +829,7 @@
     display: none;
   }
 
-  .tl-stream::before {
+  .tl-stream__inner::before {
     left: 15px;
   }
 

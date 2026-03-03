@@ -137,6 +137,7 @@ function renderVisualTimeline(
         <div class="tl-navigator__caption">drag to explore</div>
       </div>
       <div class="tl-stream">
+        <div class="tl-stream__inner">
   `;
 
   for (const year of years) {
@@ -179,6 +180,7 @@ function renderVisualTimeline(
   }
 
   html += `
+        </div>
       </div>
     </div>
   `;
@@ -195,6 +197,9 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
   let scrollRaf = 0;
   let programmaticScroll = false;  // prevents scroll→slider→scroll loop
   let scrollTimer = 0;
+  let lastScrollFocusYear = -1;    // prevents oscillation from layout shifts
+  let settling = false;            // cooldown after scroll-driven class changes
+  let settleTimer = 0;
 
   function applyProximityClasses(focusYear: number) {
     yearDisplay.textContent = String(focusYear);
@@ -222,6 +227,7 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
 
   /** Slider drives scroll: update classes + scroll stream to year */
   function updateFromSlider(focusYear: number) {
+    lastScrollFocusYear = focusYear;
     applyProximityClasses(focusYear);
 
     let scrollTarget: HTMLElement | null = null;
@@ -247,7 +253,7 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
 
   /** Scroll drives slider: find which year badge is closest to stream center */
   function updateFromScroll() {
-    if (programmaticScroll) return;
+    if (programmaticScroll || settling) return;
 
     const streamCenter = stream.scrollTop + stream.clientHeight / 2;
     let closestYear = maxYear;
@@ -262,15 +268,22 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
       }
     });
 
-    // Update slider value (inverted: top=max)
-    slider.value = String(minYear + maxYear - closestYear);
+    // Skip if same year — prevents oscillation from layout-triggered scroll events
+    if (closestYear === lastScrollFocusYear) return;
+    lastScrollFocusYear = closestYear;
+
+    // Cooldown: ignore scroll events while layout settles from class changes
+    settling = true;
+    clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(() => { settling = false; }, 150);
+
+    slider.value = String(closestYear);
     applyProximityClasses(closestYear);
   }
 
   // Slider → scroll
   slider?.addEventListener('input', () => {
-    const focusYear = minYear + maxYear - Number(slider.value);
-    updateFromSlider(focusYear);
+    updateFromSlider(Number(slider.value));
   });
 
   // Scroll → slider (throttled via rAF)
@@ -285,7 +298,7 @@ function bindVisualHandlers(section: HTMLElement, minYear: number, maxYear: numb
     node.addEventListener('click', (e) => {
       if ((e.target as HTMLElement).closest('a')) return;
       const year = Number(node.dataset.year);
-      slider.value = String(minYear + maxYear - year);
+      slider.value = String(year);
       updateFromSlider(year);
     });
   });

@@ -3,8 +3,8 @@ import { cyclePalette } from '../palette';
 const SUBTITLES = [
   'Computational Genomics',
   'AI & Machine Learning',
-  'Scientific Entrepreneur',
-  'Open-Source Developer',
+  'Scientific Entrepreneurship',
+  'Open-Source Development',
   'Genome-Phenome AI',
   'Evolutionary Biology',
   'Multi-Omic Medicine',

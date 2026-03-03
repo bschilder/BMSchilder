@@ -103,8 +103,10 @@ async function loadThreeJS(): Promise<void> {
       const mesh = new THREE.Mesh(geometry, material);
 
       // Rotate from MRI coordinates to natural viewing orientation
-      // (frontal lobe was pointing up along +Y; tip it forward along -Z)
+      // Use explicit rotation order to avoid gimbal issues
+      mesh.rotation.order = 'YXZ';
       mesh.rotation.x = -Math.PI / 2;
+      mesh.rotation.y = Math.PI;
 
       // Wireframe overlay
       const wireframe = new THREE.WireframeGeometry(geometry);
@@ -126,7 +128,7 @@ async function loadThreeJS(): Promise<void> {
       scene.add(mesh);
 
       // Position camera
-      camera.position.set(0, 50, 200);
+      camera.position.set(0, 20, 200);
       camera.lookAt(0, 0, 0);
       controls.target.set(0, 0, 0);
     }, undefined, () => {
