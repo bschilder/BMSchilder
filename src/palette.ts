@@ -11,15 +11,16 @@
  * ║    'sakura'      — cherry blossom pink/white   ║
  * ║    'lagoon'      — minty teal/purple/pink      ║
  * ║    'greyscale'   — monochrome silver/white      ║
+ * ║    'mintwave'    — mint/emerald/gold on deep    ║
  * ╚═══════════════════════════════════════════════╝
  */
-export let ACTIVE_PALETTE: PaletteName = 'vaporwave';
+export let ACTIVE_PALETTE: PaletteName = 'mintwave';
 
 // ─────────────────────────────────────────────────
 
-export type PaletteName = 'vaporwave' | 'midnight' | 'sunset' | 'cyberpunk' | 'arctic' | 'sakura' | 'lagoon' | 'greyscale';
+export type PaletteName = 'vaporwave' | 'midnight' | 'sunset' | 'cyberpunk' | 'arctic' | 'sakura' | 'lagoon' | 'greyscale' | 'mintwave';
 
-export const PALETTE_NAMES: PaletteName[] = ['vaporwave', 'midnight', 'sunset', 'cyberpunk', 'arctic', 'sakura', 'lagoon', 'greyscale'];
+export const PALETTE_NAMES: PaletteName[] = ['vaporwave', 'midnight', 'sunset', 'cyberpunk', 'arctic', 'sakura', 'lagoon', 'greyscale', 'mintwave'];
 
 /** Cycle to the next palette and apply it. Returns the new palette name. */
 export function cyclePalette(): PaletteName {
@@ -212,6 +213,29 @@ const PALETTES: Record<PaletteName, Palette> = {
     gradientText: 'linear-gradient(90deg, #05ffa1 0%, #00e5c8 30%, #a37be8 65%, #e88acd 100%)',
     gradientCard: 'linear-gradient(160deg, #0c2828 0%, #061a1a 100%)',
     gradientHero: 'linear-gradient(135deg, #030f0f 0%, #0c2828 30%, #123535 60%, #061a1a 100%)',
+  },
+
+  mintwave: {
+    bgDeep: '#0d0221',
+    bgPrimary: '#150535',
+    bgElevated: '#1a0a4a',
+    bgSurface: '#241660',
+    pink: '#ff71ce',
+    teal: '#4ccec7',
+    purple: '#b967ff',
+    lavender: '#d9b3ff',
+    peach: '#ffb7c5',
+    mint: '#05ffa1',
+    gold: '#fffb96',
+    coral: '#ff6e6e',
+    textPrimary: '#e8e0f0',
+    textSecondary: '#b0a0c8',
+    textDim: '#6a5a80',
+    borderSubtle: '#2d1b6940',
+    borderGlow: '#4ccec733',
+    gradientText: 'linear-gradient(90deg, #4ccec7 0%, #4ccec7 25%, #b967ff 65%, #ff71ce 100%)',
+    gradientCard: 'linear-gradient(160deg, #1a0a4a 0%, #150535 100%)',
+    gradientHero: 'linear-gradient(135deg, #0d0221 0%, #1a0a4a 30%, #2d1b69 60%, #150535 100%)',
   },
 
   greyscale: {

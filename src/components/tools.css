@@ -144,12 +144,18 @@
   opacity: 1;
 }
 
+.tool-card__bottom {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-1);
+}
+
 .tool-card__langs {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-1);
-  margin-top: auto;
-  padding-top: var(--space-1);
 }
 
 .tool-card__lang {
@@ -162,12 +168,10 @@
 }
 
 .tool-card__icons {
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-2);
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  flex-shrink: 0;
 }
 
 .tool-card__icon-link {

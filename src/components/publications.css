@@ -131,7 +131,7 @@
   background: var(--gradient-card);
   border: 1px solid var(--border-subtle);
   border-radius: 10px;
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-5) var(--space-6);
   transition: border-color var(--transition-fast), padding 0.3s ease;
   overflow: hidden;
 }

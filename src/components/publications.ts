@@ -81,6 +81,21 @@ export function initPublications(data: CVData): void {
     bindHandlers();
   }
 
+  function updateGrid() {
+    const filtered = getFiltered();
+    const { cols, compact } = getColsAndCompact();
+    const grid = section.querySelector('.publications__grid') as HTMLElement;
+    const count = section.querySelector('.publications__count') as HTMLElement;
+    if (grid) {
+      grid.innerHTML = filtered.map((p) => renderCard(p)).join('');
+      grid.style.setProperty('--pub-cols', String(cols));
+      grid.classList.toggle('publications__grid--compact', compact);
+    }
+    if (count) {
+      count.textContent = `Showing ${filtered.length} of ${pubs.length}`;
+    }
+  }
+
   function bindHandlers() {
     section.querySelectorAll('.publications__filter').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -92,13 +107,13 @@ export function initPublications(data: CVData): void {
     const journalSelect = section.querySelector('.publications__journal-select') as HTMLSelectElement;
     journalSelect?.addEventListener('change', () => {
       activeJournal = journalSelect.value;
-      render();
+      updateGrid();
     });
 
     const searchInput = section.querySelector('.publications__search') as HTMLInputElement;
     searchInput?.addEventListener('input', () => {
       searchQuery = searchInput.value;
-      render();
+      updateGrid();
     });
 
     const slider = section.querySelector('.publications__size-slider') as HTMLInputElement;
