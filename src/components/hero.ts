@@ -313,7 +313,7 @@ function initCanvas(): void {
       // Show palette name toast
       toastText = newName;
       toastAlpha = 1;
-      canvas.style.cursor = 'pointer';
+      canvas.style.cursor = getComputedStyle(document.documentElement).getPropertyValue('--cursor-pointer').trim() || 'pointer';
       return;
     }
 
@@ -529,7 +529,7 @@ function initCanvas(): void {
       const sunDist = Math.sqrt(dxSun * dxSun + dySun * dySun);
       if (sunDist < sunR * 1.5) {
         sunHoverGlow = Math.min(1, sunHoverGlow + 0.04);
-        canvas.style.cursor = 'pointer';
+        canvas.style.cursor = getComputedStyle(document.documentElement).getPropertyValue('--cursor-pointer').trim() || 'pointer';
       } else {
         sunHoverGlow *= 0.95;
         if (sunHoverGlow < 0.01) sunHoverGlow = 0;

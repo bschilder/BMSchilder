@@ -1,7 +1,7 @@
 import Papa from 'papaparse';
 import type { CVData, Education, Experience, Publication, Talk, Grant, Tool, Skill, Profile } from '../types/cv-data';
 
-const BASE = import.meta.env.BASE_URL;
+const CV_DATA_URL = 'https://raw.githubusercontent.com/bschilder/CV/main/cv_data/';
 const cache = new Map<string, unknown[]>();
 
 function collapseBullets<T extends Record<string, unknown>>(row: T): T & { bullets: string[] } {
@@ -38,7 +38,7 @@ function cleanRow<T extends Record<string, unknown>>(row: T): T {
 async function fetchCSV<T>(filename: string): Promise<T[]> {
   if (cache.has(filename)) return cache.get(filename) as T[];
 
-  const url = `${BASE}data/${filename}`;
+  const url = `${CV_DATA_URL}${filename}`;
   const response = await fetch(url);
   if (!response.ok) throw new Error(`Failed to fetch ${filename}: ${response.status}`);
 

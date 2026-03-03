@@ -72,7 +72,7 @@ export function initAbout(data: CVData): void {
             </a>
           `).join('')}
         </div>
-        <a href="${import.meta.env.BASE_URL}files/B.M.%20Schilder%20CV.pdf"
+        <a href="https://raw.githubusercontent.com/bschilder/CV/main/CV.pdf"
            class="about__cv-btn"
            target="_blank"
            rel="noopener noreferrer">

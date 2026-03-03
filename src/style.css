@@ -134,12 +134,20 @@ a:focus-visible {
   border-radius: 2px;
 }
 
+html {
+  cursor: var(--cursor-default);
+}
+
+a, button, [role="button"], input[type="submit"],
+input[type="range"], select, label[for], summary {
+  cursor: var(--cursor-pointer) !important;
+}
+
 button {
   font: inherit;
   color: inherit;
   background: none;
   border: none;
-  cursor: pointer;
 }
 
 button:focus-visible {

@@ -297,4 +297,67 @@ export function applyPalette(name: PaletteName = ACTIVE_PALETTE): void {
   root.style.setProperty('--glow-pink', `0 0 15px ${p.pink}55, 0 0 45px ${p.pink}22`);
   root.style.setProperty('--glow-teal', `0 0 15px ${p.teal}55, 0 0 45px ${p.teal}22`);
   root.style.setProperty('--glow-purple', `0 0 15px ${p.purple}55, 0 0 45px ${p.purple}22`);
+
+  // Custom cursors
+  root.style.setProperty('--cursor-default', `${cursorArrowSVG(p.teal, p.purple)} 4 2, auto`);
+  root.style.setProperty('--cursor-pointer', `${cursorCircuitSVG(p.teal, p.pink)} 12 12, pointer`);
+}
+
+/** Pixel-art helper: render a grid of 2px cells from a bitmap string */
+function pixelSVG(bitmap: string[], colorMap: Record<string, string>, size: number): string {
+  const p = 2; // pixel size
+  let rects = '';
+  for (let y = 0; y < bitmap.length; y++) {
+    for (let x = 0; x < bitmap[y].length; x++) {
+      const ch = bitmap[y][x];
+      const color = colorMap[ch];
+      if (color) rects += `<rect x="${x * p}" y="${y * p}" width="${p}" height="${p}" fill="${color}"/>`;
+    }
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${bitmap[0].length * p} ${bitmap.length * p}" shape-rendering="crispEdges">${rects}</svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+function cursorArrowSVG(fill: string, outline: string): string {
+  // 12x18 pixel arrow with angular tail
+  const bmp = [
+    'O...........',
+    'OO..........',
+    'OFO.........',
+    'OFFO........',
+    'OFFFO.......',
+    'OFFFFO......',
+    'OFFFFFO.....',
+    'OFFFFFFO....',
+    'OFFFFFFFO...',
+    'OFFFFFFFFO..',
+    'OFFFFFFFFFO.',
+    'OFFFFFFOOOOO',
+    'OFFOFFO.....',
+    'OFFOOFFO....',
+    'OFO..OFFO...',
+    'OO...OFFO...',
+    'O.....OFO...',
+    '......OO....',
+  ];
+  return pixelSVG(bmp, { O: outline, F: fill }, 24);
+}
+
+function cursorCircuitSVG(fill: string, outline: string): string {
+  // 12x12 pixel crosshair
+  const bmp = [
+    '......WW......',
+    '......WW......',
+    '......WW......',
+    '.....OOOO.....',
+    '....OFFFFO....',
+    'WWWWOFFFFFFWWWW',
+    'WWWWOFFFFFFWWWW',
+    '....OFFFFO....',
+    '.....OOOO.....',
+    '......WW......',
+    '......WW......',
+    '......WW......',
+  ];
+  return pixelSVG(bmp, { O: outline, F: fill, W: '#ffffff' }, 28);
 }
