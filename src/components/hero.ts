@@ -218,6 +218,318 @@ function initCanvas(): void {
   let sunBarOffset = 0;    // vertical offset for animating bar scroll on click
   let sunBarSpeed = 0;     // decaying speed for bar animation
 
+  // ── Running man easter egg ──
+  let runnerActive = false;
+  let runnerX = -20;
+  let runnerFrame = 0;
+  const RUNNER_SPEED = 0.8;
+
+  // Celebration state
+  let runnerCelebrating = false;
+  let celebFrame = 0;
+  const CELEB_DURATION = 72;       // frames of celebration (~1.2s at 60fps)
+  let runnerPeaks: number[] = [];  // X positions of local maxima to celebrate at
+  let nextPeakIdx = 0;
+
+  // Falling state
+  let runnerFalling = false;
+  let runnerVelocityY = 0;
+  let runnerLastCrag = -1;         // track slider value to detect user adjustment
+
+  // Pixel-art side-profile running sprites (4 frames), 14 wide x 18 tall
+  // Facing right. Legend: H=head/hair, C=cap, B=body, A=arm, L=leg, S=shoe, F=face
+  const RUNNER_FRAMES: string[][] = [
+    // Frame 0: stride — right leg fwd, arm fwd
+    [
+      '.CCC..........',
+      'CCCCC.........',
+      'CC.HHH........',
+      '...HHH........',
+      '...FHHN.......',
+      '...HHH........',
+      '...BBBB.......',
+      '...BBBB.......',
+      '...BBBB.......',
+      '....BB...A....',
+      '....BB..A.....',
+      '....LL........',
+      '...LL..LL.....',
+      '..LL....LL....',
+      '..L......L....',
+      '.LL......LL...',
+      '.SS.......SS..',
+      '.SS.......SS..',
+    ],
+    // Frame 1: passing — legs together, arm trailing
+    [
+      '.CCC..........',
+      'CCCCC.........',
+      'CC.HHH........',
+      '...HHH........',
+      '...FHHN.......',
+      '...HHH........',
+      '...BBBB.......',
+      '...BBBBA......',
+      '...BBBB.A.....',
+      '....BB........',
+      '....BB........',
+      '....LL........',
+      '....LL........',
+      '....LL........',
+      '....LL........',
+      '....LL........',
+      '...SSS........',
+      '...SSS........',
+    ],
+    // Frame 2: stride — left leg fwd, arm back
+    [
+      '.CCC..........',
+      'CCCCC.........',
+      'CC.HHH........',
+      '...HHH........',
+      '...FHHN.......',
+      '...HHH........',
+      '...BBBB.......',
+      '...BBBB.......',
+      '...BBBB.......',
+      '.A..BB........',
+      'A...BB........',
+      '....LL........',
+      '...LL..LL.....',
+      '..LL....LL....',
+      '..L......L....',
+      '.LL......LL...',
+      '.SS.......SS..',
+      '.SS.......SS..',
+    ],
+    // Frame 3: passing — legs together, arm forward
+    [
+      '.CCC..........',
+      'CCCCC.........',
+      'CC.HHH........',
+      '...HHH........',
+      '...FHHN.......',
+      '...HHH........',
+      '...BBBB.......',
+      '..ABBBB.......',
+      '.A.BBBB.......',
+      '....BB........',
+      '....BB........',
+      '....LL........',
+      '....LL........',
+      '....LL........',
+      '....LL........',
+      '....LL........',
+      '...SSS........',
+      '...SSS........',
+    ],
+  ];
+
+  // Front-facing celebration sprite, 14 wide x 18 tall — arms raised in V
+  const CELEB_FRAMES: string[][] = [
+    [
+      '....CCC.......',
+      '...CCCCC......',
+      'A...HHH...A...',
+      'AA..HHH..AA...',
+      '....FFF.......',
+      '....HHH.......',
+      '...BBBBB......',
+      '...BBBBB......',
+      '...BBBBB......',
+      '...BBBBB......',
+      '....BBB.......',
+      '....LLL.......',
+      '....LLL.......',
+      '....LLL.......',
+      '...LL.LL......',
+      '...LL.LL......',
+      '...SS.SS......',
+      '...SS.SS......',
+    ],
+  ];
+
+  // Front-facing falling sprite — arms flailing out, 14 wide x 18 tall
+  // Two frames that alternate for flailing effect
+  const FALL_FRAMES: string[][] = [
+    [
+      '....CCC.......',
+      '...CCCCC......',
+      '....HHH.......',
+      '....HHH.......',
+      '....FFF.......',
+      '....HHH.......',
+      'A..BBBBB......',
+      'AA.BBBBB..AA..',
+      '...BBBBB.AA...',
+      '...BBBBB......',
+      '....BBB.......',
+      '....LLL.......',
+      '....LLL.......',
+      '...LL.LL......',
+      '..LL...LL.....',
+      '..LL...LL.....',
+      '..SS...SS.....',
+      '..SS...SS.....',
+    ],
+    [
+      '....CCC.......',
+      '...CCCCC......',
+      '....HHH.......',
+      '....HHH.......',
+      '....FFF.......',
+      '....HHH.......',
+      '...BBBBB..A...',
+      '...BBBBB.AA...',
+      'AA.BBBBB......',
+      'A..BBBBB......',
+      '....BBB.......',
+      '....LLL.......',
+      '....LLL.......',
+      '...LL.LL......',
+      '..LL...LL.....',
+      '..LL...LL.....',
+      '..SS...SS.....',
+      '..SS...SS.....',
+    ],
+  ];
+
+  let runnerSmoothedY = 0; // smoothed Y position to avoid jerky movement
+
+  function drawFalling(
+    c: CanvasRenderingContext2D,
+    x: number, y: number, frame: number,
+    colors: CanvasColors,
+  ) {
+    const sprite = FALL_FRAMES[Math.floor(frame / 4) % FALL_FRAMES.length];
+    const px = 2;
+    const spriteH = sprite.length * px;
+
+    c.save();
+    c.translate(x, y);
+    c.translate(0, -spriteH);
+
+    const pink = `rgb(${colors.pinkRgb.r},${colors.pinkRgb.g},${colors.pinkRgb.b})`;
+    const colorMap: Record<string, string> = {
+      H: colors.palTextPrimary,
+      F: pink,
+      C: pink,
+      B: colors.palTeal,
+      A: colors.palTeal,
+      L: colors.palTextPrimary,
+      S: pink,
+    };
+
+    for (let row = 0; row < sprite.length; row++) {
+      for (let col = 0; col < sprite[row].length; col++) {
+        const ch = sprite[row][col];
+        const color = colorMap[ch];
+        if (color) {
+          c.fillStyle = color;
+          c.fillRect(col * px, row * px, px, px);
+        }
+      }
+    }
+    c.restore();
+  }
+
+  function drawCelebration(
+    c: CanvasRenderingContext2D,
+    x: number, y: number, frame: number,
+    colors: CanvasColors,
+  ) {
+    const sprite = CELEB_FRAMES[0];
+    const px = 2;
+    const spriteH = sprite.length * px;
+
+    const t = frame / CELEB_DURATION;
+    const bouncePhase = t * 3 * Math.PI * 2;
+    const jumpH = Math.max(0, Math.sin(bouncePhase)) * 12;
+
+    c.save();
+    c.translate(x, y - jumpH);
+    c.translate(0, -spriteH);
+
+    const pink = `rgb(${colors.pinkRgb.r},${colors.pinkRgb.g},${colors.pinkRgb.b})`;
+    const colorMap: Record<string, string> = {
+      H: colors.palTextPrimary,
+      F: pink,
+      C: pink,
+      B: colors.palTeal,
+      A: colors.palTeal,
+      L: colors.palTextPrimary,
+      S: pink,
+    };
+
+    for (let row = 0; row < sprite.length; row++) {
+      for (let col = 0; col < sprite[row].length; col++) {
+        const ch = sprite[row][col];
+        const color = colorMap[ch];
+        if (color) {
+          c.fillStyle = color;
+          c.fillRect(col * px, row * px, px, px);
+        }
+      }
+    }
+    c.restore();
+  }
+
+  function drawRunner(
+    c: CanvasRenderingContext2D,
+    x: number, y: number, frame: number,
+    slope: number, colors: CanvasColors,
+  ) {
+    const sprite = RUNNER_FRAMES[Math.floor(frame / 6) % RUNNER_FRAMES.length];
+    const px = 2;
+    const spriteH = sprite.length * px;
+
+    c.save();
+    c.translate(x, y);
+    c.rotate(slope);
+    c.translate(0, -spriteH);
+
+    const pink = `rgb(${colors.pinkRgb.r},${colors.pinkRgb.g},${colors.pinkRgb.b})`;
+    const colorMap: Record<string, string> = {
+      H: colors.palTextPrimary,
+      F: pink,
+      C: pink,
+      B: colors.palTeal,
+      A: colors.palTeal,
+      L: colors.palTextPrimary,
+      S: pink,
+    };
+
+    for (let row = 0; row < sprite.length; row++) {
+      for (let col = 0; col < sprite[row].length; col++) {
+        const ch = sprite[row][col];
+        const color = colorMap[ch];
+        if (color) {
+          c.fillStyle = color;
+          c.fillRect(col * px, row * px, px, px);
+        }
+      }
+    }
+    c.restore();
+  }
+
+  // Attach click handler to the hero name
+  const heroName = document.querySelector('.hero__name') as HTMLElement;
+  if (heroName) {
+    heroName.style.cursor = 'var(--cursor-pointer)';
+    heroName.addEventListener('click', () => {
+      runnerActive = true;
+      runnerX = -20;
+      runnerFrame = 0;
+      runnerCelebrating = false;
+      runnerFalling = false;
+      runnerVelocityY = 0;
+      runnerLastCrag = -1;
+      celebFrame = 0;
+      nextPeakIdx = 0;
+      runnerPeaks = [];
+    });
+  }
+
   // Palette name toast
   let toastText = '';
   let toastAlpha = 0;      // 0..1, fades out over time
@@ -904,6 +1216,97 @@ function initCanvas(): void {
     ctx.fill();
 
     drawRockTexture(nearProfile, mtnSegments, horizon + 5, C.rockNearLight, C.rockNearDark);
+
+    // ---- RUNNING MAN EASTER EGG ----
+    if (runnerActive) {
+      // Combined ridgeline: topmost (min Y) of all three mountain layers
+      const combinedRidge: number[] = [];
+      for (let i = 0; i <= mtnSegments; i++) {
+        combinedRidge[i] = Math.min(farProfile[i], midProfile[i], nearProfile[i]);
+      }
+
+      // Pre-compute peaks on first frame when profile is available
+      if (runnerPeaks.length === 0 && runnerFrame <= 1) {
+        const minGap = mtnSegments * 0.12;
+        let lastPeakSeg = -minGap;
+        for (let i = 3; i < mtnSegments - 3; i++) {
+          const y0 = combinedRidge[i - 3];
+          const y1 = combinedRidge[i];
+          const y2 = combinedRidge[i + 3];
+          if (y1 < y0 && y1 < y2 && y1 < horizon - 15 && (i - lastPeakSeg) > minGap) {
+            runnerPeaks.push((i / mtnSegments) * width);
+            lastPeakSeg = i;
+          }
+        }
+      }
+
+      // Get ridge Y at runner's current X
+      const xFrac = runnerX / width;
+      const segIdx = Math.min(Math.max(Math.round(xFrac * mtnSegments), 0), mtnSegments);
+      const ridgeY = Math.min(combinedRidge[segIdx] ?? horizon, horizon - 2);
+
+      if (runnerFalling) {
+        // Gravity-driven fall with flailing sprite
+        runnerVelocityY += 0.3; // gravity
+        runnerSmoothedY += runnerVelocityY;
+        runnerFrame++;
+
+        // Landed back on the ridge
+        if (runnerSmoothedY >= ridgeY) {
+          runnerSmoothedY = ridgeY;
+          runnerFalling = false;
+          runnerVelocityY = 0;
+        }
+
+        drawFalling(ctx!, runnerX, runnerSmoothedY, runnerFrame, C);
+
+      } else if (runnerCelebrating) {
+        celebFrame++;
+        // Keep tracking the ridge during celebration
+        runnerSmoothedY = ridgeY;
+        drawCelebration(ctx!, runnerX, runnerSmoothedY, celebFrame, C);
+        if (celebFrame >= CELEB_DURATION) {
+          runnerCelebrating = false;
+          celebFrame = 0;
+        }
+      } else {
+        // Running
+        runnerX += RUNNER_SPEED;
+        runnerFrame++;
+
+        // Check if ridge dropped away due to user adjusting the slider
+        const prevCrag = runnerLastCrag;
+        runnerLastCrag = crag;
+        if (ridgeY > runnerSmoothedY + 5 && prevCrag >= 0 && Math.abs(crag - prevCrag) > 0.001) {
+          runnerFalling = true;
+          runnerVelocityY = 0;
+          drawFalling(ctx!, runnerX, runnerSmoothedY, runnerFrame, C);
+        } else {
+          runnerSmoothedY = ridgeY;
+
+          // Slope from ridge
+          const spread = 6;
+          const segPrev = Math.max(0, segIdx - spread);
+          const segNext = Math.min(mtnSegments, segIdx + spread);
+          const dxSlope = (segNext - segPrev) * (width / mtnSegments);
+          const dySlope = (combinedRidge[segNext] ?? horizon) - (combinedRidge[segPrev] ?? horizon);
+          const rawSlope = Math.atan2(dySlope, dxSlope);
+          const slope = Math.max(-0.26, Math.min(0.26, rawSlope));
+
+          drawRunner(ctx!, runnerX, runnerSmoothedY, runnerFrame, slope, C);
+
+          if (nextPeakIdx < runnerPeaks.length && runnerX >= runnerPeaks[nextPeakIdx]) {
+            runnerCelebrating = true;
+            celebFrame = 0;
+            nextPeakIdx++;
+          }
+        }
+
+        if (runnerX > width + 30) {
+          runnerActive = false;
+        }
+      }
+    }
 
     // ---- GROUND ----
     const groundGrad = ctx.createLinearGradient(0, horizon, 0, height);
