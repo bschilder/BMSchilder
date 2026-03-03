@@ -5,7 +5,7 @@ interface TimelineItem {
   id: string;
   year: number;
   endYear?: string | number | null;
-  type: 'education' | 'research' | 'teaching' | 'publication' | 'talk';
+  type: 'education' | 'research' | 'teaching' | 'publication' | 'preprint' | 'talk';
   title: string;
   subtitle: string;
   link: string;
@@ -20,6 +20,7 @@ const TYPE_LABELS: Record<string, string> = {
   research: 'Research',
   teaching: 'Teaching',
   publication: 'Publication',
+  preprint: 'Preprint',
   talk: 'Talk',
 };
 
@@ -28,6 +29,7 @@ const TYPE_COLORS: Record<string, string> = {
   research: 'var(--vapor-teal)',
   teaching: 'var(--vapor-mint)',
   publication: 'var(--vapor-pink)',
+  preprint: 'var(--vapor-peach)',
   talk: 'var(--vapor-lavender)',
 };
 
@@ -36,6 +38,7 @@ const TYPE_ICONS: Record<string, string> = {
   research: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>',
   teaching: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>',
   publication: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  preprint: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
   talk: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>',
 };
 
@@ -391,10 +394,11 @@ function buildTimelineItems(data: CVData): TimelineItem[] {
 
   const pubTypes = new Set(['publication', 'preprint', 'poster']);
   data.publications.filter(pub => pubTypes.has(pub.Type)).forEach((pub) => {
+    const tlType = pub.Type === 'preprint' ? 'preprint' : 'publication';
     items.push({
       id: `tl-${idx++}`,
       year: pub.Year,
-      type: 'publication',
+      type: tlType as 'publication' | 'preprint',
       title: pub.Title,
       subtitle: pub.Journal || pub.Publisher || '',
       link: pub.Link || '',
@@ -425,7 +429,7 @@ function matchFilter(type: string, filter: string): boolean {
     'Education': ['education'],
     'Research': ['research'],
     'Teaching': ['teaching'],
-    'Publications': ['publication'],
+    'Publications': ['publication', 'preprint'],
     'Talks': ['talk'],
   };
   return (map[filter] || []).includes(type);
