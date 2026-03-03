@@ -1,24 +1,39 @@
 import { cyclePalette } from '../palette';
 
-const SUBTITLES = [
-  'Computational Genomics',
-  'AI & Machine Learning',
-  'Scientific Entrepreneurship',
-  'Open-Source Development',
-  'Genome-Phenome AI',
-  'Evolutionary Biology',
-  'Multi-Omic Medicine',
-  'Data Visualization',
-];
-
 export function initHero(): void {
   initTypewriter();
   initCanvas();
 }
 
-function initTypewriter(): void {
+interface Subtitle { title: string; url: string }
+
+async function loadSubtitles(): Promise<Subtitle[]> {
+  const base = import.meta.env.BASE_URL || '/';
+  const res = await fetch(`${base}subtitles.csv`);
+  const text = await res.text();
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+  // Skip header row
+  return lines.slice(1).map(line => {
+    const i = line.indexOf(',');
+    return { title: line.slice(0, i), url: line.slice(i + 1) };
+  });
+}
+
+async function initTypewriter(): Promise<void> {
   const el = document.querySelector('.hero__typed') as HTMLElement;
   if (!el) return;
+
+  const subtitles = await loadSubtitles();
+  if (subtitles.length === 0) return;
+
+  // Wrap in an anchor for clickability
+  const link = document.createElement('a');
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.style.color = 'inherit';
+  link.style.textDecoration = 'none';
+  el.textContent = '';
+  el.appendChild(link);
 
   let subtitleIndex = 0;
   let charIndex = 0;
@@ -26,12 +41,13 @@ function initTypewriter(): void {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   function tick() {
-    const current = SUBTITLES[subtitleIndex];
+    const current = subtitles[subtitleIndex];
+    link.href = current.url;
 
     if (!deleting) {
       charIndex++;
-      el.textContent = current.slice(0, charIndex);
-      if (charIndex === current.length) {
+      link.textContent = current.title.slice(0, charIndex);
+      if (charIndex >= current.title.length) {
         timeoutId = setTimeout(() => {
           deleting = true;
           tick();
@@ -41,10 +57,10 @@ function initTypewriter(): void {
       timeoutId = setTimeout(tick, 80);
     } else {
       charIndex--;
-      el.textContent = current.slice(0, charIndex);
+      link.textContent = current.title.slice(0, charIndex);
       if (charIndex === 0) {
         deleting = false;
-        subtitleIndex = (subtitleIndex + 1) % SUBTITLES.length;
+        subtitleIndex = (subtitleIndex + 1) % subtitles.length;
         timeoutId = setTimeout(tick, 400);
         return;
       }

@@ -20,7 +20,7 @@ export let ACTIVE_PALETTE: PaletteName = 'mintwave';
 
 export type PaletteName = 'vaporwave' | 'midnight' | 'sunset' | 'cyberpunk' | 'arctic' | 'sakura' | 'lagoon' | 'greyscale' | 'mintwave';
 
-export const PALETTE_NAMES: PaletteName[] = ['vaporwave', 'midnight', 'sunset', 'cyberpunk', 'arctic', 'sakura', 'lagoon', 'greyscale', 'mintwave'];
+export const PALETTE_NAMES: PaletteName[] = ['midnight', 'sunset', 'vaporwave', 'cyberpunk', 'arctic', 'sakura', 'lagoon', 'greyscale', 'mintwave'];
 
 /** Cycle to the next palette and apply it. Returns the new palette name. */
 export function cyclePalette(): PaletteName {
