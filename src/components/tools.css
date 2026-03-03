@@ -84,7 +84,7 @@
   height: 16px;
   background: var(--vapor-teal);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   box-shadow: 0 0 8px rgba(1, 205, 254, 0.5);
 }
 
@@ -93,7 +93,7 @@
   height: 16px;
   background: var(--vapor-teal);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   border: none;
   box-shadow: 0 0 8px rgba(1, 205, 254, 0.5);
 }

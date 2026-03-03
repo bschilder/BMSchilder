@@ -32,7 +32,7 @@
   height: 16px;
   background: var(--vapor-mint);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   box-shadow: 0 0 8px rgba(5, 255, 161, 0.4);
 }
 
@@ -41,7 +41,7 @@
   height: 16px;
   background: var(--vapor-mint);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   border: none;
   box-shadow: 0 0 8px rgba(5, 255, 161, 0.4);
 }

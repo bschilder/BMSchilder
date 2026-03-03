@@ -118,7 +118,7 @@
   width: 36px;
   height: 100%;
   background: transparent;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   position: relative;
   z-index: 2;
 }
@@ -259,7 +259,7 @@
   grid-template-columns: 1fr 40px 1fr;
   align-items: start;
   position: relative;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   margin-bottom: var(--space-2);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -602,7 +602,7 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-3);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   border-radius: 8px;
   transition: background var(--transition-fast);
   margin-bottom: 1px;

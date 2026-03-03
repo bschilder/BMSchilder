@@ -100,7 +100,7 @@
   height: 14px;
   background: var(--vapor-pink);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   box-shadow: 0 0 6px rgba(255, 113, 206, 0.4);
 }
 
@@ -109,7 +109,7 @@
   height: 14px;
   background: var(--vapor-pink);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   border: none;
   box-shadow: 0 0 6px rgba(255, 113, 206, 0.4);
 }
