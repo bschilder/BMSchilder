@@ -540,11 +540,15 @@ function initCanvas(): void {
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = canvas.clientWidth;
-    height = canvas.clientHeight;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx!.scale(dpr, dpr);
+    // Use getBoundingClientRect for reliable dimensions in Safari
+    const rect = canvas.getBoundingClientRect();
+    width = rect.width;
+    height = rect.height;
+    // Round to prevent sub-pixel canvas sizes (causes blur in Safari)
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    // setTransform is absolute (not cumulative like scale()) — safer across browsers
+    ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   resize();
@@ -733,16 +737,14 @@ function initCanvas(): void {
         const dy = starPositions[i].y - starPositions[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 120) {
-          // Base subtle flicker
-          const flicker = 0.5 + 0.5 * Math.sin(time * 0.008 + i * 3.7 + j * 2.3);
-          const baseAlpha = (1 - dist / 120) * 0.15 * flicker;
-
           // Mouse-activated bright constellations
           const pairBright = Math.min(starBrightness[i], starBrightness[j]);
           const mouseAlpha = pairBright * (1 - dist / 120) * 0.8;
 
-          const alpha = baseAlpha + mouseAlpha;
-          if (alpha > 0.015) {
+          // Only show constellation lines when mouse activates them
+          // (Safari renders very-low-alpha lines too prominently)
+          const alpha = mouseAlpha;
+          if (alpha > 0.03) {
             ctx.globalAlpha = Math.min(1, alpha);
             ctx.lineWidth = pairBright > 0.2 ? 1.2 : 0.6;
             ctx.strokeStyle = pairBright > 0.2 ? C.palTeal : `rgba(${C.tealRgb.r}, ${C.tealRgb.g}, ${C.tealRgb.b}, 0.8)`;
@@ -1426,7 +1428,19 @@ function initCanvas(): void {
       const pillH = 26;
       ctx.fillStyle = C.groundTop;
       ctx.beginPath();
-      ctx.roundRect(width / 2 - pillW / 2, toastY - pillH / 2, pillW, pillH, 13);
+      // roundRect fallback for older Safari
+      const rx = width / 2 - pillW / 2;
+      const ry = toastY - pillH / 2;
+      if (typeof ctx.roundRect === 'function') {
+        ctx.roundRect(rx, ry, pillW, pillH, 13);
+      } else {
+        ctx.moveTo(rx + 13, ry);
+        ctx.arcTo(rx + pillW, ry, rx + pillW, ry + pillH, 13);
+        ctx.arcTo(rx + pillW, ry + pillH, rx, ry + pillH, 13);
+        ctx.arcTo(rx, ry + pillH, rx, ry, 13);
+        ctx.arcTo(rx, ry, rx + pillW, ry, 13);
+        ctx.closePath();
+      }
       ctx.fill();
       ctx.strokeStyle = C.palTeal;
       ctx.lineWidth = 1;
